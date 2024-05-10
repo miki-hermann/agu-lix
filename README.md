@@ -1,1 +1,1 @@
-# Bouhoula &amp Hermann
+# Bouhoula & Hermann
