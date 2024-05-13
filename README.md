@@ -17,13 +17,13 @@
 The name  of the software  is `spec` (for  Linux and macOS)  or `spec.exe`
 (for Windows). It can be called by a command line of the long form
 
-``` bash
-   spec --input <input file> --output <output file> --trace <number> --rounds <number> --direction <direction>
+```bash
+spec --input <input file> --output <output file> --trace <number> --rounds <number> --direction <direction>
 ```
 or of the short form
 
-``` bash
-   spec -i <input file> -o <output file> -t <number> -r <number> -d <direction>
+```bash
+spec -i <input file> -o <output file> -t <number> -r <number> -d <direction>
 ```
 You can combine flags of both forms. Neither of the parameters need to
 be  specified,  since  all  have  a default  for  missing  flags.  The
@@ -62,34 +62,34 @@ This directory also contains a Makefile,  which can be used to run the
 software on  the specifications.  To run all  examples, just  type the
 command
 
-``` Makefile
-				 make
+```Makefile
+make
 ```
 If you want to run only one example, just type the command
 
-``` Makefile
-			    make <number>
+```Makefile
+make <number>
 ```
 where `<number>` corresponds to the leading prefix of the input file. If
 you want to  run the examples in the interval  from `<first>` to `<last>`,
 type the command
 
-``` bash
-		    run-examples -i <first> <last>
+```bash
+run-examples -i <first> <last>
 ```
 where `<first>` and `<last>` are prefix numbers of the input files. If you
 want to run more examples at once, type the command
 
-``` bash
-		       run-examples <number>...
+```bash
+run-examples <number>...
 ```
 with prefix numbers of the specifications.
 
 Once you have run your desired examples, you can print a statistics of
 the runs by typing the command
 
-``` bash
-			    check-examples
+```bash
+check-examples
 ```
 To run  the commands `run-examples`  and `check-examples` you  need to
 have `perl` installed on your computer.
