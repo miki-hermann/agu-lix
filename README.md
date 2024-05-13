@@ -154,8 +154,8 @@ Specification   modules  can   be  hierarchically   included  by   the
 `<include>`  construction.  When  the identifier  is enclosed  in <..>
 then it  is loaded from the  standard library. When the  identifier is
 enclosed in  quotation marks ".."   then it  is loaded from  the local
-directory. Neither the precedence on  symbols, nor the conjectures, is
-not inherited by inclusion.
+directory. Neither the precedence on symbols, nor the conjectures, are
+inherited by inclusion.
 
 ## Form of the output
 
