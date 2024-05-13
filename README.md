@@ -10,11 +10,11 @@
 * [Form of the output](#output)
 * [Syntax of the specifications](#syntax)
 
-## Binaries
+## Binaries {#binaries}
 
-## Software
+## Software {#software}
 
-The name  of the software  is `spec` (for  Linux and macOS)  or `spec.exe`
+The name  of the software  is *spec* (for  Linux and macOS)  or *spec.exe*
 (for Windows). It can be called by a command line of the long form
 
 ```bash
@@ -47,9 +47,9 @@ limit, a
 
 warning is issued and the proof is cancelled.
 
-## Examples
+## Examples {#examples}
 
-The `examples` directory  contains 56 different specifications with
+The **examples** directory  contains 56 different specifications with
 conjectures to prove. All input files are of the form
 
 		<number>-<short description>-input.txt
@@ -81,9 +81,9 @@ where `<first>` and `<last>` are prefix numbers of the input files. If you
 want to run more examples at once, type the command
 
 ```bash
-run-examples <number>...
+run-examples <number>+
 ```
-with prefix numbers of the specifications.
+with prefix numbers of the specifications. The numbers need not be in any order.
 
 Once you have run your desired examples, you can print a statistics of
 the runs by typing the command
@@ -91,16 +91,16 @@ the runs by typing the command
 ```bash
 check-examples
 ```
-To run  the commands `run-examples`  and `check-examples` you  need to
-have `perl` installed on your computer.
+To run  the commands *run-examples*  and *check-examples* you  need to
+have *perl* installed on your computer.
 
-## Form of the output
+## Form of the output {#output}
 
 The form of the output files follows some specific rules.
 
 Every identifier starting with a  character from the set {u,v,w,x,y,z}
-or  {U,V,W,X,Y,Z}  is a  variable.  Defined  symbols start  with  '^'.
-Counter variables start with '$'. Rolling Variables terminate with '@'
+or  {U,V,W,X,Y,Z}  is a  variable.  Defined  symbols start  with  "^".
+Counter variables start with "$". Rolling Variables terminate with "@"
 or have a counter suffix.
 
 Hence, if you see the rewrite rules
@@ -116,7 +116,7 @@ then their semantics is:
    - y$n0 is the rolling variable y with index equal to the value of $n0,
    - nil and cons are identifiers from the specification.
 
-## Syntax of the specifications
+## Syntax of the specifications {#syntax}
 
 The syntax of input specifications is described by the following LL(1)
 context-free grammar in BNF using regular expressions.  Curly brackets
@@ -154,18 +154,18 @@ symbols are enclosed in <...>, terminal symbols are in quotation marks
 
 Every identifier starting with a  character from the set {u,v,w,x,y,z}
 or {U,V,W,X,Y,Z} is  a variable. Note that you cannot  use neither the
-underscore '_', nor the digits in the identifiers. Identifiers <ident>
-are exclusively composed of asmall and capital letter from 'a' to 'z',
-resp. from 'A' to 'Z'.
+underscore '_', nor the digits in the identifiers. Identifiers `<ident>`
+are exclusively composed of asmall and capital letter from "a" to "z",
+resp. from "A" to "Z".
 
 The  binary  operators  for   comparison  (`<compop>`),  for  addition
 (`<addop>`),  and  for  multiplications (`<multop>`)  have  the  infix
 notation with the usual precedence.
 
-Equality in  clauses is denoted  by '=', not by  '==' which is  just a
-comparison  operator.   Conditional  clauses   use  '=>'  to  separate
+Equality in  clauses is denoted  by "=", not by  "==" which is  just a
+comparison  operator.   Conditional  clauses   use  "=>"  to  separate
 conditions on the left from  equational clause on the right. Equations
-in the condition are regrouped by the operator '&' or '/\'.
+in the condition are regrouped by the operator "&" or "/\".
 
 Precedence  must   be  declared  for  all   constructors  and  defined
 symbols. The precedence is one non-increasing chain of symbols ordered
