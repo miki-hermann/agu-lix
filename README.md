@@ -7,8 +7,8 @@
 * [Binaries](#binaries)
 * [Software](#software)
 * [Examples](#examples)
-* [Form of the output](#form-of-the-output)
 * [Syntax of the specifications](#syntax-of-the-specifications)
+* [Form of the output](#form-of-the-output)
 
 ## Binaries
 
@@ -94,28 +94,6 @@ check-examples
 To run  the commands *run-examples*  and *check-examples* you  need to
 have *perl* installed on your computer.
 
-## Form of the output
-
-The form of the output files follows some specific rules.
-
-Every identifier starting with a  character from the set {u,v,w,x,y,z}
-or  {U,V,W,X,Y,Z}  is a  variable.  Defined  symbols start  with  "^".
-Counter variables start with "$". Rolling Variables terminate with "@"
-or have a counter suffix.
-
-Hence, if you see the rewrite rules
-
-       ^f0(0; y@) -> nil
-       ^f0($n0 + 1; y@) -> cons(y$n0, ^f0($n0; y@))
-
-then their semantics is:
-
-   - ^f0 is a defined symbol,
-   - $n0 is a counter variable,
-   - y@ is a rolling variable,
-   - y$n0 is the rolling variable y with index equal to the value of $n0,
-   - nil and cons are identifiers from the specification.
-
 ## Syntax of the specifications
 
 The syntax of input specifications is described by the following LL(1)
@@ -178,5 +156,27 @@ then it  is loaded from the  standard library. When the  identifier is
 enclosed in  quotation marks ".."   then it  is loaded from  the local
 directory. Neither the precedence on  symbols, nor the conjectures, is
 not inherited by inclusion.
+
+## Form of the output
+
+The form of the output files follows some specific rules.
+
+Every identifier starting with a  character from the set {u,v,w,x,y,z}
+or  {U,V,W,X,Y,Z}  is a  variable.  Defined  symbols start  with  "^".
+Counter variables start with "$". Rolling Variables terminate with "@"
+or have a counter suffix.
+
+Hence, if you see the rewrite rules
+
+       ^f0(0; y@) -> nil
+       ^f0($n0 + 1; y@) -> cons(y$n0, ^f0($n0; y@))
+
+then their semantics is:
+
+   - ^f0 is a defined symbol,
+   - $n0 is a counter variable,
+   - y@ is a rolling variable,
+   - y$n0 is the rolling variable y with index equal to the value of $n0,
+   - nil and cons are identifiers from the specification.
 
 EOF
