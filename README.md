@@ -154,7 +154,7 @@ symbols are enclosed in <...>, terminal symbols are in quotation marks
 
 Every identifier starting with a  character from the set {u,v,w,x,y,z}
 or {U,V,W,X,Y,Z} is  a variable. Note that you cannot  use neither the
-underscore '_', nor the digits in the identifiers. Identifiers `<ident>`
+underscore "_", nor the digits in the identifiers. Identifiers `<ident>`
 are exclusively composed of asmall and capital letter from "a" to "z",
 resp. from "A" to "Z".
 
