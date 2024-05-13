@@ -7,8 +7,8 @@
 * [Binaries](#binaries)
 * [Software](#software)
 * [Examples](#examples)
-* [Form of the output](#output)
-* [Syntax of the specifications](#syntax)
+* [Form of the output](#form-of-the-output)
+* [Syntax of the specifications](#syntax-of-the-specifications)
 
 ## Binaries
 
