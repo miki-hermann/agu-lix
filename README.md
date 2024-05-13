@@ -1,5 +1,7 @@
 # PRIMAL GRAMMARS DRIVEN AUTOMATED INDUCTION
 
+# THIS README.md PAGE IS NOT FINISHED
+
 ## Table of contents
 
 * [Binaries](#binaries)
@@ -15,21 +17,23 @@
 The name  of the software  is `spec` (for  Linux and macOS)  or `spec.exe`
 (for Windows). It can be called by a command line of the long form
 
+``` bash
    spec --input <input file> --output <output file> --trace <number> --rounds <number> --direction <direction>
-
+```
 or of the short form
 
+``` bash
    spec -i <input file> -o <output file> -t <number> -r <number> -d <direction>
-
+```
 You can combine flags of both forms. Neither of the parameters need to
 be  specified,  since  all  have  a default  for  missing  flags.  The
 respective defaults are:
 
-   -i STDIN
-   -o STDOUT
-   -t 3
-   -r 10
-   -d first
+   - -i STDIN
+   - -o STDOUT
+   - -t 3
+   - -r 10
+   - -d first
 
 The flag  -t indicates how many  clauses are necessary to  construct a
 primal grammar (see Proposition 9 in the paper). The -d flag indicates
