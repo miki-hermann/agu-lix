@@ -1,6 +1,6 @@
 # PRIMAL GRAMMARS DRIVEN AUTOMATED INDUCTION
 
-# THIS README.md PAGE IS NOT FINISHED
+# THIS README.md PAGE IS NOT OPERATIONAL YET
 
 ## Table of contents
 
@@ -62,30 +62,35 @@ This directory also contains a Makefile,  which can be used to run the
 software on  the specifications.  To run all  examples, just  type the
 command
 
+``` Makefile
 				 make
-
+```
 If you want to run only one example, just type the command
 
+``` Makefile
 			    make <number>
-
-where <number> corresponds to the leading prefix of the input file. If
-you want to  run the examples in the interval  from <first> to <last>,
+```
+where `<number>` corresponds to the leading prefix of the input file. If
+you want to  run the examples in the interval  from `<first>` to `<last>`,
 type the command
 
+``` bash
 		    run-examples -i <first> <last>
-
-where <first> and <last> are prefix numbers of the input files. If you
+```
+where `<first>` and `<last>` are prefix numbers of the input files. If you
 want to run more examples at once, type the command
 
+``` bash
 		       run-examples <number>...
-
+```
 with prefix numbers of the specifications.
 
 Once you have run your desired examples, you can print a statistics of
 the runs by typing the command
 
+``` bash
 			    check-examples
-
+```
 To run  the commands `run-examples`  and `check-examples` you  need to
 have `perl` installed on your computer.
 
