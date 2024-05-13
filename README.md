@@ -176,7 +176,7 @@ then their semantics is:
    - *^f0* is a defined symbol,
    - *$n0* is a counter variable,
    - *y@* is a rolling variable,
-   - *y$n0* is the rolling variable y with index equal to the value of $n0,
+   - *y$n0* is the rolling variable y with index equal to the value of *$n0*,
    - *nil* and *cons* are identifiers from the specification.
 
 EOF
