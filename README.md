@@ -10,9 +10,9 @@
 * [Form of the output](#output)
 * [Syntax of the specifications](#syntax)
 
-## Binaries {#binaries}
+## Binaries
 
-## Software {#software}
+## Software
 
 The name  of the software  is *spec* (for  Linux and macOS)  or *spec.exe*
 (for Windows). It can be called by a command line of the long form
@@ -47,7 +47,7 @@ limit, a
 
 warning is issued and the proof is cancelled.
 
-## Examples {#examples}
+## Examples
 
 The **examples** directory  contains 56 different specifications with
 conjectures to prove. All input files are of the form
@@ -94,7 +94,7 @@ check-examples
 To run  the commands *run-examples*  and *check-examples* you  need to
 have *perl* installed on your computer.
 
-## Form of the output {#output}
+## Form of the output
 
 The form of the output files follows some specific rules.
 
@@ -116,7 +116,7 @@ then their semantics is:
    - y$n0 is the rolling variable y with index equal to the value of $n0,
    - nil and cons are identifiers from the specification.
 
-## Syntax of the specifications {#syntax}
+## Syntax of the specifications
 
 The syntax of input specifications is described by the following LL(1)
 context-free grammar in BNF using regular expressions.  Curly brackets
