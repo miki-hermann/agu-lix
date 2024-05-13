@@ -105,11 +105,11 @@ Hence, if you see the rewrite rules
 
 then their semantics is:
 
-   ^f0 is a defined symbol,
-   $n0 is a counter variable,
-   y@ is a rolling variable,
-   y$n0 is the rolling variable y with index equal to the value of $n0,
-   nil and cons are identifiers from the specification.
+   - ^f0 is a defined symbol,
+   - $n0 is a counter variable,
+   - y@ is a rolling variable,
+   - y$n0 is the rolling variable y with index equal to the value of $n0,
+   - nil and cons are identifiers from the specification.
 
 ## Syntax of the specifications
 
@@ -153,9 +153,9 @@ underscore '_', nor the digits in the identifiers. Identifiers <ident>
 are exclusively composed of asmall and capital letter from 'a' to 'z',
 resp. from 'A' to 'Z'.
 
-The  binary   operators  for   comparison  (<compop>),   for  addition
-(<addop>), and for multiplications  (<multop>) have the infix notation
-with the usual precedence.
+The  binary  operators  for   comparison  (`<compop>`),  for  addition
+(`<addop>`),  and  for  multiplications (`<multop>`)  have  the  infix
+notation with the usual precedence.
 
 Equality in  clauses is denoted  by '=', not by  '==' which is  just a
 comparison  operator.   Conditional  clauses   use  '=>'  to  separate
@@ -167,10 +167,10 @@ symbols. The precedence is one non-increasing chain of symbols ordered
 by greater-than  (>) and equality  (=) operators. Since there  is only
 one non-increasing chain, all symbols are comparable.
 
-Specification modules can be  hierarchically included by the <include>
-construction.   When the  identifier is  enclosed in  <..> then  it is
-loaded from the  standard library. When the identifier  is enclosed in
-quotation   marks   ".."   then   it   is   loaded  from   the   local
+Specification   modules  can   be  hierarchically   included  by   the
+`<include>`  construction.  When  the identifier  is enclosed  in <..>
+then it  is loaded from the  standard library. When the  identifier is
+enclosed in  quotation marks ".."   then it  is loaded from  the local
 directory. Neither the precedence on  symbols, nor the conjectures, is
 not inherited by inclusion.
 
