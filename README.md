@@ -43,7 +43,7 @@ many times  the INDUCTIVE NARROWING rule  can be called. If  the proof
 does  not terminate  with SUCCESS  or  DISPROOF when  it reaches  this
 limit, a
 
-			  loop limit reached
+	loop limit reached
 
 warning is issued and the proof is cancelled.
 
@@ -52,11 +52,11 @@ warning is issued and the proof is cancelled.
 The **examples** directory  contains 56 different specifications with
 conjectures to prove. All input files are of the form
 
-		<number>-<short description>-input.txt
+	<number>-<short description>-input.txt
 
 The runs of the corresponding specifications can be found in the files
 
-	       <number>-<short description>-output.txt
+	<number>-<short description>-output.txt
 
 This directory also contains a Makefile,  which can be used to run the
 software on  the specifications.  To run all  examples, just  type the
