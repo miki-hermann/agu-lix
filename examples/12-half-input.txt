@@ -1,0 +1,28 @@
+specification half
+
+sorts
+	nat bool
+
+constructors
+	0: -> nat
+	s: nat -> nat
+	true:  -> bool
+	false: -> bool
+
+defined functions
+	+: nat nat -> nat
+	half: nat -> nat
+
+precedence
+	+ > half > s > 0 > true = false
+
+axioms
+	0 + x = x;
+	s(x) + y = s(x + y);
+	half(0) = 0;
+	half(s(0)) = 0;
+	half(s(s(x))) = s(half(x));
+
+conjectures
+	half(s(x) + x) = x;
+end

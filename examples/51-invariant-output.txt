@@ -1,0 +1,193 @@
++++ SPECIFICATION --- bidirectional branch, version 0.99
++++ Parameters:
+    ===========
++++ input       = 51-invariant-input.txt
++++ output      = 51-invariant-output.txt
++++ trace       = 3
++++ direction   = first-to-last
++++ drop        = yes
++++ verbose     = 3
++++ split       = 4
++++ loop limit  = 10
+-----------------------------------------------------------------------
+
++++ specification invariant from 51-invariant-input.txt successfully parsed
++++ sorts: bool action state
++++ finitary sorts: bool action
++++ symbol precedence = {F1 = F2 = F3 > or > do > S0 > Nop > true > false}
++++ Rewrite System 
+	F1(S0) -> true
+	F3(S0) -> true
+	F2(S0) -> false
+	or(true, x) -> true
+	or(x, true) -> true
+	F2(do(x, y)) -> F3(y)
+	F3(do(x, y)) -> F2(y)
+	or(false, false) -> false
+	F1(do(x, y)) -> or(F2(y), F3(y))
++++ inductive positions:
+... for F1: 0
+... for F2: 0
+... for F3: 0
+... for or: 0 1
++++ maximal depths of left-hand sides:
+... for or: 1
+... for F2: 2
+... for F3: 2
+... for F1: 2
++++ general maximal depth = 2
++++ sort dependence: action < state
++++ test sets for defined functions and sorts:
+... for F1
+... ... state
+		S0
+		do(x, y)
+... for F2
+... ... state
+		S0
+		do(x, y)
+... for F3
+... ... state
+		S0
+		do(x, y)
+... for or
+... ... bool
+		x
+
++++ conjecture(s)
+	F1(y) = true
+
++++ inference system initiated
++++ treating clause
+	F1(y) = true
++++ inductive narrowing on conjecture
+	F1(y) = true
+... induction variables of
+	F1(y) = true
+... are:
+	y:state
++++ perform INDUCTIVE NARROWING on conjecture 
+	F1(y) = true
+... with variable y
++++ creating new conjecture
+	F1(S0) = true
++++ creating new conjecture
+	F1(do(xts, yts)) = true
+--- clause
+	F1(S0) = true
+... reduced to tautology
+	true = true
+--- clause
+	F1(do(xts, yts)) = true
+... reduced in 1 step to
+	or(F2(yts), F3(yts)) = true
++++ inductive narrowing succeeded
+--- clause
+	F1(y) = true
+... oriented to rule
+	F1(y) -> true
++++ added new clause(s)
+	or(F2(yts), F3(yts)) = true
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	or(F2(yts), F3(yts)) = true
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	F1(y) -> true
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	or(F2(yts), F3(yts)) = true
++++ inductive narrowing on conjecture
+	or(F2(yts), F3(yts)) = true
+... induction variables of
+	or(F2(yts), F3(yts)) = true
+... are:
+	yts:state
++++ perform INDUCTIVE NARROWING on conjecture 
+	or(F2(yts), F3(yts)) = true
+... with variable yts
++++ creating new conjecture
+	or(F2(S0), F3(S0)) = true
++++ creating new conjecture
+	or(F2(do(xts, yts)), F3(do(xts, yts))) = true
+--- clause
+	or(F2(S0), F3(S0)) = true
+... reduced to tautology
+	true = true
+--- clause
+	or(F2(do(xts, yts)), F3(do(xts, yts))) = true
+... reduced in 2 steps to
+	or(F3(yts), F2(yts)) = true
++++ inductive narrowing succeeded
+--- clause
+	or(F2(yts), F3(yts)) = true
+... oriented to rule
+	or(F2(yts), F3(yts)) -> true
++++ added new clause(s)
+	or(F3(yts), F2(yts)) = true
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	or(F3(yts), F2(yts)) = true
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	F1(y) -> true
+	or(F2(yts), F3(yts)) -> true
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	or(F3(yts), F2(yts)) = true
++++ inductive narrowing on conjecture
+	or(F3(yts), F2(yts)) = true
+... induction variables of
+	or(F3(yts), F2(yts)) = true
+... are:
+	yts:state
++++ perform INDUCTIVE NARROWING on conjecture 
+	or(F3(yts), F2(yts)) = true
+... with variable yts
++++ creating new conjecture
+	or(F3(S0), F2(S0)) = true
++++ creating new conjecture
+	or(F3(do(xts, yts)), F2(do(xts, yts))) = true
+--- clause
+	or(F3(S0), F2(S0)) = true
+... reduced to tautology
+	true = true
+--- clause
+	or(F3(do(xts, yts)), F2(do(xts, yts))) = true
+... reduced to tautology
+	true = true
++++ inductive narrowing succeeded
+--- clause
+	or(F3(yts), F2(yts)) = true
+... oriented to rule
+	or(F3(yts), F2(yts)) -> true
+
++++ Status of the Inference System
+--- Conjectures:
+	<empty>
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	F1(y) -> true
+	or(F2(yts), F3(yts)) -> true
+	or(F3(yts), F2(yts)) -> true
+--- Primal Grammar:
+	<empty>
+
++++ SUCCESS: all conjectures proved
++++ Statistics:
+... Number of proof steps          = 3
+... Number of induction steps      = 3
+... Number of equational steps     = 0
+... Number of case rewriting steps = 0
+... Elapsed time (seconds)         = 0.001

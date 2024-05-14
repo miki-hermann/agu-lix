@@ -1,0 +1,47 @@
+specification list
+
+sorts
+	nat bool list
+
+constructors
+
+	0: -> nat
+	s: nat -> nat
+	true, false: -> bool
+	nil: -> list
+	cons: nat list -> list
+
+defined functions
+
+	<=: nat nat -> bool
+	insert: nat list -> list
+	isort: list -> list
+	ordered: list -> bool
+
+precedence
+
+	<= > isort > insert > ordered > cons > nil > s > 0 > true = false
+
+axioms
+
+	0 <= x = true;
+	s(x) <= 0 = false;
+	s(x) <= s(y) = x <= y;
+
+	insert(x, nil) = cons(x, nil);
+	x <= y = true  => insert(x, cons(y, z)) = cons(x, cons(y, z));
+	x <= y = false => insert(x, cons(y, z)) = cons(y, insert(x, z));
+
+	ordered(nil) = true;
+	ordered(cons(x, nil)) = true;
+	x <= y = true  => ordered(cons(x, cons(y, z))) = ordered(cons(y, z));
+	x <= y = false => ordered(cons(x, cons(y, z))) = false;
+
+	isort(nil) = nil;
+	isort(cons(x, vl)) = insert(x, isort(vl));
+
+conjectures
+
+	ordered(isort(x)) = true;
+
+end

@@ -1,0 +1,39 @@
+#!/usr/bin/perl
+
+sub make_call {
+    my $i = shift @_;
+    if (length($i) == 1) {
+	$i = "0" . $i;
+    }
+    print "+++ example $i started\n";
+    `make $i`;
+    print "+++ example $i finished\n\n";
+}
+
+my $nargs = scalar @ARGV;
+if ($nargs == 0) {
+    print "Usage:\t$0 <number>...\n";
+    print "\t$0 {--all | -a}\n";
+    print "\t$0 {--interval | -i} <number> <number>\n";
+    
+} elsif ($nargs == 1 && ($ARGV[0] eq "-a" || $ARGV[0] eq "--all")) {
+    my $files = `ls *-input.txt`;
+    chomp $files;
+    my @files = split /\n/, $files;
+    for my $f (@files) {
+	my @s = split /-/, $f;
+	make_call $s[0];
+    }
+} elsif ($nargs == 3 && ($ARGV[0] eq "-i" || $ARGV[0] eq "--interval")) {
+    if ($ARGV[2] < $ARGV[1]) {
+	print "+++ arguments must be growing\n";
+    } else {
+	for (my $i = $ARGV[1]; $i <= $ARGV[2]; $i++) {
+	    make_call $i;
+	}
+    }
+} else {
+    for my $i (@ARGV) {
+	make_call $i;
+    }
+}

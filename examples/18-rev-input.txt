@@ -1,0 +1,37 @@
+specification rev
+
+sorts
+
+	nat list
+
+constructors
+
+	0: -> nat
+	s: nat -> nat
+	nil: -> list
+	cons: nat list -> list
+
+defined functions
+
+	+: nat nat -> nat
+	app: list list -> list
+	rev: list -> list
+
+precedence
+
+	rev > app > + > cons > nil > s > 0
+
+axioms
+
+	x + 0 = x;
+	x + s(y) = s(x + y);
+	app(nil, y) = y;
+	app(cons(x, y), z) = cons(x, app(y, z));
+	rev(nil) = nil;
+	rev(cons(x, y)) = app(rev(y), cons(x, nil));
+
+conjectures
+
+	rev(app(rev(x), cons(y, nil))) = cons(y, x);
+
+end

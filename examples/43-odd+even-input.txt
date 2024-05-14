@@ -1,0 +1,29 @@
+specification even
+
+# will terminate with DISPROOF
+
+sorts
+	nat bool
+
+constructors
+	0: -> nat
+	s: nat -> nat
+	true:  -> bool
+	false: -> bool
+
+defined functions
+	+: nat nat -> nat
+	even: nat -> bool
+
+precedence
+	+ > even > s > 0 > true = false
+
+axioms
+	0 + x = x;
+	s(x) + y = s(x + y);
+	even(0) = true;
+	even(s(s(x))) = even(x);
+
+conjectures
+	even(x + x) = false;
+end

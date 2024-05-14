@@ -1,0 +1,500 @@
++++ SPECIFICATION --- bidirectional branch, version 0.99
++++ Parameters:
+    ===========
++++ input       = 35-subtract-input.txt
++++ output      = 35-subtract-output.txt
++++ trace       = 3
++++ direction   = first-to-last
++++ drop        = yes
++++ verbose     = 3
++++ split       = 4
++++ loop limit  = 10
+-----------------------------------------------------------------------
+
++++ specification subtract from 35-subtract-input.txt successfully parsed
++++ sorts: nat
++++ finitary sorts: <empty>
++++ symbol precedence = {- > + > s > 0}
++++ Rewrite System 
+	0 - x -> 0
+	x + 0 -> x
+	x - 0 -> x
+	s(x) - s(y) -> x - y
+	x + s(y) -> s(x + y)
++++ inductive positions:
+... for +: 1
+... for -: 0 1
++++ maximal depths of left-hand sides:
+... for +: 2
+... for -: 2
++++ general maximal depth = 2
++++ sort dependence: <empty>
++++ test sets for defined functions and sorts:
+... for +
+... ... nat
+		0
+		s(x)
+... for -
+... ... nat
+		0
+		s(x)
+
++++ conjecture(s)
+	(x + y) - x = y
+
++++ inference system initiated
++++ treating clause
+	(x + y) - x = y
++++ inductive narrowing on conjecture
+	(x + y) - x = y
+... induction variables of
+	(x + y) - x = y
+... are:
+	y:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	(x + y) - x = y
+... with variable y
++++ creating new conjecture
+	(x + 0) - x = 0
++++ creating new conjecture
+	(x + s(xts)) - x = s(xts)
+--- clause
+	(x + 0) - x = 0
+... reduced in 1 step to
+	x - x = 0
+--- clause
+	(x + s(xts)) - x = s(xts)
+... reduced in 1 step to
+	s(x + xts) - x = s(xts)
++++ inductive narrowing succeeded
+--- clause
+	(x + y) - x = y
+... oriented to rule
+	(x + y) - x -> y
++++ added new clause(s)
+	x - x = 0
+	s(x + xts) - x = s(xts)
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	x - x = 0
+	s(x + xts) - x = s(xts)
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	(x + y) - x -> y
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	x - x = 0
++++ inductive narrowing on conjecture
+	x - x = 0
+... induction variables of
+	x - x = 0
+... are:
+	x:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	x - x = 0
+... with variable x
++++ creating new conjecture
+	0 - 0 = 0
++++ creating new conjecture
+	s(xts) - s(xts) = 0
+--- clause
+	0 - 0 = 0
+... reduced to tautology
+	0 = 0
+--- clause
+	s(xts) - s(xts) = 0
+... reduced in 1 step to
+	xts - xts = 0
++++ inductive narrowing succeeded
+--- clause
+	x - x = 0
+... oriented to rule
+	x - x -> 0
++++ added new clause(s)
+	xts - xts = 0
+... to conjectures
+--- clause
+	xts - xts = 0
+... reduced to tautology
+	0 = 0
+
++++ Status of the Inference System
+--- Conjectures:
+	s(x + xts) - x = s(xts)
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	x - x -> 0
+	(x + y) - x -> y
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	s(x + xts) - x = s(xts)
++++ inductive narrowing on conjecture
+	s(x + xts) - x = s(xts)
+... induction variables of
+	s(x + xts) - x = s(xts)
+... are:
+	xts:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	s(x + xts) - x = s(xts)
+... with variable xts
++++ creating new conjecture
+	s(x + 0) - x = s(0)
++++ creating new conjecture
+	s(x + s(xts)) - x = s(s(xts))
+--- clause
+	s(x + 0) - x = s(0)
+... reduced in 1 step to
+	s(x) - x = s(0)
+--- clause
+	s(x + s(xts)) - x = s(s(xts))
+... reduced in 1 step to
+	s(s(x + xts)) - x = s(s(xts))
++++ inductive narrowing succeeded
+--- clause
+	s(x + xts) - x = s(xts)
+... oriented to rule
+	s(x + xts) - x -> s(xts)
++++ added new clause(s)
+	s(x) - x = s(0)
+	s(s(x + xts)) - x = s(s(xts))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	s(x) - x = s(0)
+	s(s(x + xts)) - x = s(s(xts))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	x - x -> 0
+	(x + y) - x -> y
+	s(x + xts) - x -> s(xts)
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	s(x) - x = s(0)
++++ inductive narrowing on conjecture
+	s(x) - x = s(0)
+... induction variables of
+	s(x) - x = s(0)
+... are:
+	x:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	s(x) - x = s(0)
+... with variable x
++++ creating new conjecture
+	s(0) - 0 = s(0)
++++ creating new conjecture
+	s(s(xts)) - s(xts) = s(0)
+--- clause
+	s(0) - 0 = s(0)
+... reduced to tautology
+	s(0) = s(0)
+--- clause
+	s(s(xts)) - s(xts) = s(0)
+... reduced in 1 step to
+	s(xts) - xts = s(0)
++++ inductive narrowing succeeded
+--- clause
+	s(x) - x = s(0)
+... oriented to rule
+	s(x) - x -> s(0)
++++ added new clause(s)
+	s(xts) - xts = s(0)
+... to conjectures
+--- clause
+	s(xts) - xts = s(0)
+... reduced to tautology
+	s(0) = s(0)
+
++++ Status of the Inference System
+--- Conjectures:
+	s(s(x + xts)) - x = s(s(xts))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	x - x -> 0
+	(x + y) - x -> y
+	s(x) - x -> s(0)
+	s(x + xts) - x -> s(xts)
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	s(s(x + xts)) - x = s(s(xts))
++++ inductive narrowing on conjecture
+	s(s(x + xts)) - x = s(s(xts))
+... induction variables of
+	s(s(x + xts)) - x = s(s(xts))
+... are:
+	xts:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	s(s(x + xts)) - x = s(s(xts))
+... with variable xts
++++ creating new conjecture
+	s(s(x + 0)) - x = s(s(0))
++++ creating new conjecture
+	s(s(x + s(xts))) - x = s(s(s(xts)))
+--- clause
+	s(s(x + 0)) - x = s(s(0))
+... reduced in 1 step to
+	s(s(x)) - x = s(s(0))
+--- clause
+	s(s(x + s(xts))) - x = s(s(s(xts)))
+... reduced in 1 step to
+	s(s(s(x + xts))) - x = s(s(s(xts)))
++++ inductive narrowing succeeded
+--- clause
+	s(s(x + xts)) - x = s(s(xts))
+... oriented to rule
+	s(s(x + xts)) - x -> s(s(xts))
++++ added new clause(s)
+	s(s(x)) - x = s(s(0))
+	s(s(s(x + xts))) - x = s(s(s(xts)))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	s(s(x)) - x = s(s(0))
+	s(s(s(x + xts))) - x = s(s(s(xts)))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	x - x -> 0
+	(x + y) - x -> y
+	s(x) - x -> s(0)
+	s(x + xts) - x -> s(xts)
+	s(s(x + xts)) - x -> s(s(xts))
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	s(s(x)) - x = s(s(0))
++++ inductive narrowing on conjecture
+	s(s(x)) - x = s(s(0))
+... induction variables of
+	s(s(x)) - x = s(s(0))
+... are:
+	x:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	s(s(x)) - x = s(s(0))
+... with variable x
++++ creating new conjecture
+	s(s(0)) - 0 = s(s(0))
++++ creating new conjecture
+	s(s(s(xts))) - s(xts) = s(s(0))
+--- clause
+	s(s(0)) - 0 = s(s(0))
+... reduced to tautology
+	s(s(0)) = s(s(0))
+--- clause
+	s(s(s(xts))) - s(xts) = s(s(0))
+... reduced in 1 step to
+	s(s(xts)) - xts = s(s(0))
++++ inductive narrowing succeeded
+--- clause
+	s(s(x)) - x = s(s(0))
+... oriented to rule
+	s(s(x)) - x -> s(s(0))
++++ added new clause(s)
+	s(s(xts)) - xts = s(s(0))
+... to conjectures
+--- clause
+	s(s(xts)) - xts = s(s(0))
+... reduced to tautology
+	s(s(0)) = s(s(0))
+
++++ Status of the Inference System
+--- Conjectures:
+	s(s(s(x + xts))) - x = s(s(s(xts)))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	x - x -> 0
+	(x + y) - x -> y
+	s(x) - x -> s(0)
+	s(s(x)) - x -> s(s(0))
+	s(x + xts) - x -> s(xts)
+	s(s(x + xts)) - x -> s(s(xts))
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	s(s(s(x + xts))) - x = s(s(s(xts)))
++++ inductive narrowing on conjecture
+	s(s(s(x + xts))) - x = s(s(s(xts)))
+... induction variables of
+	s(s(s(x + xts))) - x = s(s(s(xts)))
+... are:
+	xts:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	s(s(s(x + xts))) - x = s(s(s(xts)))
+... with variable xts
++++ creating new conjecture
+	s(s(s(x + 0))) - x = s(s(s(0)))
++++ creating new conjecture
+	s(s(s(x + s(xts)))) - x = s(s(s(s(xts))))
+--- clause
+	s(s(s(x + 0))) - x = s(s(s(0)))
+... reduced in 1 step to
+	s(s(s(x))) - x = s(s(s(0)))
+--- clause
+	s(s(s(x + s(xts)))) - x = s(s(s(s(xts))))
+... reduced in 1 step to
+	s(s(s(s(x + xts)))) - x = s(s(s(s(xts))))
++++ inductive narrowing succeeded
+--- clause
+	s(s(s(x + xts))) - x = s(s(s(xts)))
+... oriented to rule
+	s(s(s(x + xts))) - x -> s(s(s(xts)))
++++ added new clause(s)
+	s(s(s(x))) - x = s(s(s(0)))
+	s(s(s(s(x + xts)))) - x = s(s(s(s(xts))))
+... to conjectures
++++ active wrap
+	s(.) - x = s(.)
+... with sequence
+	s(x + xts) - x = s(xts)
+	s(s(x + xts)) - x = s(s(xts))
+	s(s(s(x + xts))) - x = s(s(s(xts)))
++++ primal grammar found for head
+	{+, -, s}
+... and wrap
+	s(.) - x = s(.)
++++ Presburger system  = {
+	^f0(0; x, xts) -> x + xts
+	^f0($n0 + 1; x, xts) -> s(^f0($n0; x, xts))
+	^f1(0; xts) -> xts
+	^f1($n1 + 1; xts) -> s(^f1($n1; xts))
++++ }
++++ Lemma(s)           = 
+	s(^f0($n; x, xts)) - x = s(^f1($n; xts))
+--- clause
+	s(s(s(s(x + xts)))) - x = s(s(s(s(xts))))
+... subsumed by lemma
+	s(^f0($n; x, xts)) - x = s(^f1($n; xts))
+... with substitution
+	$n <- 3
+
++++ Status of the Inference System
+--- Conjectures:
+	s(s(s(x))) - x = s(s(s(0)))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	x - x -> 0
+	(x + y) - x -> y
+	s(x) - x -> s(0)
+	s(s(x)) - x -> s(s(0))
+	s(x + xts) - x -> s(xts)
+	s(s(x + xts)) - x -> s(s(xts))
+	s(s(s(x + xts))) - x -> s(s(s(xts)))
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; x, xts) -> x + xts
+	^f0($n0 + 1; x, xts) -> s(^f0($n0; x, xts))
+	^f1(0; xts) -> xts
+	^f1($n1 + 1; xts) -> s(^f1($n1; xts))
++++ }
++++ Lemma(s)           = 
+	s(^f0($n; x, xts)) - x = s(^f1($n; xts))
+
++++ treating clause
+	s(s(s(x))) - x = s(s(s(0)))
++++ inductive narrowing on conjecture
+	s(s(s(x))) - x = s(s(s(0)))
+... induction variables of
+	s(s(s(x))) - x = s(s(s(0)))
+... are:
+	x:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	s(s(s(x))) - x = s(s(s(0)))
+... with variable x
++++ creating new conjecture
+	s(s(s(0))) - 0 = s(s(s(0)))
++++ creating new conjecture
+	s(s(s(s(xts)))) - s(xts) = s(s(s(0)))
+--- clause
+	s(s(s(0))) - 0 = s(s(s(0)))
+... reduced to tautology
+	s(s(s(0))) = s(s(s(0)))
+--- clause
+	s(s(s(s(xts)))) - s(xts) = s(s(s(0)))
+... reduced in 1 step to
+	s(s(s(xts))) - xts = s(s(s(0)))
++++ inductive narrowing succeeded
+--- clause
+	s(s(s(x))) - x = s(s(s(0)))
+... oriented to rule
+	s(s(s(x))) - x -> s(s(s(0)))
++++ added new clause(s)
+	s(s(s(xts))) - xts = s(s(s(0)))
+... to conjectures
+--- clause
+	s(s(s(xts))) - xts = s(s(s(0)))
+... reduced to tautology
+	s(s(s(0))) = s(s(s(0)))
++++ active wrap
+	s(.) - x = s(.)
+... with sequence
+	s(x) - x = s(0)
+	s(s(x)) - x = s(s(0))
+	s(s(s(x))) - x = s(s(s(0)))
++++ primal grammar found for head
+	{-, 0, s}
+... and wrap
+	s(.) - x = s(.)
++++ Presburger system  = {
+	^f1(0; xts) -> xts
+	^f1($n1 + 1; xts) -> s(^f1($n1; xts))
+	^f2(0) -> 0
+	^f2($n2 + 1) -> s(^f2($n2))
++++ }
++++ Lemma(s)           = 
+	s(^f1($n; x)) - x = s(^f2($n))
+
++++ Status of the Inference System
+--- Conjectures:
+	<empty>
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	x - x -> 0
+	(x + y) - x -> y
+	s(x) - x -> s(0)
+	s(s(x)) - x -> s(s(0))
+	s(x + xts) - x -> s(xts)
+	s(s(s(x))) - x -> s(s(s(0)))
+	s(s(x + xts)) - x -> s(s(xts))
+	s(s(s(x + xts))) - x -> s(s(s(xts)))
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; x, xts) -> x + xts
+	^f0($n0 + 1; x, xts) -> s(^f0($n0; x, xts))
+	^f1(0; xts) -> xts
+	^f1($n1 + 1; xts) -> s(^f1($n1; xts))
+	^f2(0) -> 0
+	^f2($n2 + 1) -> s(^f2($n2))
++++ }
++++ Lemma(s)           = 
+	s(^f0($n; x, xts)) - x = s(^f1($n; xts))
+	s(^f1($n; x)) - x = s(^f2($n))
+
++++ SUCCESS: all conjectures proved
++++ Statistics:
+... Number of proof steps          = 8
+... Number of induction steps      = 8
+... Number of equational steps     = 0
+... Number of case rewriting steps = 0
+... Number of PG defined symbols   = 3
+... Number of PG lemmas            = 2
+... Elapsed time (seconds)         = 0.004

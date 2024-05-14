@@ -1,0 +1,132 @@
+#!/usr/bin/perl
+use List::Util qw(min max);
+use Statistics::Basic qw(:all nofill);
+
+my $outfile    = `ls *-output.txt`;
+my $success    = `grep -l SUCCESS *-output.txt`;
+my $disproof   = `grep -l DISPROOF *-output.txt`;
+my $noPG       = `grep -l 'NO POSSIBILITY' *-output.txt`;
+my $loop_limit = `grep -l 'loop limit reached' *-output.txt`;
+my $lemmas     = `grep -l '+++ Lemma(s)' *-output.txt`;
+my $time       = `grep 'Elapsed time' *-output.txt`;
+
+chomp $outfile;
+my @outfile = split /\n/, $outfile;
+my %outfile;
+for my $i (@outfile) {
+    $outfile{$i} = $i;
+}
+
+chomp $lemmas;
+my @lemmas = split /\n/, $lemmas;
+my %lemmas;
+for my $i (@lemmas) {
+    $lemmas{$i} = $i;
+}
+
+chomp $time;
+my @time = split /\n/, $time;
+my @el_time;
+for my $t (@time) {
+    $t =~ s/^.+ = //;
+    push @el_time, $t;
+}
+my $time_min = min(@el_time);
+my $time_max = max(@el_time);
+my $maxfile = `grep -l $time_max *-output.txt`;
+chomp $maxfile;
+$maxfile =~ s/output/input/;
+my $time_mean = mean(@el_time);
+my $time_std_dev = stddev(@el_time);
+my $time_med = median(@el_time);
+my @sorted_time = sort {$b <=> $a} @el_time;
+
+%nolemmas;
+chomp $success;
+my @success = split /\n/, $success;
+for my $i (@success) {
+    delete $outfile{$i};
+    if (!(exists $lemmas{$i})) {
+	$nolemmas{$i} = $i;
+    }
+}
+
+chomp $disproof;
+my @disproof = split /\n/, $disproof;
+for my $i (@disproof) {
+    delete $outfile{$i};
+}
+
+chomp $loop_limit;
+my @loop_limit = split /\n/, $loop_limit;
+for my $i (@loop_limit) {
+    delete $outfile{$i};
+}
+
+chomp $noPG;
+my @noPG = split /\n/, $noPG;
+for my $i (@noPG) {
+    delete $outfile{$i};
+}
+
+my $correct = @success+@disproof+@noPG+@loop_limit;
+
+print "Number of output files       = ", scalar @outfile, "\n";
+print "Number of successful proofs  = ", scalar @success, "\n";
+print "... without primal grammars  = ", scalar %nolemmas, "\n";
+if  (scalar %nolemmas > 0) {
+    my @nopgkeys = sort(keys %nolemmas);
+    for my $k (@nopgkeys) {
+	print "\t$k\n";
+    }
+}
+print "Number of disproofs          = ", scalar @disproof, "\n";
+if (scalar @disproof > 0) {
+    for my $dp (@disproof) {
+	print "\t$dp\n";
+    }
+}
+print "Number of loop limits        = ", scalar @loop_limit, "\n";
+if (scalar @loop_limit > 0) {
+    for my $limit (@loop_limit) {
+	print "\t$limit\n";
+    }
+}
+print "No primal grammars possible  = ", scalar @noPG, "\n";
+if (scalar @noPG > 0) {
+    for my $nopg (@noPG) {
+	print "\t$nopg\n";
+    }
+}
+print "Total number of correct runs = $correct\n";
+print "Number of crashes            = ", @outfile - $correct, "\n";
+if (scalar %outfile > 0) {
+    my @outkeys = sort(keys %outfile);
+    for my $k (@outkeys) {
+	print "\t$k\n";
+    }
+}
+print "Elapsed time:\n";
+print "\tmin     = $time_min\n";
+print "\tmax     = $time_max ($maxfile)\n";
+print "\tmean    = $time_mean\n";
+print "\tstd.dev = $time_std_dev\n";
+print "\tmedian  = $time_med\n";
+
+print "Examples which run longer than 1 second:\n";
+for my $it (@sorted_time) {
+    if ($it < 1.0) {
+	last;
+    }
+    printf "\t%8.3fs:", $it;
+    # print "\t$it", "s:";
+    my $timefile = `grep -l $it *-output.txt`;
+    chomp $timefile;
+    my @tfiles = split / /, $timefile;
+    for my $tf (@tfiles) {
+	$tf =~ s/output/input/;
+	print " $tf";
+    }
+    print "\n";
+}
+

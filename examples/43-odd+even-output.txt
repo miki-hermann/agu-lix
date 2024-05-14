@@ -1,0 +1,87 @@
++++ SPECIFICATION --- bidirectional branch, version 0.99
++++ Parameters:
+    ===========
++++ input       = 43-odd+even-input.txt
++++ output      = 43-odd+even-output.txt
++++ trace       = 3
++++ direction   = first-to-last
++++ drop        = yes
++++ verbose     = 3
++++ split       = 4
++++ loop limit  = 10
+-----------------------------------------------------------------------
+
++++ specification even from 43-odd+even-input.txt successfully parsed
++++ sorts: nat bool
++++ finitary sorts: bool
++++ symbol precedence = {+ > even > s > 0 > false = true}
++++ Rewrite System 
+	0 + x -> x
+	even(0) -> true
+	s(x) + y -> s(x + y)
+	even(s(s(x))) -> even(x)
++++ inductive positions:
+... for +: 0
+... for even: 0 0.0
++++ maximal depths of left-hand sides:
+... for even: 3
+... for +: 2
++++ general maximal depth = 3
++++ sort dependence: <empty>
++++ test sets for defined functions and sorts:
+... for +
+... ... nat
+		0
+		s(x)
+... for even
+... ... nat
+		0
+		s(0)
+		s(s(x))
+
++++ conjecture(s)
+	even(x + x) = false
+
++++ inference system initiated
++++ treating clause
+	even(x + x) = false
++++ inductive narrowing on conjecture
+	even(x + x) = false
+... induction variables of
+	even(x + x) = false
+... are:
+	x:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	even(x + x) = false
+... with variable x
++++ creating new conjecture
+	even(0 + 0) = false
++++ creating new conjecture
+	even(s(xts) + s(xts)) = false
+--- clause
+	even(0 + 0) = false
+... reduced in 2 steps to
+	true = false
+--- clause
+	true = false
+... contains a falsifying equation
+	true = false
+
++++ Status of the Inference System
+--- Conjectures:
+	<empty>
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	<empty>
+--- Primal Grammar:
+	<empty>
+
++++ DISPROOF: counter example
+	true = false
++++ Statistics:
+... Number of proof steps          = 1
+... Number of induction steps      = 1
+... Number of equational steps     = 0
+... Number of case rewriting steps = 0
+... Elapsed time (seconds)         = 0

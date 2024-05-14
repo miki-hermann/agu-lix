@@ -1,0 +1,37 @@
+specification qrev
+
+sorts
+
+	nat list
+
+constructors
+
+	0: -> nat
+	s: nat -> nat
+	nil: -> list
+	cons : nat list -> list
+
+defined functions
+
+	rev: list -> list
+	app : list list -> list
+	qrev: list list -> list
+
+precedence
+
+	qrev > rev > app > cons > nil
+
+axioms
+
+	app(nil, x) = x;
+	app(cons(x, y), z) = cons(x, app(y, z));
+	rev(nil) = nil;
+	rev(cons(x, y)) = app(rev(y), cons(x, nil));
+	qrev(nil, x) = x;
+	qrev(cons(x, y), z) = qrev(y, cons(x, z));
+
+conjectures
+
+	qrev(x, y) = app(rev(x), y);
+
+end

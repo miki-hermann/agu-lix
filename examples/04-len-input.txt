@@ -1,0 +1,37 @@
+specification len
+
+sorts
+
+	nat list
+
+constructors
+
+	0: -> nat
+	s: nat -> nat
+	nil: -> list
+	cons: nat list -> list
+
+defined functions
+
+	+: nat nat -> nat
+	len: list -> nat
+	app: list list -> list
+
+precedence
+
+	len > app > + > cons > nil > s > 0
+
+axioms
+
+	x + 0 = x;
+	x + s(y) = s(x + y);
+	len(nil) = 0;
+	len(cons(x, y)) = s(len(y));
+	app(nil, y) = y;
+	app(cons(x, y), z) = cons(x, app(y, z));
+
+conjectures
+
+	len(x) + len(y) = len(app(x, y));
+
+end

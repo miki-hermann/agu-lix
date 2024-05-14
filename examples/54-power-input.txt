@@ -1,0 +1,41 @@
+specification POWER
+
+sorts nat exp
+	
+constructors
+
+	0: -> nat
+	s: nat -> nat
+
+	# exponent cannot be 0, since then we would have
+	# power(0, 0) which is undefined
+
+	1: -> exp
+	sexp: exp -> exp
+
+defined functions
+
+	+: nat nat -> nat
+	*: nat nat -> nat
+	power: nat exp -> nat
+
+precedence
+
+	power > * > + > s = sexp > 1 = 0
+
+axioms
+
+	x+0 = x;
+	x+s(y) = s(x+y);
+
+	x*0 = 0;
+	x*s(y) = (x*y) + x;
+	
+	power(x, 1) = x;
+	power(x, sexp(ye)) = x * power(x, ye);
+
+conjectures
+
+	power(x * y, ze) = power(x, ze) * power(y, ze);
+
+end

@@ -1,0 +1,539 @@
++++ SPECIFICATION --- bidirectional branch, version 0.99
++++ Parameters:
+    ===========
++++ input       = 15-rot+len-input.txt
++++ output      = 15-rot+len-output.txt
++++ trace       = 3
++++ direction   = first-to-last
++++ drop        = yes
++++ verbose     = 3
++++ split       = 4
++++ loop limit  = 10
+-----------------------------------------------------------------------
+
++++ specification RotLen from 15-rot+len-input.txt successfully parsed
++++ sorts: nat list
++++ finitary sorts: <empty>
++++ symbol precedence = {rot > len > app > + > cons > nil > s > 0}
++++ Rewrite System 
+	x + 0 -> x
+	len(nil) -> 0
+	rot(0, y) -> y
+	app(nil, y) -> y
+	x + s(y) -> s(x + y)
+	len(cons(x, y)) -> s(len(y))
+	app(cons(x, y), z) -> cons(x, app(y, z))
+	rot(s(x), cons(y, z)) -> rot(x, app(z, cons(y, nil)))
++++ inductive positions:
+... for +: 1
+... for app: 0
+... for len: 0
+... for rot: 0 1
++++ maximal depths of left-hand sides:
+... for app: 2
+... for rot: 2
+... for len: 2
+... for +: 2
++++ general maximal depth = 2
++++ sort dependence: nat < list
++++ test sets for defined functions and sorts:
+... for +
+... ... nat
+		0
+		s(x)
+... for len
+... ... list
+		nil
+		cons(x, y)
+... for app
+... ... list
+		nil
+		cons(x, y)
+... for rot
+... ... nat
+		0
+		s(x)
+... ... list
+		nil
+		cons(x, y)
+
++++ conjecture(s)
+	rot(len(x), app(x, cons(y, nil))) = cons(y, rot(len(x), x))
+
++++ inference system initiated
++++ treating clause
+	rot(len(x), app(x, cons(y, nil))) = cons(y, rot(len(x), x))
++++ inductive narrowing on conjecture
+	rot(len(x), app(x, cons(y, nil))) = cons(y, rot(len(x), x))
+... induction variables of
+	rot(len(x), app(x, cons(y, nil))) = cons(y, rot(len(x), x))
+... are:
+	x:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	rot(len(x), app(x, cons(y, nil))) = cons(y, rot(len(x), x))
+... with variable x
++++ creating new conjecture
+	rot(len(nil), app(nil, cons(y, nil))) = cons(y, rot(len(nil), nil))
++++ creating new conjecture
+	rot(len(cons(xts, yts)), app(cons(xts, yts), cons(y, nil))) = cons(y, rot(len(cons(xts, yts)), cons(xts, yts)))
+--- clause
+	rot(len(nil), app(nil, cons(y, nil))) = cons(y, rot(len(nil), nil))
+... reduced to tautology
+	cons(y, nil) = cons(y, nil)
+--- clause
+	rot(len(cons(xts, yts)), app(cons(xts, yts), cons(y, nil))) = cons(y, rot(len(cons(xts, yts)), cons(xts, yts)))
+... reduced in 5 steps to
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) = cons(y, rot(len(yts), app(yts, cons(xts, nil))))
++++ inductive narrowing succeeded
+--- clause
+	rot(len(x), app(x, cons(y, nil))) = cons(y, rot(len(x), x))
+... oriented to rule
+	rot(len(x), app(x, cons(y, nil))) -> cons(y, rot(len(x), x))
++++ added new clause(s)
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) = cons(y, rot(len(yts), app(yts, cons(xts, nil))))
+... to conjectures
+--- clause
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) = cons(y, rot(len(yts), app(yts, cons(xts, nil))))
+... reduced in 1 step to
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) = cons(y, cons(xts, rot(len(yts), yts)))
+
++++ Status of the Inference System
+--- Conjectures:
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) = cons(y, cons(xts, rot(len(yts), yts)))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	rot(len(x), app(x, cons(y, nil))) -> cons(y, rot(len(x), x))
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) = cons(y, cons(xts, rot(len(yts), yts)))
++++ inductive narrowing on conjecture
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) = cons(y, cons(xts, rot(len(yts), yts)))
+... induction variables of
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) = cons(y, cons(xts, rot(len(yts), yts)))
+... are:
+	yts:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) = cons(y, cons(xts, rot(len(yts), yts)))
+... with variable yts
++++ creating new conjecture
+	rot(len(nil), app(app(nil, cons(y, nil)), cons(xts, nil))) = cons(y, cons(xts, rot(len(nil), nil)))
++++ creating new conjecture
+	rot(len(cons(xts2, yts)), app(app(cons(xts2, yts), cons(y, nil)), cons(xts1, nil))) = cons(y, cons(xts1, rot(len(cons(xts2, yts)), cons(xts2, yts))))
+--- clause
+	rot(len(nil), app(app(nil, cons(y, nil)), cons(xts, nil))) = cons(y, cons(xts, rot(len(nil), nil)))
+... reduced to tautology
+	cons(y, cons(xts, nil)) = cons(y, cons(xts, nil))
+--- clause
+	rot(len(cons(xts2, yts)), app(app(cons(xts2, yts), cons(y, nil)), cons(xts1, nil))) = cons(y, cons(xts1, rot(len(cons(xts2, yts)), cons(xts2, yts))))
+... reduced in 7 steps to
+	rot(len(yts), app(app(app(yts, cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts2, cons(xts1, rot(len(yts), yts))))
++++ inductive narrowing succeeded
+--- clause
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) = cons(y, cons(xts, rot(len(yts), yts)))
+... oriented to rule
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) -> cons(y, cons(xts, rot(len(yts), yts)))
++++ added new clause(s)
+	rot(len(yts), app(app(app(yts, cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts2, cons(xts1, rot(len(yts), yts))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	rot(len(yts), app(app(app(yts, cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts2, cons(xts1, rot(len(yts), yts))))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	rot(len(x), app(x, cons(y, nil))) -> cons(y, rot(len(x), x))
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) -> cons(y, cons(xts, rot(len(yts), yts)))
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	rot(len(yts), app(app(app(yts, cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts2, cons(xts1, rot(len(yts), yts))))
++++ inductive narrowing on conjecture
+	rot(len(yts), app(app(app(yts, cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts2, cons(xts1, rot(len(yts), yts))))
+... induction variables of
+	rot(len(yts), app(app(app(yts, cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts2, cons(xts1, rot(len(yts), yts))))
+... are:
+	yts:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	rot(len(yts), app(app(app(yts, cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts2, cons(xts1, rot(len(yts), yts))))
+... with variable yts
++++ creating new conjecture
+	rot(len(nil), app(app(app(nil, cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts2, cons(xts1, rot(len(nil), nil))))
++++ creating new conjecture
+	rot(len(cons(xts3, yts)), app(app(app(cons(xts3, yts), cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts2, cons(xts1, rot(len(cons(xts3, yts)), cons(xts3, yts)))))
+--- clause
+	rot(len(nil), app(app(app(nil, cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts2, cons(xts1, rot(len(nil), nil))))
+... reduced to tautology
+	cons(y, cons(xts2, cons(xts1, nil))) = cons(y, cons(xts2, cons(xts1, nil)))
+--- clause
+	rot(len(cons(xts3, yts)), app(app(app(cons(xts3, yts), cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts2, cons(xts1, rot(len(cons(xts3, yts)), cons(xts3, yts)))))
+... reduced in 8 steps to
+	rot(len(yts), app(app(app(app(yts, cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))
++++ inductive narrowing succeeded
+--- clause
+	rot(len(yts), app(app(app(yts, cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts2, cons(xts1, rot(len(yts), yts))))
+... oriented to rule
+	rot(len(yts), app(app(app(yts, cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts2, cons(xts1, rot(len(yts), yts))))
++++ added new clause(s)
+	rot(len(yts), app(app(app(app(yts, cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	rot(len(yts), app(app(app(app(yts, cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	rot(len(x), app(x, cons(y, nil))) -> cons(y, rot(len(x), x))
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) -> cons(y, cons(xts, rot(len(yts), yts)))
+	rot(len(yts), app(app(app(yts, cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts2, cons(xts1, rot(len(yts), yts))))
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	rot(len(yts), app(app(app(app(yts, cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))
++++ inductive narrowing on conjecture
+	rot(len(yts), app(app(app(app(yts, cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))
+... induction variables of
+	rot(len(yts), app(app(app(app(yts, cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))
+... are:
+	yts:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	rot(len(yts), app(app(app(app(yts, cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))
+... with variable yts
++++ creating new conjecture
+	rot(len(nil), app(app(app(app(nil, cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(nil), nil)))))
++++ creating new conjecture
+	rot(len(cons(xts4, yts)), app(app(app(app(cons(xts4, yts), cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(cons(xts4, yts)), cons(xts4, yts))))))
+--- clause
+	rot(len(nil), app(app(app(app(nil, cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(nil), nil)))))
+... reduced to tautology
+	cons(y, cons(xts3, cons(xts2, cons(xts1, nil)))) = cons(y, cons(xts3, cons(xts2, cons(xts1, nil))))
+--- clause
+	rot(len(cons(xts4, yts)), app(app(app(app(cons(xts4, yts), cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(cons(xts4, yts)), cons(xts4, yts))))))
+... reduced in 9 steps to
+	rot(len(yts), app(app(app(app(app(yts, cons(y, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))
++++ inductive narrowing succeeded
+--- clause
+	rot(len(yts), app(app(app(app(yts, cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))
+... oriented to rule
+	rot(len(yts), app(app(app(app(yts, cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))
++++ added new clause(s)
+	rot(len(yts), app(app(app(app(app(yts, cons(y, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	rot(len(yts), app(app(app(app(app(yts, cons(y, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	rot(len(x), app(x, cons(y, nil))) -> cons(y, rot(len(x), x))
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) -> cons(y, cons(xts, rot(len(yts), yts)))
+	rot(len(yts), app(app(app(yts, cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts2, cons(xts1, rot(len(yts), yts))))
+	rot(len(yts), app(app(app(app(yts, cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	rot(len(yts), app(app(app(app(app(yts, cons(y, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))
++++ inductive narrowing on conjecture
+	rot(len(yts), app(app(app(app(app(yts, cons(y, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))
+... induction variables of
+	rot(len(yts), app(app(app(app(app(yts, cons(y, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))
+... are:
+	yts:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	rot(len(yts), app(app(app(app(app(yts, cons(y, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))
+... with variable yts
++++ creating new conjecture
+	rot(len(nil), app(app(app(app(app(nil, cons(y, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(nil), nil))))))
++++ creating new conjecture
+	rot(len(cons(xts5, yts)), app(app(app(app(app(cons(xts5, yts), cons(y, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(cons(xts5, yts)), cons(xts5, yts)))))))
+--- clause
+	rot(len(nil), app(app(app(app(app(nil, cons(y, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(nil), nil))))))
+... reduced to tautology
+	cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, nil))))) = cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, nil)))))
+--- clause
+	rot(len(cons(xts5, yts)), app(app(app(app(app(cons(xts5, yts), cons(y, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(cons(xts5, yts)), cons(xts5, yts)))))))
+... reduced in 10 steps to
+	rot(len(yts), app(app(app(app(app(app(yts, cons(y, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))
++++ inductive narrowing succeeded
+--- clause
+	rot(len(yts), app(app(app(app(app(yts, cons(y, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))
+... oriented to rule
+	rot(len(yts), app(app(app(app(app(yts, cons(y, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))
++++ added new clause(s)
+	rot(len(yts), app(app(app(app(app(app(yts, cons(y, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	rot(len(yts), app(app(app(app(app(app(yts, cons(y, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	rot(len(x), app(x, cons(y, nil))) -> cons(y, rot(len(x), x))
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) -> cons(y, cons(xts, rot(len(yts), yts)))
+	rot(len(yts), app(app(app(yts, cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts2, cons(xts1, rot(len(yts), yts))))
+	rot(len(yts), app(app(app(app(yts, cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))
+	rot(len(yts), app(app(app(app(app(yts, cons(y, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	rot(len(yts), app(app(app(app(app(app(yts, cons(y, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))
++++ inductive narrowing on conjecture
+	rot(len(yts), app(app(app(app(app(app(yts, cons(y, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))
+... induction variables of
+	rot(len(yts), app(app(app(app(app(app(yts, cons(y, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))
+... are:
+	yts:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	rot(len(yts), app(app(app(app(app(app(yts, cons(y, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))
+... with variable yts
++++ creating new conjecture
+	rot(len(nil), app(app(app(app(app(app(nil, cons(y, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(nil), nil)))))))
++++ creating new conjecture
+	rot(len(cons(xts6, yts)), app(app(app(app(app(app(cons(xts6, yts), cons(y, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(cons(xts6, yts)), cons(xts6, yts))))))))
+--- clause
+	rot(len(nil), app(app(app(app(app(app(nil, cons(y, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(nil), nil)))))))
+... reduced to tautology
+	cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, nil)))))) = cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, nil))))))
+--- clause
+	rot(len(cons(xts6, yts)), app(app(app(app(app(app(cons(xts6, yts), cons(y, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(cons(xts6, yts)), cons(xts6, yts))))))))
+... reduced in 11 steps to
+	rot(len(yts), app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))
++++ inductive narrowing succeeded
+--- clause
+	rot(len(yts), app(app(app(app(app(app(yts, cons(y, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))
+... oriented to rule
+	rot(len(yts), app(app(app(app(app(app(yts, cons(y, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))
++++ added new clause(s)
+	rot(len(yts), app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	rot(len(yts), app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	rot(len(x), app(x, cons(y, nil))) -> cons(y, rot(len(x), x))
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) -> cons(y, cons(xts, rot(len(yts), yts)))
+	rot(len(yts), app(app(app(yts, cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts2, cons(xts1, rot(len(yts), yts))))
+	rot(len(yts), app(app(app(app(yts, cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))
+	rot(len(yts), app(app(app(app(app(yts, cons(y, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))
+	rot(len(yts), app(app(app(app(app(app(yts, cons(y, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	rot(len(yts), app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))
++++ inductive narrowing on conjecture
+	rot(len(yts), app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))
+... induction variables of
+	rot(len(yts), app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))
+... are:
+	yts:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	rot(len(yts), app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))
+... with variable yts
++++ creating new conjecture
+	rot(len(nil), app(app(app(app(app(app(app(nil, cons(y, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(nil), nil))))))))
++++ creating new conjecture
+	rot(len(cons(xts7, yts)), app(app(app(app(app(app(app(cons(xts7, yts), cons(y, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(cons(xts7, yts)), cons(xts7, yts)))))))))
+--- clause
+	rot(len(nil), app(app(app(app(app(app(app(nil, cons(y, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(nil), nil))))))))
+... reduced to tautology
+	cons(y, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, nil))))))) = cons(y, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, nil)))))))
+--- clause
+	rot(len(cons(xts7, yts)), app(app(app(app(app(app(app(cons(xts7, yts), cons(y, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(cons(xts7, yts)), cons(xts7, yts)))))))))
+... reduced in 12 steps to
+	rot(len(yts), app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))
++++ inductive narrowing succeeded
+--- clause
+	rot(len(yts), app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))
+... oriented to rule
+	rot(len(yts), app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))
++++ added new clause(s)
+	rot(len(yts), app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	rot(len(yts), app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	rot(len(x), app(x, cons(y, nil))) -> cons(y, rot(len(x), x))
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) -> cons(y, cons(xts, rot(len(yts), yts)))
+	rot(len(yts), app(app(app(yts, cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts2, cons(xts1, rot(len(yts), yts))))
+	rot(len(yts), app(app(app(app(yts, cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))
+	rot(len(yts), app(app(app(app(app(yts, cons(y, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))
+	rot(len(yts), app(app(app(app(app(app(yts, cons(y, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))
+	rot(len(yts), app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	rot(len(yts), app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))
++++ inductive narrowing on conjecture
+	rot(len(yts), app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))
+... induction variables of
+	rot(len(yts), app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))
+... are:
+	yts:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	rot(len(yts), app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))
+... with variable yts
++++ creating new conjecture
+	rot(len(nil), app(app(app(app(app(app(app(app(nil, cons(y, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(nil), nil)))))))))
++++ creating new conjecture
+	rot(len(cons(xts8, yts)), app(app(app(app(app(app(app(app(cons(xts8, yts), cons(y, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(cons(xts8, yts)), cons(xts8, yts))))))))))
+--- clause
+	rot(len(nil), app(app(app(app(app(app(app(app(nil, cons(y, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(nil), nil)))))))))
+... reduced to tautology
+	cons(y, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, nil)))))))) = cons(y, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, nil))))))))
+--- clause
+	rot(len(cons(xts8, yts)), app(app(app(app(app(app(app(app(cons(xts8, yts), cons(y, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(cons(xts8, yts)), cons(xts8, yts))))))))))
+... reduced in 13 steps to
+	rot(len(yts), app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))))
++++ inductive narrowing succeeded
+--- clause
+	rot(len(yts), app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))
+... oriented to rule
+	rot(len(yts), app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))
++++ added new clause(s)
+	rot(len(yts), app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	rot(len(yts), app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	rot(len(x), app(x, cons(y, nil))) -> cons(y, rot(len(x), x))
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) -> cons(y, cons(xts, rot(len(yts), yts)))
+	rot(len(yts), app(app(app(yts, cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts2, cons(xts1, rot(len(yts), yts))))
+	rot(len(yts), app(app(app(app(yts, cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))
+	rot(len(yts), app(app(app(app(app(yts, cons(y, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))
+	rot(len(yts), app(app(app(app(app(app(yts, cons(y, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))
+	rot(len(yts), app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))
+	rot(len(yts), app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	rot(len(yts), app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))))
++++ inductive narrowing on conjecture
+	rot(len(yts), app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))))
+... induction variables of
+	rot(len(yts), app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))))
+... are:
+	yts:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	rot(len(yts), app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))))
+... with variable yts
++++ creating new conjecture
+	rot(len(nil), app(app(app(app(app(app(app(app(app(nil, cons(y, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(nil), nil))))))))))
++++ creating new conjecture
+	rot(len(cons(xts9, yts)), app(app(app(app(app(app(app(app(app(cons(xts9, yts), cons(y, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(cons(xts9, yts)), cons(xts9, yts)))))))))))
+--- clause
+	rot(len(nil), app(app(app(app(app(app(app(app(app(nil, cons(y, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(nil), nil))))))))))
+... reduced to tautology
+	cons(y, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, nil))))))))) = cons(y, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, nil)))))))))
+--- clause
+	rot(len(cons(xts9, yts)), app(app(app(app(app(app(app(app(app(cons(xts9, yts), cons(y, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(cons(xts9, yts)), cons(xts9, yts)))))))))))
+... reduced in 14 steps to
+	rot(len(yts), app(app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts9, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts9, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))))
++++ inductive narrowing succeeded
+--- clause
+	rot(len(yts), app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))))
+... oriented to rule
+	rot(len(yts), app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))))
++++ added new clause(s)
+	rot(len(yts), app(app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts9, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts9, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	rot(len(yts), app(app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts9, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts9, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	rot(len(x), app(x, cons(y, nil))) -> cons(y, rot(len(x), x))
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) -> cons(y, cons(xts, rot(len(yts), yts)))
+	rot(len(yts), app(app(app(yts, cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts2, cons(xts1, rot(len(yts), yts))))
+	rot(len(yts), app(app(app(app(yts, cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))
+	rot(len(yts), app(app(app(app(app(yts, cons(y, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))
+	rot(len(yts), app(app(app(app(app(app(yts, cons(y, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))
+	rot(len(yts), app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))
+	rot(len(yts), app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))
+	rot(len(yts), app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))))
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	rot(len(yts), app(app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts9, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts9, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))))
++++ inductive narrowing on conjecture
+	rot(len(yts), app(app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts9, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts9, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))))
+... induction variables of
+	rot(len(yts), app(app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts9, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts9, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))))
+... are:
+	yts:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	rot(len(yts), app(app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts9, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts9, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))))
+... with variable yts
++++ creating new conjecture
+	rot(len(nil), app(app(app(app(app(app(app(app(app(app(nil, cons(y, nil)), cons(xts9, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts9, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(nil), nil)))))))))))
++++ creating new conjecture
+	rot(len(cons(xts10, yts)), app(app(app(app(app(app(app(app(app(app(cons(xts10, yts), cons(y, nil)), cons(xts9, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts9, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(cons(xts10, yts)), cons(xts10, yts))))))))))))
+--- clause
+	rot(len(nil), app(app(app(app(app(app(app(app(app(app(nil, cons(y, nil)), cons(xts9, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts9, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(nil), nil)))))))))))
+... reduced to tautology
+	cons(y, cons(xts9, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, nil)))))))))) = cons(y, cons(xts9, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, nil))))))))))
+--- clause
+	rot(len(cons(xts10, yts)), app(app(app(app(app(app(app(app(app(app(cons(xts10, yts), cons(y, nil)), cons(xts9, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts9, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(cons(xts10, yts)), cons(xts10, yts))))))))))))
+... reduced in 15 steps to
+	rot(len(yts), app(app(app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts10, nil)), cons(xts9, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts10, cons(xts9, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))))))
++++ inductive narrowing succeeded
+--- clause
+	rot(len(yts), app(app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts9, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts9, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))))
+... oriented to rule
+	rot(len(yts), app(app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts9, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts9, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))))
++++ added new clause(s)
+	rot(len(yts), app(app(app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts10, nil)), cons(xts9, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts10, cons(xts9, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	rot(len(yts), app(app(app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts10, nil)), cons(xts9, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) = cons(y, cons(xts10, cons(xts9, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))))))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	rot(len(x), app(x, cons(y, nil))) -> cons(y, rot(len(x), x))
+	rot(len(yts), app(app(yts, cons(y, nil)), cons(xts, nil))) -> cons(y, cons(xts, rot(len(yts), yts)))
+	rot(len(yts), app(app(app(yts, cons(y, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts2, cons(xts1, rot(len(yts), yts))))
+	rot(len(yts), app(app(app(app(yts, cons(y, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))
+	rot(len(yts), app(app(app(app(app(yts, cons(y, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))
+	rot(len(yts), app(app(app(app(app(app(yts, cons(y, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))
+	rot(len(yts), app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))
+	rot(len(yts), app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))
+	rot(len(yts), app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts))))))))))
+	rot(len(yts), app(app(app(app(app(app(app(app(app(app(yts, cons(y, nil)), cons(xts9, nil)), cons(xts8, nil)), cons(xts7, nil)), cons(xts6, nil)), cons(xts5, nil)), cons(xts4, nil)), cons(xts3, nil)), cons(xts2, nil)), cons(xts1, nil))) -> cons(y, cons(xts9, cons(xts8, cons(xts7, cons(xts6, cons(xts5, cons(xts4, cons(xts3, cons(xts2, cons(xts1, rot(len(yts), yts)))))))))))
+--- Primal Grammar:
+	<empty>
+
++++ loop limit reached
++++ Statistics:
+... Number of proof steps          = 10
+... Number of induction steps      = 10
+... Number of equational steps     = 0
+... Number of case rewriting steps = 0
+... Elapsed time (seconds)         = 0.12

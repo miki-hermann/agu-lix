@@ -1,0 +1,30 @@
+specification double
+
+sorts nat
+
+constructors
+
+	0: -> nat
+	s: nat -> nat
+
+defined functions
+
+	+: nat nat -> nat
+	dbl: nat -> nat
+
+precedence
+
+	dbl > + > s > 0
+
+axioms
+
+	x + 0 = x;
+	x + s(y) = s(x + y);
+	dbl(0) = 0;
+	dbl(s(x)) = s(s(dbl(x)));
+
+conjectures
+
+	dbl(x) = x + x;
+
+end

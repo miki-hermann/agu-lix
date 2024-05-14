@@ -1,0 +1,28 @@
+specification assoc
+
+sorts
+	nat
+
+constructors
+
+	0: -> nat
+	s: nat -> nat
+
+defined functions
+
+	+: nat nat -> nat
+
+precedence
+
+	+ > s > 0
+
+axioms
+
+	0 + x = x;
+	s(x) + y = s(x + y);
+
+conjectures
+
+	x + (x + x) = (x + x) + x;
+
+end
