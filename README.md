@@ -102,7 +102,7 @@ are used for  grouping, the bar means an alternative,  * is the Kleene
 star for iteration, + means at least one occurrence, the question mark
 ?  means 0 or 1 occurrence(s) of the preceding item.  The non-terminal
 symbols are enclosed in <...>, terminal symbols are in quotation marks
-'...'. The staring non-terminal symbol is <specification>.
+'...'. The staring non-terminal symbol is `<specification>`.
 
 	<specification> ::= <spec> <include>? <sorts> <cons> <defs> <prec> <axioms> <cjts>
 	<spec>          ::= 'specification' <ident>
