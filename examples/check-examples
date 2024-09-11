@@ -2,13 +2,13 @@
 use List::Util qw(min max);
 use Statistics::Basic qw(:all nofill);
 
-my $outfile    = `ls *-output.txt`;
-my $success    = `grep -l SUCCESS *-output.txt`;
-my $disproof   = `grep -l DISPROOF *-output.txt`;
-my $noPG       = `grep -l 'NO POSSIBILITY' *-output.txt`;
-my $loop_limit = `grep -l 'loop limit reached' *-output.txt`;
-my $lemmas     = `grep -l '+++ Lemma(s)' *-output.txt`;
-my $time       = `grep 'Elapsed time' *-output.txt`;
+my $outfile    = `ls *-out.txt`;
+my $success    = `grep -l SUCCESS *-out.txt`;
+my $disproof   = `grep -l DISPROOF *-out.txt`;
+my $noPG       = `grep -l 'NO POSSIBILITY' *-out.txt`;
+my $loop_limit = `grep -l 'loop limit reached' *-out.txt`;
+my $lemmas     = `grep -l '+++ Lemma(s)' *-out.txt`;
+my $time       = `grep 'Elapsed time' *-out.txt`;
 
 chomp $outfile;
 my @outfile = split /\n/, $outfile;
@@ -33,9 +33,12 @@ for my $t (@time) {
 }
 my $time_min = min(@el_time);
 my $time_max = max(@el_time);
-my $maxfile = `grep -l $time_max *-output.txt`;
-chomp $maxfile;
-$maxfile =~ s/output/input/;
+my $maxfile = `grep -l $time_max *-out.txt`;
+my @maxfile = split /\n/, $maxfile;
+for (my $i = 0; $i <= $#maxfile; $i++) {
+    chomp $maxfile[i];
+}
+$maxfile = join " ", @maxfile;
 my $time_mean = mean(@el_time);
 my $time_std_dev = stddev(@el_time);
 my $time_med = median(@el_time);
@@ -114,19 +117,25 @@ print "\tstd.dev = $time_std_dev\n";
 print "\tmedian  = $time_med\n";
 
 print "Examples which run longer than 1 second:\n";
-for my $it (@sorted_time) {
-    if ($it < 1.0) {
-	last;
+if (scalar @sorted_time == 0) {
+    print "\t<none>\n";
+} else {
+    my @printed;
+    for my $it (@sorted_time) {
+	if ($it < 1.0) {
+	    last;
+	}
+	printf "\t%8.3fs:", $it;
+	my $timefile = `grep -l $it *-out.txt`;
+	my @tfiles = split /\n/, $timefile;
+	for my $tf (@tfiles) {
+	    chomp $tf;
+	    if (! grep /$tf/, @printed) {
+		push @printed, $tf;
+		print " $tf";
+	    }
+	}
+	print "\n";
     }
-    printf "\t%8.3fs:", $it;
-    # print "\t$it", "s:";
-    my $timefile = `grep -l $it *-output.txt`;
-    chomp $timefile;
-    my @tfiles = split / /, $timefile;
-    for my $tf (@tfiles) {
-	$tf =~ s/output/input/;
-	print " $tf";
-    }
-    print "\n";
 }
 
