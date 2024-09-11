@@ -1,0 +1,1593 @@
++++ SPECIFICATION --- bidirectional branch, version 0.99
++++ Parameters:
+    ===========
++++ input       = 56-exercise2.6-in.txt
++++ output      = 56-exercise2.6-out.txt
++++ trace       = 3
++++ direction   = first-to-last
++++ drop        = yes
++++ verbose     = 3
++++ split       = 4
++++ loop limit  = 23
++++ stdlib      = /usr/local/lib/indy/stdlib/
+-----------------------------------------------------------------------
+
++++ specification TREEandLIST from 56-exercise2.6-in.txt successfully parsed
++++ Listing
+         1: specification TREEandLIST
+         2: sorts
+         3:      list nat tree
+         4: constructors
+         5:      0: -> nat
+         6:      :: nat list -> list
+         7:      leaf: -> tree
+         8:      nil: -> list
+         9:      node: tree nat tree -> tree
+        10:      s: nat -> nat
+        11: defined functions
+        12:      +: nat nat -> nat
+        13:      app: list list -> list
+        14:      contents: tree -> list
+        15:      sumlist: list -> nat
+        16:      sumtree: tree -> nat
+        17: precedence
+        18:      sumtree > sumlist > contents > app > + > node > : > leaf > nil > s > 0
+        19: axioms
+        20:      x + 0 = x;
+        21:      app(nil, y) = y;
+        22:      sumlist(nil) = 0;
+        23:      sumtree(leaf) = 0;
+        24:      x + s(y) = s(x + y);
+        25:      contents(leaf) = nil;
+        26:      app(x : y, z) = x : app(y, z);
+        27:      sumlist(xa : ys) = xa + sumlist(ys);
+        28:      sumtree(node(xl, ya, xr)) = ya + (sumtree(xl) + sumtree(xr));
+        29:      contents(node(xl, ya, xr)) = ya : app(contents(xl), contents(xr));
+        30: conjectures
+        31:      sumtree(xt) = sumlist(contents(xt));
+        32: end
++++ finitary sorts: <empty>
++++ Rewrite System 
+	x + 0 -> x
+	app(nil, y) -> y
+	sumlist(nil) -> 0
+	sumtree(leaf) -> 0
+	x + s(y) -> s(x + y)
+	contents(leaf) -> nil
+	app(x : y, z) -> x : app(y, z)
+	sumlist(xa : ys) -> xa + sumlist(ys)
+	sumtree(node(xl, ya, xr)) -> ya + (sumtree(xl) + sumtree(xr))
+	contents(node(xl, ya, xr)) -> ya : app(contents(xl), contents(xr))
++++ inductive positions:
+... for +: 1
+... for app: 0
+... for contents: 0
+... for sumlist: 0
+... for sumtree: 0
++++ maximal depths of left-hand sides:
+... for sumtree: 2
+... for sumlist: 2
+... for app: 2
+... for contents: 2
+... for +: 2
++++ general maximal depth = 2
++++ sort dependence: nat < tree < list
++++ test sets for defined functions and sorts:
+... for sumtree
+... ... tree
+		leaf
+		node(x, y, z)
+... for sumlist
+... ... list
+		nil
+		x : y
+... for app
+... ... list
+		nil
+		x : y
+... for contents
+... ... tree
+		leaf
+		node(x, y, z)
+... for +
+... ... nat
+		0
+		s(x)
+
++++ conjecture(s)
+	sumtree(xt) = sumlist(contents(xt))
+
++++ inference system initiated
++++ treating clause
+	sumtree(xt) = sumlist(contents(xt))
++++ inductive narrowing on conjecture
+	sumtree(xt) = sumlist(contents(xt))
+... induction variables of
+	sumtree(xt) = sumlist(contents(xt))
+... are:
+	xt:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	sumtree(xt) = sumlist(contents(xt))
+... with variable xt
++++ creating new conjecture
+	sumtree(leaf) = sumlist(contents(leaf))
++++ creating new conjecture
+	sumtree(node(xts, yts, zts)) = sumlist(contents(node(xts, yts, zts)))
+--- clause
+	sumtree(leaf) = sumlist(contents(leaf))
+... reduced to tautology
+	0 = 0
+--- clause
+	sumtree(node(xts, yts, zts)) = sumlist(contents(node(xts, yts, zts)))
+... reduced in 3 steps to
+	yts + (sumtree(xts) + sumtree(zts)) = yts + sumlist(app(contents(xts), contents(zts)))
++++ inductive narrowing succeeded
+--- clause
+	sumtree(xt) = sumlist(contents(xt))
+... oriented to rule
+	sumtree(xt) -> sumlist(contents(xt))
++++ added new clause(s)
+	yts + (sumtree(xts) + sumtree(zts)) = yts + sumlist(app(contents(xts), contents(zts)))
+... to conjectures
+--- clause
+	yts + (sumtree(xts) + sumtree(zts)) = yts + sumlist(app(contents(xts), contents(zts)))
+... reduced in 2 steps to
+	yts + (sumlist(contents(xts)) + sumlist(contents(zts))) = yts + sumlist(app(contents(xts), contents(zts)))
+
++++ Status of the Inference System
+--- Conjectures:
+	yts + (sumlist(contents(xts)) + sumlist(contents(zts))) = yts + sumlist(app(contents(xts), contents(zts)))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	sumtree(xt) -> sumlist(contents(xt))
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	yts + (sumlist(contents(xts)) + sumlist(contents(zts))) = yts + sumlist(app(contents(xts), contents(zts)))
++++ inductive narrowing on conjecture
+	yts + (sumlist(contents(xts)) + sumlist(contents(zts))) = yts + sumlist(app(contents(xts), contents(zts)))
+... induction variables of
+	yts + (sumlist(contents(xts)) + sumlist(contents(zts))) = yts + sumlist(app(contents(xts), contents(zts)))
+... are:
+	xts:tree
+	zts:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts + (sumlist(contents(xts)) + sumlist(contents(zts))) = yts + sumlist(app(contents(xts), contents(zts)))
+... with variable xts
++++ creating new conjecture
+	yts + (sumlist(contents(leaf)) + sumlist(contents(zts))) = yts + sumlist(app(contents(leaf), contents(zts)))
++++ creating new conjecture
+	yts2 + (sumlist(contents(node(xts, yts1, zts2))) + sumlist(contents(zts1))) = yts2 + sumlist(app(contents(node(xts, yts1, zts2)), contents(zts1)))
+--- clause
+	yts + (sumlist(contents(leaf)) + sumlist(contents(zts))) = yts + sumlist(app(contents(leaf), contents(zts)))
+... reduced in 4 steps to
+	yts + (0 + sumlist(contents(zts))) = yts + sumlist(contents(zts))
+--- clause
+	yts2 + (sumlist(contents(node(xts, yts1, zts2))) + sumlist(contents(zts1))) = yts2 + sumlist(app(contents(node(xts, yts1, zts2)), contents(zts1)))
+... reduced in 5 steps to
+	yts2 + ((yts1 + sumlist(app(contents(xts), contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
++++ inductive narrowing succeeded
+--- clause
+	yts + (sumlist(contents(xts)) + sumlist(contents(zts))) = yts + sumlist(app(contents(xts), contents(zts)))
+... oriented to rule
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
++++ added new clause(s)
+	yts + (0 + sumlist(contents(zts))) = yts + sumlist(contents(zts))
+	yts2 + ((yts1 + sumlist(app(contents(xts), contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+... to conjectures
+--- clause
+	yts2 + ((yts1 + sumlist(app(contents(xts), contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+... reduced in 1 step to
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+
++++ Status of the Inference System
+--- Conjectures:
+	yts + (0 + sumlist(contents(zts))) = yts + sumlist(contents(zts))
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	yts + (0 + sumlist(contents(zts))) = yts + sumlist(contents(zts))
++++ inductive narrowing on conjecture
+	yts + (0 + sumlist(contents(zts))) = yts + sumlist(contents(zts))
+... induction variables of
+	yts + (0 + sumlist(contents(zts))) = yts + sumlist(contents(zts))
+... are:
+	zts:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts + (0 + sumlist(contents(zts))) = yts + sumlist(contents(zts))
+... with variable zts
++++ creating new conjecture
+	yts + (0 + sumlist(contents(leaf))) = yts + sumlist(contents(leaf))
++++ creating new conjecture
+	yts2 + (0 + sumlist(contents(node(xts, yts1, zts)))) = yts2 + sumlist(contents(node(xts, yts1, zts)))
+--- clause
+	yts + (0 + sumlist(contents(leaf))) = yts + sumlist(contents(leaf))
+... reduced to tautology
+	yts = yts
+--- clause
+	yts2 + (0 + sumlist(contents(node(xts, yts1, zts)))) = yts2 + sumlist(contents(node(xts, yts1, zts)))
+... reduced in 6 steps to
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) = yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
++++ inductive narrowing succeeded
+--- clause
+	yts + (0 + sumlist(contents(zts))) = yts + sumlist(contents(zts))
+... oriented to rule
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
++++ added new clause(s)
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) = yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) = yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
++++ inductive narrowing on conjecture
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+... induction variables of
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+... are:
+	xts:tree
+	zts1:tree
+	zts2:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+... with variable xts
++++ creating new conjecture
+	yts2 + ((yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(leaf), contents(zts2)), contents(zts1))))
++++ creating new conjecture
+	yts3 + ((yts2 + (sumlist(contents(node(xts, yts1, zts3))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + sumlist(app(app(contents(node(xts, yts1, zts3)), contents(zts2)), contents(zts1))))
+--- clause
+	yts2 + ((yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(leaf), contents(zts2)), contents(zts1))))
+... reduced in 6 steps to
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) = yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+--- clause
+	yts3 + ((yts2 + (sumlist(contents(node(xts, yts1, zts3))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + sumlist(app(app(contents(node(xts, yts1, zts3)), contents(zts2)), contents(zts1))))
+... reduced in 7 steps to
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
++++ inductive narrowing succeeded
+--- non-orientable clause
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
++++ moved
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+... to non-orientable hypotheses
++++ added new clause(s)
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) = yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) = yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) = yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+--- Non-orientable hypotheses:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+--- Oriented hypotheses:
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) = yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
++++ inductive narrowing on conjecture
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) = yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+... induction variables of
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) = yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+... are:
+	xts:tree
+	zts:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) = yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+... with variable xts
++++ creating new conjecture
+	yts2 + (0 + (yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts))))) = yts2 + (yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts))))
++++ creating new conjecture
+	yts3 + (0 + (yts2 + (sumlist(contents(node(xts, yts1, zts2))) + sumlist(contents(zts1))))) = yts3 + (yts2 + (sumlist(contents(node(xts, yts1, zts2))) + sumlist(contents(zts1))))
+--- clause
+	yts2 + (0 + (yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts))))) = yts2 + (yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts))))
+... reduced in 6 steps to
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) = yts2 + (yts1 + sumlist(contents(zts)))
+--- clause
+	yts3 + (0 + (yts2 + (sumlist(contents(node(xts, yts1, zts2))) + sumlist(contents(zts1))))) = yts3 + (yts2 + (sumlist(contents(node(xts, yts1, zts2))) + sumlist(contents(zts1))))
+... reduced in 6 steps to
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
++++ inductive narrowing succeeded
+--- clause
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) = yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+... oriented to rule
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) -> yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
++++ added new clause(s)
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) = yts2 + (yts1 + sumlist(contents(zts)))
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) = yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) = yts2 + (yts1 + sumlist(contents(zts)))
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+--- Non-orientable hypotheses:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+--- Oriented hypotheses:
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) -> yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) = yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
++++ inductive narrowing on conjecture
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) = yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+... induction variables of
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) = yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+... are:
+	zts1:tree
+	zts2:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) = yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+... with variable zts1
++++ creating new conjecture
+	yts2 + ((yts1 + sumlist(contents(zts))) + sumlist(contents(leaf))) = yts2 + (yts1 + (sumlist(contents(zts)) + sumlist(contents(leaf))))
++++ creating new conjecture
+	yts3 + ((yts2 + sumlist(contents(zts2))) + sumlist(contents(node(xts, yts1, zts1)))) = yts3 + (yts2 + (sumlist(contents(zts2)) + sumlist(contents(node(xts, yts1, zts1)))))
+--- clause
+	yts2 + ((yts1 + sumlist(contents(zts))) + sumlist(contents(leaf))) = yts2 + (yts1 + (sumlist(contents(zts)) + sumlist(contents(leaf))))
+... reduced to tautology
+	yts2 + (yts1 + sumlist(contents(zts))) = yts2 + (yts1 + sumlist(contents(zts)))
+--- clause
+	yts3 + ((yts2 + sumlist(contents(zts2))) + sumlist(contents(node(xts, yts1, zts1)))) = yts3 + (yts2 + (sumlist(contents(zts2)) + sumlist(contents(node(xts, yts1, zts1)))))
+... reduced in 6 steps to
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
++++ inductive narrowing succeeded
+--- clause
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) = yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+... oriented to rule
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) -> yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
++++ added new clause(s)
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) = yts2 + (yts1 + sumlist(contents(zts)))
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+--- Non-orientable hypotheses:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+--- Oriented hypotheses:
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) -> yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) -> yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
++++ inductive narrowing on conjecture
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+... induction variables of
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+... are:
+	xts:tree
+	zts1:tree
+	zts2:tree
+	zts3:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+... with variable xts
++++ creating new conjecture
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(leaf), contents(zts3)), contents(zts2)), contents(zts1)))))
++++ creating new conjecture
+	yts4 + ((yts3 + ((yts2 + (sumlist(contents(node(xts, yts1, zts4))) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts4 + (yts3 + (yts2 + sumlist(app(app(app(contents(node(xts, yts1, zts4)), contents(zts3)), contents(zts2)), contents(zts1)))))
+--- clause
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(leaf), contents(zts3)), contents(zts2)), contents(zts1)))))
+... reduced in 6 steps to
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(contents(zts3), contents(zts2)), contents(zts1)))))
+--- clause
+	yts4 + ((yts3 + ((yts2 + (sumlist(contents(node(xts, yts1, zts4))) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts4 + (yts3 + (yts2 + sumlist(app(app(app(contents(node(xts, yts1, zts4)), contents(zts3)), contents(zts2)), contents(zts1)))))
+... reduced in 8 steps to
+	yts4 + ((yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts4)))) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts4 + (yts3 + (yts2 + (yts1 + sumlist(app(app(app(app(contents(xts), contents(zts4)), contents(zts3)), contents(zts2)), contents(zts1))))))
++++ inductive narrowing succeeded
+--- non-orientable clause
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
++++ moved
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+... to non-orientable hypotheses
++++ added new clause(s)
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(contents(zts3), contents(zts2)), contents(zts1)))))
+	yts4 + ((yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts4)))) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts4 + (yts3 + (yts2 + (yts1 + sumlist(app(app(app(app(contents(xts), contents(zts4)), contents(zts3)), contents(zts2)), contents(zts1))))))
+... to conjectures
+--- succeeded to apply non-orientable hypothese
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+... to clause
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(contents(zts3), contents(zts2)), contents(zts1)))))
+... modified clause
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
++++ active wrap
+	. + (. + sumlist(contents(zts))) = . + .
+... with sequence
+	yts + (sumlist(contents(xts)) + sumlist(contents(zts))) = yts + sumlist(app(contents(xts), contents(zts)))
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
++++ primal grammar found for head
+	{+, app, contents, sumlist}
+... and wrap
+	. + (. + sumlist(contents(zts))) = . + .
++++ Presburger system  = {
+	^f0(0; xts, yts@, zts@) -> sumlist(contents(xts))
+	^f0($n0 + 1; xts, yts@, zts@) -> yts$n0 + (^f0($n0; xts, yts@, zts@) + sumlist(contents(zts$n0)))
+	^f1(0; xts, zts@) -> contents(xts)
+	^f1($n1 + 1; xts, zts@) -> app(^f1($n1; xts, zts@), contents(zts$n1))
+	^f2(0, $n1; xts, yts@, zts@) -> sumlist(app(^f1($n1; xts, zts@), contents(zts0)))
+	^f2($n2 + 1, $n1; xts, yts@, zts@) -> yts$n2 + ^f2($n2, $n1 + 1; xts, yts@, zts@)
++++ }
++++ Lemma(s)           = 
+	yts$n + (^f0($n; xts, yts@, zts@) + sumlist(contents(zts$n))) = yts$n + ^f2($n, 0; xts, yts@, zts@)
+--- clause
+	yts4 + ((yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts4)))) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts4 + (yts3 + (yts2 + (yts1 + sumlist(app(app(app(app(contents(xts), contents(zts4)), contents(zts3)), contents(zts2)), contents(zts1))))))
+... subsumed by lemma
+	yts$n + (^f0($n; xts, yts@, zts@) + sumlist(contents(zts$n))) = yts$n + ^f2($n, 0; xts, yts@, zts@)
+... with substitution
+	$n <- 3
+
++++ Status of the Inference System
+--- Conjectures:
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) = yts2 + (yts1 + sumlist(contents(zts)))
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+--- Non-orientable hypotheses:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+--- Oriented hypotheses:
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) -> yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) -> yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; xts, yts@, zts@) -> sumlist(contents(xts))
+	^f0($n0 + 1; xts, yts@, zts@) -> yts$n0 + (^f0($n0; xts, yts@, zts@) + sumlist(contents(zts$n0)))
+	^f1(0; xts, zts@) -> contents(xts)
+	^f1($n1 + 1; xts, zts@) -> app(^f1($n1; xts, zts@), contents(zts$n1))
+	^f2(0, $n1; xts, yts@, zts@) -> sumlist(app(^f1($n1; xts, zts@), contents(zts0)))
+	^f2($n2 + 1, $n1; xts, yts@, zts@) -> yts$n2 + ^f2($n2, $n1 + 1; xts, yts@, zts@)
++++ }
++++ Lemma(s)           = 
+	yts$n + (^f0($n; xts, yts@, zts@) + sumlist(contents(zts$n))) = yts$n + ^f2($n, 0; xts, yts@, zts@)
+
++++ treating clause
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) = yts2 + (yts1 + sumlist(contents(zts)))
++++ inductive narrowing on conjecture
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) = yts2 + (yts1 + sumlist(contents(zts)))
+... induction variables of
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) = yts2 + (yts1 + sumlist(contents(zts)))
+... are:
+	zts:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) = yts2 + (yts1 + sumlist(contents(zts)))
+... with variable zts
++++ creating new conjecture
+	yts2 + (0 + (yts1 + sumlist(contents(leaf)))) = yts2 + (yts1 + sumlist(contents(leaf)))
++++ creating new conjecture
+	yts3 + (0 + (yts2 + sumlist(contents(node(xts, yts1, zts))))) = yts3 + (yts2 + sumlist(contents(node(xts, yts1, zts))))
+--- clause
+	yts2 + (0 + (yts1 + sumlist(contents(leaf)))) = yts2 + (yts1 + sumlist(contents(leaf)))
+... reduced in 6 steps to
+	yts2 + (0 + yts1) = yts2 + yts1
+--- clause
+	yts3 + (0 + (yts2 + sumlist(contents(node(xts, yts1, zts))))) = yts3 + (yts2 + sumlist(contents(node(xts, yts1, zts))))
+... reduced in 6 steps to
+	yts3 + (0 + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts)))))) = yts3 + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts)))))
++++ inductive narrowing succeeded
+--- clause
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) = yts2 + (yts1 + sumlist(contents(zts)))
+... oriented to rule
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) -> yts2 + (yts1 + sumlist(contents(zts)))
++++ added new clause(s)
+	yts2 + (0 + yts1) = yts2 + yts1
+	yts3 + (0 + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts)))))) = yts3 + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts)))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts2 + (0 + yts1) = yts2 + yts1
+	yts3 + (0 + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts)))))) = yts3 + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts)))))
+--- Non-orientable hypotheses:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+--- Oriented hypotheses:
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) -> yts2 + (yts1 + sumlist(contents(zts)))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) -> yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) -> yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; xts, yts@, zts@) -> sumlist(contents(xts))
+	^f0($n0 + 1; xts, yts@, zts@) -> yts$n0 + (^f0($n0; xts, yts@, zts@) + sumlist(contents(zts$n0)))
+	^f1(0; xts, zts@) -> contents(xts)
+	^f1($n1 + 1; xts, zts@) -> app(^f1($n1; xts, zts@), contents(zts$n1))
+	^f2(0, $n1; xts, yts@, zts@) -> sumlist(app(^f1($n1; xts, zts@), contents(zts0)))
+	^f2($n2 + 1, $n1; xts, yts@, zts@) -> yts$n2 + ^f2($n2, $n1 + 1; xts, yts@, zts@)
++++ }
++++ Lemma(s)           = 
+	yts$n + (^f0($n; xts, yts@, zts@) + sumlist(contents(zts$n))) = yts$n + ^f2($n, 0; xts, yts@, zts@)
+
++++ treating clause
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
++++ inductive narrowing on conjecture
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+... induction variables of
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+... are:
+	xts:tree
+	zts1:tree
+	zts2:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+... with variable xts
++++ creating new conjecture
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
++++ creating new conjecture
+	yts4 + (0 + (yts3 + ((yts2 + (sumlist(contents(node(xts, yts1, zts3))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(node(xts, yts1, zts3))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+--- clause
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+... reduced in 8 steps to
+	yts3 + (0 + (yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))))) = yts3 + (yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))))
+--- clause
+	yts4 + (0 + (yts3 + ((yts2 + (sumlist(contents(node(xts, yts1, zts3))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(node(xts, yts1, zts3))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+... reduced in 6 steps to
+	yts4 + (0 + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+--- clause
+	yts3 + (0 + (yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))))) = yts3 + (yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))))
+... subsumed by an existing conjecture
++++ inductive narrowing succeeded
+--- clause
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+... oriented to rule
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
++++ added new clause(s)
+	yts4 + (0 + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts2 + (0 + yts1) = yts2 + yts1
+	yts3 + (0 + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts)))))) = yts3 + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts)))))
+	yts4 + (0 + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+--- Non-orientable hypotheses:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+--- Oriented hypotheses:
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) -> yts2 + (yts1 + sumlist(contents(zts)))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) -> yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) -> yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; xts, yts@, zts@) -> sumlist(contents(xts))
+	^f0($n0 + 1; xts, yts@, zts@) -> yts$n0 + (^f0($n0; xts, yts@, zts@) + sumlist(contents(zts$n0)))
+	^f1(0; xts, zts@) -> contents(xts)
+	^f1($n1 + 1; xts, zts@) -> app(^f1($n1; xts, zts@), contents(zts$n1))
+	^f2(0, $n1; xts, yts@, zts@) -> sumlist(app(^f1($n1; xts, zts@), contents(zts0)))
+	^f2($n2 + 1, $n1; xts, yts@, zts@) -> yts$n2 + ^f2($n2, $n1 + 1; xts, yts@, zts@)
++++ }
++++ Lemma(s)           = 
+	yts$n + (^f0($n; xts, yts@, zts@) + sumlist(contents(zts$n))) = yts$n + ^f2($n, 0; xts, yts@, zts@)
+
++++ treating clause
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
++++ inductive narrowing on conjecture
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+... induction variables of
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+... are:
+	xts:tree
+	zts1:tree
+	zts2:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+... with variable xts
++++ creating new conjecture
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts1))))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts1))))))
++++ creating new conjecture
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + (sumlist(contents(node(xts, yts1, zts2))) + sumlist(contents(zts1))))) = yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + (sumlist(contents(node(xts, yts1, zts2))) + sumlist(contents(zts1))))))
+--- clause
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts1))))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts1))))))
+... reduced in 6 steps to
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
+--- clause
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + (sumlist(contents(node(xts, yts1, zts2))) + sumlist(contents(zts1))))) = yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + (sumlist(contents(node(xts, yts1, zts2))) + sumlist(contents(zts1))))))
+... reduced in 6 steps to
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
++++ inductive narrowing succeeded
+--- clause
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+... oriented to rule
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
++++ added new clause(s)
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts2 + (0 + yts1) = yts2 + yts1
+	yts3 + (0 + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts)))))) = yts3 + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts)))))
+	yts4 + (0 + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+--- Non-orientable hypotheses:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+--- Oriented hypotheses:
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) -> yts2 + (yts1 + sumlist(contents(zts)))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) -> yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) -> yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; xts, yts@, zts@) -> sumlist(contents(xts))
+	^f0($n0 + 1; xts, yts@, zts@) -> yts$n0 + (^f0($n0; xts, yts@, zts@) + sumlist(contents(zts$n0)))
+	^f1(0; xts, zts@) -> contents(xts)
+	^f1($n1 + 1; xts, zts@) -> app(^f1($n1; xts, zts@), contents(zts$n1))
+	^f2(0, $n1; xts, yts@, zts@) -> sumlist(app(^f1($n1; xts, zts@), contents(zts0)))
+	^f2($n2 + 1, $n1; xts, yts@, zts@) -> yts$n2 + ^f2($n2, $n1 + 1; xts, yts@, zts@)
++++ }
++++ Lemma(s)           = 
+	yts$n + (^f0($n; xts, yts@, zts@) + sumlist(contents(zts$n))) = yts$n + ^f2($n, 0; xts, yts@, zts@)
+
++++ treating clause
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
++++ inductive narrowing on conjecture
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+... induction variables of
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+... are:
+	zts1:tree
+	zts2:tree
+	zts3:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+... with variable zts1
++++ creating new conjecture
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))) + sumlist(contents(leaf))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))) + sumlist(contents(leaf))))
++++ creating new conjecture
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(node(xts, yts1, zts1)))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(node(xts, yts1, zts1)))))
+--- clause
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))) + sumlist(contents(leaf))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))) + sumlist(contents(leaf))))
+... reduced to tautology
+	yts3 + (yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))) = yts3 + (yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))))
+--- clause
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(node(xts, yts1, zts1)))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(node(xts, yts1, zts1)))))
+... reduced in 6 steps to
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
++++ inductive narrowing succeeded
+--- clause
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) = yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+... oriented to rule
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
++++ added new clause(s)
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	yts2 + (0 + yts1) = yts2 + yts1
+	yts3 + (0 + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts)))))) = yts3 + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts)))))
+	yts4 + (0 + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+--- Non-orientable hypotheses:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+--- Oriented hypotheses:
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) -> yts2 + (yts1 + sumlist(contents(zts)))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) -> yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) -> yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; xts, yts@, zts@) -> sumlist(contents(xts))
+	^f0($n0 + 1; xts, yts@, zts@) -> yts$n0 + (^f0($n0; xts, yts@, zts@) + sumlist(contents(zts$n0)))
+	^f1(0; xts, zts@) -> contents(xts)
+	^f1($n1 + 1; xts, zts@) -> app(^f1($n1; xts, zts@), contents(zts$n1))
+	^f2(0, $n1; xts, yts@, zts@) -> sumlist(app(^f1($n1; xts, zts@), contents(zts0)))
+	^f2($n2 + 1, $n1; xts, yts@, zts@) -> yts$n2 + ^f2($n2, $n1 + 1; xts, yts@, zts@)
++++ }
++++ Lemma(s)           = 
+	yts$n + (^f0($n; xts, yts@, zts@) + sumlist(contents(zts$n))) = yts$n + ^f2($n, 0; xts, yts@, zts@)
+
++++ treating clause
+	yts2 + (0 + yts1) = yts2 + yts1
++++ inductive narrowing on conjecture
+	yts2 + (0 + yts1) = yts2 + yts1
+... induction variables of
+	yts2 + (0 + yts1) = yts2 + yts1
+... are:
+	yts1:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts2 + (0 + yts1) = yts2 + yts1
+... with variable yts1
++++ creating new conjecture
+	yts + (0 + 0) = yts + 0
++++ creating new conjecture
+	yts + (0 + s(xts)) = yts + s(xts)
+--- clause
+	yts + (0 + 0) = yts + 0
+... reduced to tautology
+	yts = yts
+--- clause
+	yts + (0 + s(xts)) = yts + s(xts)
+... reduced in 3 steps to
+	s(yts + (0 + xts)) = s(yts + xts)
+... decomposed into new clause(s)
+	yts + (0 + xts) = yts + xts
++++ inductive narrowing succeeded
+--- clause
+	yts2 + (0 + yts1) = yts2 + yts1
+... oriented to rule
+	yts2 + (0 + yts1) -> yts2 + yts1
++++ added new clause(s)
+	yts + (0 + xts) = yts + xts
+... to conjectures
+--- clause
+	yts3 + (0 + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts)))))) = yts3 + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts)))))
+... reduced to tautology
+	yts3 + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) = yts3 + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts)))))
+--- clause
+	yts4 + (0 + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+... reduced to tautology
+	yts4 + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1)))) = yts4 + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+--- clause
+	yts + (0 + xts) = yts + xts
+... reduced to tautology
+	yts + xts = yts + xts
+
++++ Status of the Inference System
+--- Conjectures:
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+--- Non-orientable hypotheses:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+--- Oriented hypotheses:
+	yts2 + (0 + yts1) -> yts2 + yts1
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) -> yts2 + (yts1 + sumlist(contents(zts)))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) -> yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) -> yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; xts, yts@, zts@) -> sumlist(contents(xts))
+	^f0($n0 + 1; xts, yts@, zts@) -> yts$n0 + (^f0($n0; xts, yts@, zts@) + sumlist(contents(zts$n0)))
+	^f1(0; xts, zts@) -> contents(xts)
+	^f1($n1 + 1; xts, zts@) -> app(^f1($n1; xts, zts@), contents(zts$n1))
+	^f2(0, $n1; xts, yts@, zts@) -> sumlist(app(^f1($n1; xts, zts@), contents(zts0)))
+	^f2($n2 + 1, $n1; xts, yts@, zts@) -> yts$n2 + ^f2($n2, $n1 + 1; xts, yts@, zts@)
++++ }
++++ Lemma(s)           = 
+	yts$n + (^f0($n; xts, yts@, zts@) + sumlist(contents(zts$n))) = yts$n + ^f2($n, 0; xts, yts@, zts@)
+
++++ treating clause
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
++++ inductive narrowing on conjecture
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
+... induction variables of
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
+... are:
+	zts1:tree
+	zts2:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
+... with variable zts1
++++ creating new conjecture
+	yts3 + ((yts2 + sumlist(contents(zts))) + (yts1 + sumlist(contents(leaf)))) = yts3 + (yts2 + (sumlist(contents(zts)) + (yts1 + sumlist(contents(leaf)))))
++++ creating new conjecture
+	yts4 + ((yts3 + sumlist(contents(zts2))) + (yts2 + sumlist(contents(node(xts, yts1, zts1))))) = yts4 + (yts3 + (sumlist(contents(zts2)) + (yts2 + sumlist(contents(node(xts, yts1, zts1))))))
+--- clause
+	yts3 + ((yts2 + sumlist(contents(zts))) + (yts1 + sumlist(contents(leaf)))) = yts3 + (yts2 + (sumlist(contents(zts)) + (yts1 + sumlist(contents(leaf)))))
+... reduced in 6 steps to
+	yts3 + ((yts2 + sumlist(contents(zts))) + yts1) = yts3 + (yts2 + (sumlist(contents(zts)) + yts1))
+--- clause
+	yts4 + ((yts3 + sumlist(contents(zts2))) + (yts2 + sumlist(contents(node(xts, yts1, zts1))))) = yts4 + (yts3 + (sumlist(contents(zts2)) + (yts2 + sumlist(contents(node(xts, yts1, zts1))))))
+... reduced in 6 steps to
+	yts4 + ((yts3 + sumlist(contents(zts2))) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))) = yts4 + (yts3 + (sumlist(contents(zts2)) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))))
++++ inductive narrowing succeeded
+--- clause
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) = yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
+... oriented to rule
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
++++ added new clause(s)
+	yts3 + ((yts2 + sumlist(contents(zts))) + yts1) = yts3 + (yts2 + (sumlist(contents(zts)) + yts1))
+	yts4 + ((yts3 + sumlist(contents(zts2))) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))) = yts4 + (yts3 + (sumlist(contents(zts2)) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts3 + ((yts2 + sumlist(contents(zts))) + yts1) = yts3 + (yts2 + (sumlist(contents(zts)) + yts1))
+	yts4 + ((yts3 + sumlist(contents(zts2))) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))) = yts4 + (yts3 + (sumlist(contents(zts2)) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))))
+--- Non-orientable hypotheses:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+--- Oriented hypotheses:
+	yts2 + (0 + yts1) -> yts2 + yts1
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) -> yts2 + (yts1 + sumlist(contents(zts)))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) -> yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) -> yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; xts, yts@, zts@) -> sumlist(contents(xts))
+	^f0($n0 + 1; xts, yts@, zts@) -> yts$n0 + (^f0($n0; xts, yts@, zts@) + sumlist(contents(zts$n0)))
+	^f1(0; xts, zts@) -> contents(xts)
+	^f1($n1 + 1; xts, zts@) -> app(^f1($n1; xts, zts@), contents(zts$n1))
+	^f2(0, $n1; xts, yts@, zts@) -> sumlist(app(^f1($n1; xts, zts@), contents(zts0)))
+	^f2($n2 + 1, $n1; xts, yts@, zts@) -> yts$n2 + ^f2($n2, $n1 + 1; xts, yts@, zts@)
++++ }
++++ Lemma(s)           = 
+	yts$n + (^f0($n; xts, yts@, zts@) + sumlist(contents(zts$n))) = yts$n + ^f2($n, 0; xts, yts@, zts@)
+
++++ treating clause
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
++++ inductive narrowing on conjecture
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+... induction variables of
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+... are:
+	xts:tree
+	zts1:tree
+	zts2:tree
+	zts3:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+... with variable xts
++++ creating new conjecture
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
++++ creating new conjecture
+	yts5 + ((yts4 + sumlist(contents(zts4))) + (yts3 + ((yts2 + (sumlist(contents(node(xts, yts1, zts3))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts5 + (yts4 + (sumlist(contents(zts4)) + (yts3 + ((yts2 + (sumlist(contents(node(xts, yts1, zts3))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+--- clause
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+... reduced in 8 steps to
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))))) = yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))))))
+--- clause
+	yts5 + ((yts4 + sumlist(contents(zts4))) + (yts3 + ((yts2 + (sumlist(contents(node(xts, yts1, zts3))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts5 + (yts4 + (sumlist(contents(zts4)) + (yts3 + ((yts2 + (sumlist(contents(node(xts, yts1, zts3))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+... reduced in 6 steps to
+	yts5 + ((yts4 + sumlist(contents(zts4))) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts5 + (yts4 + (sumlist(contents(zts4)) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+--- clause
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))))) = yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))))))
+... subsumed by an existing conjecture
++++ inductive narrowing succeeded
+--- clause
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+... oriented to rule
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
++++ added new clause(s)
+	yts5 + ((yts4 + sumlist(contents(zts4))) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts5 + (yts4 + (sumlist(contents(zts4)) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts3 + ((yts2 + sumlist(contents(zts))) + yts1) = yts3 + (yts2 + (sumlist(contents(zts)) + yts1))
+	yts4 + ((yts3 + sumlist(contents(zts2))) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))) = yts4 + (yts3 + (sumlist(contents(zts2)) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))))
+	yts5 + ((yts4 + sumlist(contents(zts4))) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts5 + (yts4 + (sumlist(contents(zts4)) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+--- Non-orientable hypotheses:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+--- Oriented hypotheses:
+	yts2 + (0 + yts1) -> yts2 + yts1
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) -> yts2 + (yts1 + sumlist(contents(zts)))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) -> yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) -> yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; xts, yts@, zts@) -> sumlist(contents(xts))
+	^f0($n0 + 1; xts, yts@, zts@) -> yts$n0 + (^f0($n0; xts, yts@, zts@) + sumlist(contents(zts$n0)))
+	^f1(0; xts, zts@) -> contents(xts)
+	^f1($n1 + 1; xts, zts@) -> app(^f1($n1; xts, zts@), contents(zts$n1))
+	^f2(0, $n1; xts, yts@, zts@) -> sumlist(app(^f1($n1; xts, zts@), contents(zts0)))
+	^f2($n2 + 1, $n1; xts, yts@, zts@) -> yts$n2 + ^f2($n2, $n1 + 1; xts, yts@, zts@)
++++ }
++++ Lemma(s)           = 
+	yts$n + (^f0($n; xts, yts@, zts@) + sumlist(contents(zts$n))) = yts$n + ^f2($n, 0; xts, yts@, zts@)
+
++++ treating clause
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
++++ inductive narrowing on conjecture
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+... induction variables of
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+... are:
+	xts:tree
+	zts1:tree
+	zts2:tree
+	zts3:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+... with variable xts
++++ creating new conjecture
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts1))))))
++++ creating new conjecture
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + (sumlist(contents(node(xts, yts1, zts2))) + sumlist(contents(zts1))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + (sumlist(contents(node(xts, yts1, zts2))) + sumlist(contents(zts1))))))
+--- clause
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts1))))))
+... reduced in 6 steps to
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + sumlist(contents(zts1)))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + sumlist(contents(zts1)))))
+--- clause
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + (sumlist(contents(node(xts, yts1, zts2))) + sumlist(contents(zts1))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + (sumlist(contents(node(xts, yts1, zts2))) + sumlist(contents(zts1))))))
+... reduced in 6 steps to
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
++++ inductive narrowing succeeded
+--- clause
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+... oriented to rule
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
++++ added new clause(s)
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + sumlist(contents(zts1)))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + sumlist(contents(zts1)))))
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	yts3 + ((yts2 + sumlist(contents(zts))) + yts1) = yts3 + (yts2 + (sumlist(contents(zts)) + yts1))
+	yts4 + ((yts3 + sumlist(contents(zts2))) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))) = yts4 + (yts3 + (sumlist(contents(zts2)) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))))
+	yts5 + ((yts4 + sumlist(contents(zts4))) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts5 + (yts4 + (sumlist(contents(zts4)) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + sumlist(contents(zts1)))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + sumlist(contents(zts1)))))
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+--- Non-orientable hypotheses:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+--- Oriented hypotheses:
+	yts2 + (0 + yts1) -> yts2 + yts1
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) -> yts2 + (yts1 + sumlist(contents(zts)))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) -> yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) -> yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; xts, yts@, zts@) -> sumlist(contents(xts))
+	^f0($n0 + 1; xts, yts@, zts@) -> yts$n0 + (^f0($n0; xts, yts@, zts@) + sumlist(contents(zts$n0)))
+	^f1(0; xts, zts@) -> contents(xts)
+	^f1($n1 + 1; xts, zts@) -> app(^f1($n1; xts, zts@), contents(zts$n1))
+	^f2(0, $n1; xts, yts@, zts@) -> sumlist(app(^f1($n1; xts, zts@), contents(zts0)))
+	^f2($n2 + 1, $n1; xts, yts@, zts@) -> yts$n2 + ^f2($n2, $n1 + 1; xts, yts@, zts@)
++++ }
++++ Lemma(s)           = 
+	yts$n + (^f0($n; xts, yts@, zts@) + sumlist(contents(zts$n))) = yts$n + ^f2($n, 0; xts, yts@, zts@)
+
++++ treating clause
+	yts3 + ((yts2 + sumlist(contents(zts))) + yts1) = yts3 + (yts2 + (sumlist(contents(zts)) + yts1))
++++ inductive narrowing on conjecture
+	yts3 + ((yts2 + sumlist(contents(zts))) + yts1) = yts3 + (yts2 + (sumlist(contents(zts)) + yts1))
+... induction variables of
+	yts3 + ((yts2 + sumlist(contents(zts))) + yts1) = yts3 + (yts2 + (sumlist(contents(zts)) + yts1))
+... are:
+	zts:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts3 + ((yts2 + sumlist(contents(zts))) + yts1) = yts3 + (yts2 + (sumlist(contents(zts)) + yts1))
+... with variable zts
++++ creating new conjecture
+	yts3 + ((yts2 + sumlist(contents(leaf))) + yts1) = yts3 + (yts2 + (sumlist(contents(leaf)) + yts1))
++++ creating new conjecture
+	yts4 + ((yts3 + sumlist(contents(node(xts, yts2, zts)))) + yts1) = yts4 + (yts3 + (sumlist(contents(node(xts, yts2, zts))) + yts1))
+--- clause
+	yts3 + ((yts2 + sumlist(contents(leaf))) + yts1) = yts3 + (yts2 + (sumlist(contents(leaf)) + yts1))
+... reduced to tautology
+	yts3 + (yts2 + yts1) = yts3 + (yts2 + yts1)
+--- clause
+	yts4 + ((yts3 + sumlist(contents(node(xts, yts2, zts)))) + yts1) = yts4 + (yts3 + (sumlist(contents(node(xts, yts2, zts))) + yts1))
+... reduced in 6 steps to
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts))))) + yts1) = yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))) + yts1))
++++ inductive narrowing succeeded
+--- clause
+	yts3 + ((yts2 + sumlist(contents(zts))) + yts1) = yts3 + (yts2 + (sumlist(contents(zts)) + yts1))
+... oriented to rule
+	yts3 + ((yts2 + sumlist(contents(zts))) + yts1) -> yts3 + (yts2 + (sumlist(contents(zts)) + yts1))
++++ added new clause(s)
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts))))) + yts1) = yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))) + yts1))
+... to conjectures
+--- clause
+	yts4 + ((yts3 + sumlist(contents(zts2))) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))) = yts4 + (yts3 + (sumlist(contents(zts2)) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))))
+... reduced to tautology
+	yts4 + (yts3 + (sumlist(contents(zts2)) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))) = yts4 + (yts3 + (sumlist(contents(zts2)) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))))
+--- clause
+	yts5 + ((yts4 + sumlist(contents(zts4))) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts5 + (yts4 + (sumlist(contents(zts4)) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+... reduced to tautology
+	yts5 + (yts4 + (sumlist(contents(zts4)) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1)))))) = yts5 + (yts4 + (sumlist(contents(zts4)) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+
++++ Status of the Inference System
+--- Conjectures:
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + sumlist(contents(zts1)))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + sumlist(contents(zts1)))))
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts))))) + yts1) = yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))) + yts1))
+--- Non-orientable hypotheses:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+--- Oriented hypotheses:
+	yts2 + (0 + yts1) -> yts2 + yts1
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) -> yts2 + (yts1 + sumlist(contents(zts)))
+	yts3 + ((yts2 + sumlist(contents(zts))) + yts1) -> yts3 + (yts2 + (sumlist(contents(zts)) + yts1))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) -> yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) -> yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; xts, yts@, zts@) -> sumlist(contents(xts))
+	^f0($n0 + 1; xts, yts@, zts@) -> yts$n0 + (^f0($n0; xts, yts@, zts@) + sumlist(contents(zts$n0)))
+	^f1(0; xts, zts@) -> contents(xts)
+	^f1($n1 + 1; xts, zts@) -> app(^f1($n1; xts, zts@), contents(zts$n1))
+	^f2(0, $n1; xts, yts@, zts@) -> sumlist(app(^f1($n1; xts, zts@), contents(zts0)))
+	^f2($n2 + 1, $n1; xts, yts@, zts@) -> yts$n2 + ^f2($n2, $n1 + 1; xts, yts@, zts@)
++++ }
++++ Lemma(s)           = 
+	yts$n + (^f0($n; xts, yts@, zts@) + sumlist(contents(zts$n))) = yts$n + ^f2($n, 0; xts, yts@, zts@)
+
++++ treating clause
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + sumlist(contents(zts1)))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + sumlist(contents(zts1)))))
++++ inductive narrowing on conjecture
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + sumlist(contents(zts1)))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + sumlist(contents(zts1)))))
+... induction variables of
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + sumlist(contents(zts1)))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + sumlist(contents(zts1)))))
+... are:
+	zts1:tree
+	zts2:tree
+	zts3:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + sumlist(contents(zts1)))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + sumlist(contents(zts1)))))
+... with variable zts1
++++ creating new conjecture
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))) + (yts1 + sumlist(contents(leaf)))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))) + (yts1 + sumlist(contents(leaf)))))
++++ creating new conjecture
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts2 + sumlist(contents(node(xts, yts1, zts1))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts2 + sumlist(contents(node(xts, yts1, zts1))))))
+--- clause
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))) + (yts1 + sumlist(contents(leaf)))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))) + (yts1 + sumlist(contents(leaf)))))
+... reduced in 6 steps to
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))) + yts1) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))) + yts1))
+--- clause
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts2 + sumlist(contents(node(xts, yts1, zts1))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts2 + sumlist(contents(node(xts, yts1, zts1))))))
+... reduced in 6 steps to
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))))
+--- clause
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))) + yts1) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))) + yts1))
+... subsumed by an existing conjecture
++++ inductive narrowing succeeded
+--- clause
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + sumlist(contents(zts1)))) = yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + sumlist(contents(zts1)))))
+... oriented to rule
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + sumlist(contents(zts1)))) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + sumlist(contents(zts1)))))
++++ added new clause(s)
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts))))) + yts1) = yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))) + yts1))
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))))
+--- Non-orientable hypotheses:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+--- Oriented hypotheses:
+	yts2 + (0 + yts1) -> yts2 + yts1
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) -> yts2 + (yts1 + sumlist(contents(zts)))
+	yts3 + ((yts2 + sumlist(contents(zts))) + yts1) -> yts3 + (yts2 + (sumlist(contents(zts)) + yts1))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) -> yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) -> yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + sumlist(contents(zts1)))) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + sumlist(contents(zts1)))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; xts, yts@, zts@) -> sumlist(contents(xts))
+	^f0($n0 + 1; xts, yts@, zts@) -> yts$n0 + (^f0($n0; xts, yts@, zts@) + sumlist(contents(zts$n0)))
+	^f1(0; xts, zts@) -> contents(xts)
+	^f1($n1 + 1; xts, zts@) -> app(^f1($n1; xts, zts@), contents(zts$n1))
+	^f2(0, $n1; xts, yts@, zts@) -> sumlist(app(^f1($n1; xts, zts@), contents(zts0)))
+	^f2($n2 + 1, $n1; xts, yts@, zts@) -> yts$n2 + ^f2($n2, $n1 + 1; xts, yts@, zts@)
++++ }
++++ Lemma(s)           = 
+	yts$n + (^f0($n; xts, yts@, zts@) + sumlist(contents(zts$n))) = yts$n + ^f2($n, 0; xts, yts@, zts@)
+
++++ treating clause
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
++++ inductive narrowing on conjecture
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+... induction variables of
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+... are:
+	xts:tree
+	zts1:tree
+	zts2:tree
+	zts3:tree
+	zts4:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+... with variable xts
++++ creating new conjecture
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + ((yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + ((yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
++++ creating new conjecture
+	yts6 + ((yts5 + (yts4 + (sumlist(contents(zts5)) + sumlist(contents(zts4))))) + (yts3 + ((yts2 + (sumlist(contents(node(xts, yts1, zts3))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts6 + (yts5 + ((yts4 + (sumlist(contents(zts5)) + sumlist(contents(zts4)))) + (yts3 + ((yts2 + (sumlist(contents(node(xts, yts1, zts3))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+--- clause
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + ((yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + ((yts1 + (sumlist(contents(leaf)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+... reduced in 8 steps to
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))))))
+--- clause
+	yts6 + ((yts5 + (yts4 + (sumlist(contents(zts5)) + sumlist(contents(zts4))))) + (yts3 + ((yts2 + (sumlist(contents(node(xts, yts1, zts3))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts6 + (yts5 + ((yts4 + (sumlist(contents(zts5)) + sumlist(contents(zts4)))) + (yts3 + ((yts2 + (sumlist(contents(node(xts, yts1, zts3))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+... reduced in 6 steps to
+	yts6 + ((yts5 + (yts4 + (sumlist(contents(zts5)) + sumlist(contents(zts4))))) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts6 + (yts5 + ((yts4 + (sumlist(contents(zts5)) + sumlist(contents(zts4)))) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+--- clause
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))))))
+... subsumed by an existing conjecture
++++ inductive narrowing succeeded
+--- clause
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+... oriented to rule
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
++++ added new clause(s)
+	yts6 + ((yts5 + (yts4 + (sumlist(contents(zts5)) + sumlist(contents(zts4))))) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts6 + (yts5 + ((yts4 + (sumlist(contents(zts5)) + sumlist(contents(zts4)))) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts))))) + yts1) = yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))) + yts1))
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))))
+	yts6 + ((yts5 + (yts4 + (sumlist(contents(zts5)) + sumlist(contents(zts4))))) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts6 + (yts5 + ((yts4 + (sumlist(contents(zts5)) + sumlist(contents(zts4)))) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+--- Non-orientable hypotheses:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+--- Oriented hypotheses:
+	yts2 + (0 + yts1) -> yts2 + yts1
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) -> yts2 + (yts1 + sumlist(contents(zts)))
+	yts3 + ((yts2 + sumlist(contents(zts))) + yts1) -> yts3 + (yts2 + (sumlist(contents(zts)) + yts1))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) -> yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) -> yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + sumlist(contents(zts1)))) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + sumlist(contents(zts1)))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; xts, yts@, zts@) -> sumlist(contents(xts))
+	^f0($n0 + 1; xts, yts@, zts@) -> yts$n0 + (^f0($n0; xts, yts@, zts@) + sumlist(contents(zts$n0)))
+	^f1(0; xts, zts@) -> contents(xts)
+	^f1($n1 + 1; xts, zts@) -> app(^f1($n1; xts, zts@), contents(zts$n1))
+	^f2(0, $n1; xts, yts@, zts@) -> sumlist(app(^f1($n1; xts, zts@), contents(zts0)))
+	^f2($n2 + 1, $n1; xts, yts@, zts@) -> yts$n2 + ^f2($n2, $n1 + 1; xts, yts@, zts@)
++++ }
++++ Lemma(s)           = 
+	yts$n + (^f0($n; xts, yts@, zts@) + sumlist(contents(zts$n))) = yts$n + ^f2($n, 0; xts, yts@, zts@)
+
++++ treating clause
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts))))) + yts1) = yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))) + yts1))
++++ inductive narrowing on conjecture
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts))))) + yts1) = yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))) + yts1))
+... induction variables of
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts))))) + yts1) = yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))) + yts1))
+... are:
+	xts:tree
+	zts:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts))))) + yts1) = yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))) + yts1))
+... with variable xts
++++ creating new conjecture
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(leaf)) + sumlist(contents(zts))))) + yts1) = yts4 + (yts3 + ((yts2 + (sumlist(contents(leaf)) + sumlist(contents(zts)))) + yts1))
++++ creating new conjecture
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(node(xts, yts2, zts2))) + sumlist(contents(zts1))))) + yts1) = yts5 + (yts4 + ((yts3 + (sumlist(contents(node(xts, yts2, zts2))) + sumlist(contents(zts1)))) + yts1))
+--- clause
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(leaf)) + sumlist(contents(zts))))) + yts1) = yts4 + (yts3 + ((yts2 + (sumlist(contents(leaf)) + sumlist(contents(zts)))) + yts1))
+... reduced in 7 steps to
+	yts4 + ((yts3 + (yts2 + sumlist(contents(zts)))) + yts1) = yts4 + (yts3 + (yts2 + (sumlist(contents(zts)) + yts1)))
+--- clause
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(node(xts, yts2, zts2))) + sumlist(contents(zts1))))) + yts1) = yts5 + (yts4 + ((yts3 + (sumlist(contents(node(xts, yts2, zts2))) + sumlist(contents(zts1)))) + yts1))
+... reduced in 6 steps to
+	yts5 + ((yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) + yts1) = yts5 + (yts4 + ((yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1)))) + yts1))
++++ inductive narrowing succeeded
+--- clause
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts))))) + yts1) = yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))) + yts1))
+... oriented to rule
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts))))) + yts1) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))) + yts1))
++++ added new clause(s)
+	yts4 + ((yts3 + (yts2 + sumlist(contents(zts)))) + yts1) = yts4 + (yts3 + (yts2 + (sumlist(contents(zts)) + yts1)))
+	yts5 + ((yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) + yts1) = yts5 + (yts4 + ((yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1)))) + yts1))
+... to conjectures
+--- clause
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))))
+... reduced to tautology
+	yts5 + (yts4 + ((yts3 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))) = yts5 + (yts4 + ((yts3 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1)))))))
+--- clause
+	yts6 + ((yts5 + (yts4 + (sumlist(contents(zts5)) + sumlist(contents(zts4))))) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) = yts6 + (yts5 + ((yts4 + (sumlist(contents(zts5)) + sumlist(contents(zts4)))) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+... reduced to tautology
+	yts6 + (yts5 + ((yts4 + (sumlist(contents(zts5)) + sumlist(contents(zts4)))) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1)))))) = yts6 + (yts5 + ((yts4 + (sumlist(contents(zts5)) + sumlist(contents(zts4)))) + (yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+
++++ Status of the Inference System
+--- Conjectures:
+	yts4 + ((yts3 + (yts2 + sumlist(contents(zts)))) + yts1) = yts4 + (yts3 + (yts2 + (sumlist(contents(zts)) + yts1)))
+	yts5 + ((yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) + yts1) = yts5 + (yts4 + ((yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1)))) + yts1))
+--- Non-orientable hypotheses:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+--- Oriented hypotheses:
+	yts2 + (0 + yts1) -> yts2 + yts1
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) -> yts2 + (yts1 + sumlist(contents(zts)))
+	yts3 + ((yts2 + sumlist(contents(zts))) + yts1) -> yts3 + (yts2 + (sumlist(contents(zts)) + yts1))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) -> yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) -> yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts))))) + yts1) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))) + yts1))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + sumlist(contents(zts1)))) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + sumlist(contents(zts1)))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; xts, yts@, zts@) -> sumlist(contents(xts))
+	^f0($n0 + 1; xts, yts@, zts@) -> yts$n0 + (^f0($n0; xts, yts@, zts@) + sumlist(contents(zts$n0)))
+	^f1(0; xts, zts@) -> contents(xts)
+	^f1($n1 + 1; xts, zts@) -> app(^f1($n1; xts, zts@), contents(zts$n1))
+	^f2(0, $n1; xts, yts@, zts@) -> sumlist(app(^f1($n1; xts, zts@), contents(zts0)))
+	^f2($n2 + 1, $n1; xts, yts@, zts@) -> yts$n2 + ^f2($n2, $n1 + 1; xts, yts@, zts@)
++++ }
++++ Lemma(s)           = 
+	yts$n + (^f0($n; xts, yts@, zts@) + sumlist(contents(zts$n))) = yts$n + ^f2($n, 0; xts, yts@, zts@)
+
++++ treating clause
+	yts4 + ((yts3 + (yts2 + sumlist(contents(zts)))) + yts1) = yts4 + (yts3 + (yts2 + (sumlist(contents(zts)) + yts1)))
++++ inductive narrowing on conjecture
+	yts4 + ((yts3 + (yts2 + sumlist(contents(zts)))) + yts1) = yts4 + (yts3 + (yts2 + (sumlist(contents(zts)) + yts1)))
+... induction variables of
+	yts4 + ((yts3 + (yts2 + sumlist(contents(zts)))) + yts1) = yts4 + (yts3 + (yts2 + (sumlist(contents(zts)) + yts1)))
+... are:
+	zts:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts4 + ((yts3 + (yts2 + sumlist(contents(zts)))) + yts1) = yts4 + (yts3 + (yts2 + (sumlist(contents(zts)) + yts1)))
+... with variable zts
++++ creating new conjecture
+	yts4 + ((yts3 + (yts2 + sumlist(contents(leaf)))) + yts1) = yts4 + (yts3 + (yts2 + (sumlist(contents(leaf)) + yts1)))
++++ creating new conjecture
+	yts5 + ((yts4 + (yts3 + sumlist(contents(node(xts, yts2, zts))))) + yts1) = yts5 + (yts4 + (yts3 + (sumlist(contents(node(xts, yts2, zts))) + yts1)))
+--- clause
+	yts4 + ((yts3 + (yts2 + sumlist(contents(leaf)))) + yts1) = yts4 + (yts3 + (yts2 + (sumlist(contents(leaf)) + yts1)))
+... reduced in 6 steps to
+	yts4 + ((yts3 + yts2) + yts1) = yts4 + (yts3 + (yts2 + yts1))
+--- clause
+	yts5 + ((yts4 + (yts3 + sumlist(contents(node(xts, yts2, zts))))) + yts1) = yts5 + (yts4 + (yts3 + (sumlist(contents(node(xts, yts2, zts))) + yts1)))
+... reduced in 6 steps to
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))))) + yts1) = yts5 + (yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))) + yts1)))
++++ inductive narrowing succeeded
+--- clause
+	yts4 + ((yts3 + (yts2 + sumlist(contents(zts)))) + yts1) = yts4 + (yts3 + (yts2 + (sumlist(contents(zts)) + yts1)))
+... oriented to rule
+	yts4 + ((yts3 + (yts2 + sumlist(contents(zts)))) + yts1) -> yts4 + (yts3 + (yts2 + (sumlist(contents(zts)) + yts1)))
++++ added new clause(s)
+	yts4 + ((yts3 + yts2) + yts1) = yts4 + (yts3 + (yts2 + yts1))
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))))) + yts1) = yts5 + (yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))) + yts1)))
+... to conjectures
+--- clause
+	yts5 + ((yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) + yts1) = yts5 + (yts4 + ((yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1)))) + yts1))
+... reduced in 3 steps to
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + sumlist(contents(zts1))))))) + yts1) = yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1))))))
+--- clause
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))))) + yts1) = yts5 + (yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))) + yts1)))
+... reduced in 1 step to
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))))) + yts1) = yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts)) + yts1)))))
+
++++ Status of the Inference System
+--- Conjectures:
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + sumlist(contents(zts1))))))) + yts1) = yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1))))))
+	yts4 + ((yts3 + yts2) + yts1) = yts4 + (yts3 + (yts2 + yts1))
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))))) + yts1) = yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts)) + yts1)))))
+--- Non-orientable hypotheses:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+--- Oriented hypotheses:
+	yts2 + (0 + yts1) -> yts2 + yts1
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) -> yts2 + (yts1 + sumlist(contents(zts)))
+	yts3 + ((yts2 + sumlist(contents(zts))) + yts1) -> yts3 + (yts2 + (sumlist(contents(zts)) + yts1))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+	yts4 + ((yts3 + (yts2 + sumlist(contents(zts)))) + yts1) -> yts4 + (yts3 + (yts2 + (sumlist(contents(zts)) + yts1)))
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) -> yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) -> yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts))))) + yts1) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))) + yts1))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + sumlist(contents(zts1)))) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + sumlist(contents(zts1)))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; xts, yts@, zts@) -> sumlist(contents(xts))
+	^f0($n0 + 1; xts, yts@, zts@) -> yts$n0 + (^f0($n0; xts, yts@, zts@) + sumlist(contents(zts$n0)))
+	^f1(0; xts, zts@) -> contents(xts)
+	^f1($n1 + 1; xts, zts@) -> app(^f1($n1; xts, zts@), contents(zts$n1))
+	^f2(0, $n1; xts, yts@, zts@) -> sumlist(app(^f1($n1; xts, zts@), contents(zts0)))
+	^f2($n2 + 1, $n1; xts, yts@, zts@) -> yts$n2 + ^f2($n2, $n1 + 1; xts, yts@, zts@)
++++ }
++++ Lemma(s)           = 
+	yts$n + (^f0($n; xts, yts@, zts@) + sumlist(contents(zts$n))) = yts$n + ^f2($n, 0; xts, yts@, zts@)
+
++++ treating clause
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + sumlist(contents(zts1))))))) + yts1) = yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1))))))
++++ inductive narrowing on conjecture
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + sumlist(contents(zts1))))))) + yts1) = yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1))))))
+... induction variables of
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + sumlist(contents(zts1))))))) + yts1) = yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1))))))
+... are:
+	xts:tree
+	zts1:tree
+	zts2:tree
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + sumlist(contents(zts1))))))) + yts1) = yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1))))))
+... with variable xts
++++ creating new conjecture
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(leaf)) + (sumlist(contents(zts2)) + sumlist(contents(zts1))))))) + yts1) = yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(leaf)) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1))))))
++++ creating new conjecture
+	yts6 + ((yts5 + (yts4 + (yts3 + (sumlist(contents(node(xts, yts2, zts3))) + (sumlist(contents(zts2)) + sumlist(contents(zts1))))))) + yts1) = yts6 + (yts5 + (yts4 + (yts3 + (sumlist(contents(node(xts, yts2, zts3))) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1))))))
+--- clause
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(leaf)) + (sumlist(contents(zts2)) + sumlist(contents(zts1))))))) + yts1) = yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(leaf)) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1))))))
+... reduced in 6 steps to
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))))) + yts1) = yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1)))))
+--- clause
+	yts6 + ((yts5 + (yts4 + (yts3 + (sumlist(contents(node(xts, yts2, zts3))) + (sumlist(contents(zts2)) + sumlist(contents(zts1))))))) + yts1) = yts6 + (yts5 + (yts4 + (yts3 + (sumlist(contents(node(xts, yts2, zts3))) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1))))))
+... reduced in 8 steps to
+	yts6 + ((yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts3)) + (sumlist(contents(zts2)) + sumlist(contents(zts1))))))))) + yts1) = yts6 + (yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts3)) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1))))))))
+--- clause
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(zts2)) + sumlist(contents(zts1)))))) + yts1) = yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1)))))
+... subsumed by an existing conjecture
++++ inductive narrowing succeeded
+--- clause
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + sumlist(contents(zts1))))))) + yts1) = yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1))))))
+... oriented to rule
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + sumlist(contents(zts1))))))) + yts1) -> yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1))))))
++++ added new clause(s)
+	yts6 + ((yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts3)) + (sumlist(contents(zts2)) + sumlist(contents(zts1))))))))) + yts1) = yts6 + (yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts3)) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1))))))))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	yts4 + ((yts3 + yts2) + yts1) = yts4 + (yts3 + (yts2 + yts1))
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))))) + yts1) = yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts)) + yts1)))))
+	yts6 + ((yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts3)) + (sumlist(contents(zts2)) + sumlist(contents(zts1))))))))) + yts1) = yts6 + (yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts3)) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1))))))))
+--- Non-orientable hypotheses:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+--- Oriented hypotheses:
+	yts2 + (0 + yts1) -> yts2 + yts1
+	sumtree(xt) -> sumlist(contents(xt))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) -> yts2 + (yts1 + sumlist(contents(zts)))
+	yts3 + ((yts2 + sumlist(contents(zts))) + yts1) -> yts3 + (yts2 + (sumlist(contents(zts)) + yts1))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+	yts4 + ((yts3 + (yts2 + sumlist(contents(zts)))) + yts1) -> yts4 + (yts3 + (yts2 + (sumlist(contents(zts)) + yts1)))
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) -> yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) -> yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts))))) + yts1) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))) + yts1))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + sumlist(contents(zts1)))) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + sumlist(contents(zts1)))))
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + sumlist(contents(zts1))))))) + yts1) -> yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1))))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; xts, yts@, zts@) -> sumlist(contents(xts))
+	^f0($n0 + 1; xts, yts@, zts@) -> yts$n0 + (^f0($n0; xts, yts@, zts@) + sumlist(contents(zts$n0)))
+	^f1(0; xts, zts@) -> contents(xts)
+	^f1($n1 + 1; xts, zts@) -> app(^f1($n1; xts, zts@), contents(zts$n1))
+	^f2(0, $n1; xts, yts@, zts@) -> sumlist(app(^f1($n1; xts, zts@), contents(zts0)))
+	^f2($n2 + 1, $n1; xts, yts@, zts@) -> yts$n2 + ^f2($n2, $n1 + 1; xts, yts@, zts@)
++++ }
++++ Lemma(s)           = 
+	yts$n + (^f0($n; xts, yts@, zts@) + sumlist(contents(zts$n))) = yts$n + ^f2($n, 0; xts, yts@, zts@)
+
++++ treating clause
+	yts4 + ((yts3 + yts2) + yts1) = yts4 + (yts3 + (yts2 + yts1))
++++ inductive narrowing on conjecture
+	yts4 + ((yts3 + yts2) + yts1) = yts4 + (yts3 + (yts2 + yts1))
+... induction variables of
+	yts4 + ((yts3 + yts2) + yts1) = yts4 + (yts3 + (yts2 + yts1))
+... are:
+	yts1:nat
+	yts2:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	yts4 + ((yts3 + yts2) + yts1) = yts4 + (yts3 + (yts2 + yts1))
+... with variable yts1
++++ creating new conjecture
+	yts3 + ((yts2 + yts1) + 0) = yts3 + (yts2 + (yts1 + 0))
++++ creating new conjecture
+	yts3 + ((yts2 + yts1) + s(xts)) = yts3 + (yts2 + (yts1 + s(xts)))
+--- clause
+	yts3 + ((yts2 + yts1) + 0) = yts3 + (yts2 + (yts1 + 0))
+... reduced to tautology
+	yts3 + (yts2 + yts1) = yts3 + (yts2 + yts1)
+--- clause
+	yts3 + ((yts2 + yts1) + s(xts)) = yts3 + (yts2 + (yts1 + s(xts)))
+... reduced in 5 steps to
+	s(yts3 + ((yts2 + yts1) + xts)) = s(yts3 + (yts2 + (yts1 + xts)))
+... decomposed into new clause(s)
+	yts3 + ((yts2 + yts1) + xts) = yts3 + (yts2 + (yts1 + xts))
++++ inductive narrowing succeeded
+--- clause
+	yts4 + ((yts3 + yts2) + yts1) = yts4 + (yts3 + (yts2 + yts1))
+... oriented to rule
+	yts4 + ((yts3 + yts2) + yts1) -> yts4 + (yts3 + (yts2 + yts1))
++++ added new clause(s)
+	yts3 + ((yts2 + yts1) + xts) = yts3 + (yts2 + (yts1 + xts))
+... to conjectures
+--- clause
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))))) + yts1) = yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts)) + yts1)))))
+... reduced to tautology
+	yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts)) + yts1))))) = yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts)) + yts1)))))
+--- clause
+	yts6 + ((yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts3)) + (sumlist(contents(zts2)) + sumlist(contents(zts1))))))))) + yts1) = yts6 + (yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts3)) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1))))))))
+... reduced to tautology
+	yts6 + (yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts3)) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1)))))))) = yts6 + (yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts3)) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1))))))))
+--- clause
+	yts3 + ((yts2 + yts1) + xts) = yts3 + (yts2 + (yts1 + xts))
+... reduced to tautology
+	yts3 + (yts2 + (yts1 + xts)) = yts3 + (yts2 + (yts1 + xts))
+
++++ Status of the Inference System
+--- Conjectures:
+	<empty>
+--- Non-orientable hypotheses:
+	yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts2 + (yts1 + sumlist(app(app(contents(xts), contents(zts2)), contents(zts1))))
+	yts3 + ((yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts3)))) + sumlist(contents(zts2)))) + sumlist(contents(zts1))) = yts3 + (yts2 + (yts1 + sumlist(app(app(app(contents(xts), contents(zts3)), contents(zts2)), contents(zts1)))))
+--- Oriented hypotheses:
+	yts2 + (0 + yts1) -> yts2 + yts1
+	sumtree(xt) -> sumlist(contents(xt))
+	yts4 + ((yts3 + yts2) + yts1) -> yts4 + (yts3 + (yts2 + yts1))
+	yts + (0 + sumlist(contents(zts))) -> yts + sumlist(contents(zts))
+	yts2 + (0 + (yts1 + sumlist(contents(zts)))) -> yts2 + (yts1 + sumlist(contents(zts)))
+	yts3 + ((yts2 + sumlist(contents(zts))) + yts1) -> yts3 + (yts2 + (sumlist(contents(zts)) + yts1))
+	yts + sumlist(app(contents(xts), contents(zts))) -> yts + (sumlist(contents(xts)) + sumlist(contents(zts)))
+	yts4 + ((yts3 + (yts2 + sumlist(contents(zts)))) + yts1) -> yts4 + (yts3 + (yts2 + (sumlist(contents(zts)) + yts1)))
+	yts2 + ((yts1 + sumlist(contents(zts2))) + sumlist(contents(zts1))) -> yts2 + (yts1 + (sumlist(contents(zts2)) + sumlist(contents(zts1))))
+	yts2 + (0 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))) -> yts2 + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts))))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + sumlist(contents(zts1)))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + sumlist(contents(zts1)))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(xts)) + sumlist(contents(zts))))) + yts1) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(xts)) + sumlist(contents(zts)))) + yts1))
+	yts3 + ((yts2 + sumlist(contents(zts2))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts3 + (yts2 + (sumlist(contents(zts2)) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts3 + ((yts2 + (yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + sumlist(contents(zts1))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts3 + (0 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts3 + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + sumlist(contents(zts1)))) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + sumlist(contents(zts1)))))
+	yts5 + ((yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + sumlist(contents(zts1))))))) + yts1) -> yts5 + (yts4 + (yts3 + (yts2 + (sumlist(contents(xts)) + (sumlist(contents(zts2)) + (sumlist(contents(zts1)) + yts1))))))
+	yts4 + ((yts3 + (yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2))))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))) -> yts4 + (yts3 + ((yts2 + (sumlist(contents(zts3)) + sumlist(contents(zts2)))) + (yts1 + (sumlist(contents(xts)) + sumlist(contents(zts1))))))
+	yts4 + ((yts3 + sumlist(contents(zts3))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts4 + (yts3 + (sumlist(contents(zts3)) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+	yts5 + ((yts4 + (yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3))))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))) -> yts5 + (yts4 + ((yts3 + (sumlist(contents(zts4)) + sumlist(contents(zts3)))) + (yts2 + ((yts1 + (sumlist(contents(xts)) + sumlist(contents(zts2)))) + sumlist(contents(zts1))))))
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; xts, yts@, zts@) -> sumlist(contents(xts))
+	^f0($n0 + 1; xts, yts@, zts@) -> yts$n0 + (^f0($n0; xts, yts@, zts@) + sumlist(contents(zts$n0)))
+	^f1(0; xts, zts@) -> contents(xts)
+	^f1($n1 + 1; xts, zts@) -> app(^f1($n1; xts, zts@), contents(zts$n1))
+	^f2(0, $n1; xts, yts@, zts@) -> sumlist(app(^f1($n1; xts, zts@), contents(zts0)))
+	^f2($n2 + 1, $n1; xts, yts@, zts@) -> yts$n2 + ^f2($n2, $n1 + 1; xts, yts@, zts@)
++++ }
++++ Lemma(s)           = 
+	yts$n + (^f0($n; xts, yts@, zts@) + sumlist(contents(zts$n))) = yts$n + ^f2($n, 0; xts, yts@, zts@)
+
++++ SUCCESS: all conjectures proved
++++ Statistics:
+... Number of proof steps          = 22
+... Number of induction steps      = 22
+... Number of equational steps     = 1
+... Number of case rewriting steps = 0
+... Number of PG defined symbols   = 3
+... Number of PG lemmas            = 1
+... Elapsed time (seconds)         = 0.58

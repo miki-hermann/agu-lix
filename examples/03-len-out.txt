@@ -1,0 +1,245 @@
++++ SPECIFICATION --- bidirectional branch, version 0.99
++++ Parameters:
+    ===========
++++ input       = 03-len-in.txt
++++ output      = 03-len-out.txt
++++ trace       = 3
++++ direction   = first-to-last
++++ drop        = yes
++++ verbose     = 3
++++ split       = 4
++++ loop limit  = 10
++++ stdlib      = /usr/local/lib/indy/stdlib/
+-----------------------------------------------------------------------
+
++++ specification len from 03-len-in.txt successfully parsed
++++ Listing
+         1: specification len
+         2: sorts
+         3:      list nat
+         4: constructors
+         5:      0: -> nat
+         6:      cons: nat list -> list
+         7:      nil: -> list
+         8:      s: nat -> nat
+         9: defined functions
+        10:      +: nat nat -> nat
+        11:      app: list list -> list
+        12:      len: list -> nat
+        13: precedence
+        14:      len > app > + > cons > nil > s > 0
+        15: axioms
+        16:      x + 0 = x;
+        17:      len(nil) = 0;
+        18:      app(nil, xt) = xt;
+        19:      x + s(y) = s(x + y);
+        20:      len(cons(xh, xt)) = s(len(xt));
+        21:      app(cons(xh, xt), xr) = cons(xh, app(xt, xr));
+        22: conjectures
+        23:      len(app(x, y)) = len(app(y, x));
+        24: end
++++ finitary sorts: <empty>
++++ Rewrite System 
+	x + 0 -> x
+	len(nil) -> 0
+	app(nil, xt) -> xt
+	x + s(y) -> s(x + y)
+	len(cons(xh, xt)) -> s(len(xt))
+	app(cons(xh, xt), xr) -> cons(xh, app(xt, xr))
++++ inductive positions:
+... for +: 1
+... for app: 0
+... for len: 0
++++ maximal depths of left-hand sides:
+... for app: 2
+... for len: 2
+... for +: 2
++++ general maximal depth = 2
++++ sort dependence: nat < list
++++ test sets for defined functions and sorts:
+... for app
+... ... list
+		nil
+		cons(x, y)
+... for len
+... ... list
+		nil
+		cons(x, y)
+... for +
+... ... nat
+		0
+		s(x)
+
++++ conjecture(s)
+	len(app(x, y)) = len(app(y, x))
+
++++ inference system initiated
++++ treating clause
+	len(app(x, y)) = len(app(y, x))
++++ inductive narrowing on conjecture
+	len(app(x, y)) = len(app(y, x))
+... induction variables of
+	len(app(x, y)) = len(app(y, x))
+... are:
+	x:list
+	y:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	len(app(x, y)) = len(app(y, x))
+... with variable x
++++ creating new conjecture
+	len(app(nil, y)) = len(app(y, nil))
++++ creating new conjecture
+	len(app(cons(xts, yts), y)) = len(app(y, cons(xts, yts)))
+--- clause
+	len(app(nil, y)) = len(app(y, nil))
+... reduced in 1 step to
+	len(y) = len(app(y, nil))
+--- clause
+	len(app(cons(xts, yts), y)) = len(app(y, cons(xts, yts)))
+... reduced in 2 steps to
+	s(len(app(yts, y))) = len(app(y, cons(xts, yts)))
++++ inductive narrowing succeeded
+--- non-orientable clause
+	len(app(x, y)) = len(app(y, x))
++++ moved
+	len(app(x, y)) = len(app(y, x))
+... to non-orientable hypotheses
++++ added new clause(s)
+	len(y) = len(app(y, nil))
+	s(len(app(yts, y))) = len(app(y, cons(xts, yts)))
+... to conjectures
+--- succeeded to apply non-orientable hypothese
+	len(app(x, y)) = len(app(y, x))
+... to clause
+	s(len(app(yts, y))) = len(app(y, cons(xts, yts)))
+... modified clause
+	s(len(app(y, yts))) = len(app(y, cons(xts, yts)))
+
++++ Status of the Inference System
+--- Conjectures:
+	len(y) = len(app(y, nil))
+	s(len(app(y, yts))) = len(app(y, cons(xts, yts)))
+--- Non-orientable hypotheses:
+	len(app(x, y)) = len(app(y, x))
+--- Oriented hypotheses:
+	<empty>
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	len(y) = len(app(y, nil))
++++ inductive narrowing on conjecture
+	len(y) = len(app(y, nil))
+... induction variables of
+	len(y) = len(app(y, nil))
+... are:
+	y:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	len(y) = len(app(y, nil))
+... with variable y
++++ creating new conjecture
+	len(nil) = len(app(nil, nil))
++++ creating new conjecture
+	len(cons(xts, yts)) = len(app(cons(xts, yts), nil))
+--- clause
+	len(nil) = len(app(nil, nil))
+... reduced to tautology
+	0 = 0
+--- clause
+	len(cons(xts, yts)) = len(app(cons(xts, yts), nil))
+... reduced in 3 steps to
+	s(len(yts)) = s(len(app(yts, nil)))
+... decomposed into new clause(s)
+	len(yts) = len(app(yts, nil))
++++ inductive narrowing succeeded
+--- clause
+	len(y) = len(app(y, nil))
+... oriented to rule
+	len(app(y, nil)) -> len(y)
++++ added new clause(s)
+	len(yts) = len(app(yts, nil))
+... to conjectures
+--- succeeded to apply non-orientable hypothese
+	len(app(x, y)) = len(app(y, x))
+... to clause
+	s(len(app(y, yts))) = len(app(y, cons(xts, yts)))
+... modified clause
+	s(len(app(yts, y))) = len(app(y, cons(xts, yts)))
+--- clause
+	len(yts) = len(app(yts, nil))
+... reduced to tautology
+	len(yts) = len(yts)
+
++++ Status of the Inference System
+--- Conjectures:
+	s(len(app(yts, y))) = len(app(y, cons(xts, yts)))
+--- Non-orientable hypotheses:
+	len(app(x, y)) = len(app(y, x))
+--- Oriented hypotheses:
+	len(app(y, nil)) -> len(y)
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	s(len(app(yts, y))) = len(app(y, cons(xts, yts)))
++++ inductive narrowing on conjecture
+	s(len(app(yts, y))) = len(app(y, cons(xts, yts)))
+... induction variables of
+	s(len(app(yts, y))) = len(app(y, cons(xts, yts)))
+... are:
+	y:list
+	yts:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	s(len(app(yts, y))) = len(app(y, cons(xts, yts)))
+... with variable y
++++ creating new conjecture
+	s(len(app(yts, nil))) = len(app(nil, cons(xts, yts)))
++++ creating new conjecture
+	s(len(app(yts2, cons(xts2, yts1)))) = len(app(cons(xts2, yts1), cons(xts1, yts2)))
+--- clause
+	s(len(app(yts, nil))) = len(app(nil, cons(xts, yts)))
+... reduced to tautology
+	s(len(yts)) = s(len(yts))
+--- clause
+	s(len(app(yts2, cons(xts2, yts1)))) = len(app(cons(xts2, yts1), cons(xts1, yts2)))
+... reduced in 2 steps to
+	s(len(app(yts2, cons(xts2, yts1)))) = s(len(app(yts1, cons(xts1, yts2))))
+... decomposed into new clause(s)
+	len(app(yts2, cons(xts2, yts1))) = len(app(yts1, cons(xts1, yts2)))
++++ inductive narrowing succeeded
+--- clause
+	s(len(app(yts, y))) = len(app(y, cons(xts, yts)))
+... oriented to rule
+	len(app(y, cons(xts, yts))) -> s(len(app(yts, y)))
++++ added new clause(s)
+	len(app(yts2, cons(xts2, yts1))) = len(app(yts1, cons(xts1, yts2)))
+... to conjectures
+--- clause
+	len(app(yts2, cons(xts2, yts1))) = len(app(yts1, cons(xts1, yts2)))
+... reduced in 2 steps to
+	s(len(app(yts2, yts1))) = s(len(app(yts1, yts2)))
+... decomposed into new clause(s)
+	len(app(yts2, yts1)) = len(app(yts1, yts2))
+--- clause
+	len(app(yts2, yts1)) = len(app(yts1, yts2))
+... subsumed by hypothese
+	len(app(x, y)) = len(app(y, x))
+
++++ Status of the Inference System
+--- Conjectures:
+	<empty>
+--- Non-orientable hypotheses:
+	len(app(x, y)) = len(app(y, x))
+--- Oriented hypotheses:
+	len(app(y, nil)) -> len(y)
+	len(app(y, cons(xts, yts))) -> s(len(app(yts, y)))
+--- Primal Grammar:
+	<empty>
+
++++ SUCCESS: all conjectures proved
++++ Statistics:
+... Number of proof steps          = 3
+... Number of induction steps      = 3
+... Number of equational steps     = 2
+... Number of case rewriting steps = 0
+... Elapsed time (seconds)         = 0.002

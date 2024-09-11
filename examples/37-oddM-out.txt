@@ -1,0 +1,446 @@
++++ SPECIFICATION --- bidirectional branch, version 0.99
++++ Parameters:
+    ===========
++++ input       = 37-oddM-in.txt
++++ output      = 37-oddM-out.txt
++++ trace       = 3
++++ direction   = first-to-last
++++ drop        = yes
++++ verbose     = 3
++++ split       = 4
++++ loop limit  = 10
++++ stdlib      = /usr/local/lib/indy/stdlib/
+-----------------------------------------------------------------------
+
++++ specification oddM from 37-oddM-in.txt successfully parsed
++++ Listing
+         1: specification oddM
+         2: sorts
+         3:      bool nat
+         4: constructors
+         5:      0: -> nat
+         6:      false: -> bool
+         7:      s: nat -> nat
+         8:      true: -> bool
+         9: defined functions
+        10:      +: nat nat -> nat
+        11:      even: nat -> bool
+        12:      odd: nat -> bool
+        13: precedence
+        14:      + > even = odd > s > 0 > false = true
+        15: axioms
+        16:      0 + x = x;
+        17:      even(0) = true;
+        18:      odd(0) = false;
+        19:      even(s(x)) = odd(x);
+        20:      odd(s(x)) = even(x);
+        21:      s(x) + y = s(x + y);
+        22: conjectures
+        23:      odd(x + x) = false;
+        24: end
++++ finitary sorts: bool
++++ Rewrite System 
+	0 + x -> x
+	even(0) -> true
+	odd(0) -> false
+	even(s(x)) -> odd(x)
+	odd(s(x)) -> even(x)
+	s(x) + y -> s(x + y)
++++ inductive positions:
+... for +: 0
+... for even: 0
+... for odd: 0
++++ maximal depths of left-hand sides:
+... for odd: 2
+... for even: 2
+... for +: 2
++++ general maximal depth = 2
++++ sort dependence: <empty>
++++ test sets for defined functions and sorts:
+... for odd
+... ... nat
+		0
+		s(x)
+... for even
+... ... nat
+		0
+		s(x)
+... for +
+... ... nat
+		0
+		s(x)
+
++++ conjecture(s)
+	odd(x + x) = false
+
++++ inference system initiated
++++ treating clause
+	odd(x + x) = false
++++ inductive narrowing on conjecture
+	odd(x + x) = false
+... induction variables of
+	odd(x + x) = false
+... are:
+	x:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	odd(x + x) = false
+... with variable x
++++ creating new conjecture
+	odd(0 + 0) = false
++++ creating new conjecture
+	odd(s(xts) + s(xts)) = false
+--- clause
+	odd(0 + 0) = false
+... reduced to tautology
+	false = false
+--- clause
+	odd(s(xts) + s(xts)) = false
+... reduced in 2 steps to
+	even(xts + s(xts)) = false
++++ inductive narrowing succeeded
+--- clause
+	odd(x + x) = false
+... oriented to rule
+	odd(x + x) -> false
++++ added new clause(s)
+	even(xts + s(xts)) = false
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	even(xts + s(xts)) = false
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	odd(x + x) -> false
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	even(xts + s(xts)) = false
++++ inductive narrowing on conjecture
+	even(xts + s(xts)) = false
+... induction variables of
+	even(xts + s(xts)) = false
+... are:
+	xts:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	even(xts + s(xts)) = false
+... with variable xts
++++ creating new conjecture
+	even(0 + s(0)) = false
++++ creating new conjecture
+	even(s(xts) + s(s(xts))) = false
+--- clause
+	even(0 + s(0)) = false
+... reduced to tautology
+	false = false
+--- clause
+	even(s(xts) + s(s(xts))) = false
+... reduced in 2 steps to
+	odd(xts + s(s(xts))) = false
++++ inductive narrowing succeeded
+--- clause
+	even(xts + s(xts)) = false
+... oriented to rule
+	even(xts + s(xts)) -> false
++++ added new clause(s)
+	odd(xts + s(s(xts))) = false
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	odd(xts + s(s(xts))) = false
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	odd(x + x) -> false
+	even(xts + s(xts)) -> false
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	odd(xts + s(s(xts))) = false
++++ inductive narrowing on conjecture
+	odd(xts + s(s(xts))) = false
+... induction variables of
+	odd(xts + s(s(xts))) = false
+... are:
+	xts:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	odd(xts + s(s(xts))) = false
+... with variable xts
++++ creating new conjecture
+	odd(0 + s(s(0))) = false
++++ creating new conjecture
+	odd(s(xts) + s(s(s(xts)))) = false
+--- clause
+	odd(0 + s(s(0))) = false
+... reduced to tautology
+	false = false
+--- clause
+	odd(s(xts) + s(s(s(xts)))) = false
+... reduced in 2 steps to
+	even(xts + s(s(s(xts)))) = false
++++ inductive narrowing succeeded
+--- clause
+	odd(xts + s(s(xts))) = false
+... oriented to rule
+	odd(xts + s(s(xts))) -> false
++++ added new clause(s)
+	even(xts + s(s(s(xts)))) = false
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	even(xts + s(s(s(xts)))) = false
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	odd(x + x) -> false
+	even(xts + s(xts)) -> false
+	odd(xts + s(s(xts))) -> false
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	even(xts + s(s(s(xts)))) = false
++++ inductive narrowing on conjecture
+	even(xts + s(s(s(xts)))) = false
+... induction variables of
+	even(xts + s(s(s(xts)))) = false
+... are:
+	xts:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	even(xts + s(s(s(xts)))) = false
+... with variable xts
++++ creating new conjecture
+	even(0 + s(s(s(0)))) = false
++++ creating new conjecture
+	even(s(xts) + s(s(s(s(xts))))) = false
+--- clause
+	even(0 + s(s(s(0)))) = false
+... reduced to tautology
+	false = false
+--- clause
+	even(s(xts) + s(s(s(s(xts))))) = false
+... reduced in 2 steps to
+	odd(xts + s(s(s(s(xts))))) = false
++++ inductive narrowing succeeded
+--- clause
+	even(xts + s(s(s(xts)))) = false
+... oriented to rule
+	even(xts + s(s(s(xts)))) -> false
++++ added new clause(s)
+	odd(xts + s(s(s(s(xts))))) = false
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	odd(xts + s(s(s(s(xts))))) = false
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	odd(x + x) -> false
+	even(xts + s(xts)) -> false
+	odd(xts + s(s(xts))) -> false
+	even(xts + s(s(s(xts)))) -> false
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	odd(xts + s(s(s(s(xts))))) = false
++++ inductive narrowing on conjecture
+	odd(xts + s(s(s(s(xts))))) = false
+... induction variables of
+	odd(xts + s(s(s(s(xts))))) = false
+... are:
+	xts:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	odd(xts + s(s(s(s(xts))))) = false
+... with variable xts
++++ creating new conjecture
+	odd(0 + s(s(s(s(0))))) = false
++++ creating new conjecture
+	odd(s(xts) + s(s(s(s(s(xts)))))) = false
+--- clause
+	odd(0 + s(s(s(s(0))))) = false
+... reduced to tautology
+	false = false
+--- clause
+	odd(s(xts) + s(s(s(s(s(xts)))))) = false
+... reduced in 2 steps to
+	even(xts + s(s(s(s(s(xts)))))) = false
++++ inductive narrowing succeeded
+--- clause
+	odd(xts + s(s(s(s(xts))))) = false
+... oriented to rule
+	odd(xts + s(s(s(s(xts))))) -> false
++++ added new clause(s)
+	even(xts + s(s(s(s(s(xts)))))) = false
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	even(xts + s(s(s(s(s(xts)))))) = false
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	odd(x + x) -> false
+	even(xts + s(xts)) -> false
+	odd(xts + s(s(xts))) -> false
+	even(xts + s(s(s(xts)))) -> false
+	odd(xts + s(s(s(s(xts))))) -> false
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	even(xts + s(s(s(s(s(xts)))))) = false
++++ inductive narrowing on conjecture
+	even(xts + s(s(s(s(s(xts)))))) = false
+... induction variables of
+	even(xts + s(s(s(s(s(xts)))))) = false
+... are:
+	xts:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	even(xts + s(s(s(s(s(xts)))))) = false
+... with variable xts
++++ creating new conjecture
+	even(0 + s(s(s(s(s(0)))))) = false
++++ creating new conjecture
+	even(s(xts) + s(s(s(s(s(s(xts))))))) = false
+--- clause
+	even(0 + s(s(s(s(s(0)))))) = false
+... reduced to tautology
+	false = false
+--- clause
+	even(s(xts) + s(s(s(s(s(s(xts))))))) = false
+... reduced in 2 steps to
+	odd(xts + s(s(s(s(s(s(xts))))))) = false
++++ inductive narrowing succeeded
+--- clause
+	even(xts + s(s(s(s(s(xts)))))) = false
+... oriented to rule
+	even(xts + s(s(s(s(s(xts)))))) -> false
++++ added new clause(s)
+	odd(xts + s(s(s(s(s(s(xts))))))) = false
+... to conjectures
++++ active wrap
+	even(xts + s(.)) = false
+... with sequence
+	even(xts + s(xts)) = false
+	even(xts + s(s(s(xts)))) = false
+	even(xts + s(s(s(s(s(xts)))))) = false
++++ primal grammar found for head
+	{+, even, false, s}
+... and wrap
+	even(xts + s(.)) = false
++++ Presburger system  = {
+	^f0(0; xts) -> xts
+	^f0($n0 + 1; xts) -> s(s(^f0($n0; xts)))
++++ }
++++ Lemma(s)           = 
+	even(xts + s(^f0($n; xts))) = false
+
++++ Status of the Inference System
+--- Conjectures:
+	odd(xts + s(s(s(s(s(s(xts))))))) = false
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	odd(x + x) -> false
+	even(xts + s(xts)) -> false
+	odd(xts + s(s(xts))) -> false
+	even(xts + s(s(s(xts)))) -> false
+	odd(xts + s(s(s(s(xts))))) -> false
+	even(xts + s(s(s(s(s(xts)))))) -> false
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; xts) -> xts
+	^f0($n0 + 1; xts) -> s(s(^f0($n0; xts)))
++++ }
++++ Lemma(s)           = 
+	even(xts + s(^f0($n; xts))) = false
+
++++ treating clause
+	odd(xts + s(s(s(s(s(s(xts))))))) = false
++++ inductive narrowing on conjecture
+	odd(xts + s(s(s(s(s(s(xts))))))) = false
+... induction variables of
+	odd(xts + s(s(s(s(s(s(xts))))))) = false
+... are:
+	xts:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	odd(xts + s(s(s(s(s(s(xts))))))) = false
+... with variable xts
++++ creating new conjecture
+	odd(0 + s(s(s(s(s(s(0))))))) = false
++++ creating new conjecture
+	odd(s(xts) + s(s(s(s(s(s(s(xts)))))))) = false
+--- clause
+	odd(0 + s(s(s(s(s(s(0))))))) = false
+... reduced to tautology
+	false = false
+--- clause
+	odd(s(xts) + s(s(s(s(s(s(s(xts)))))))) = false
+... reduced in 2 steps to
+	even(xts + s(s(s(s(s(s(s(xts)))))))) = false
+--- clause
+	even(xts + s(s(s(s(s(s(s(xts)))))))) = false
+... subsumed by lemma
+	even(xts + s(^f0($n; xts))) = false
+... with substitution
+	$n <- 3
++++ inductive narrowing succeeded
+--- clause
+	odd(xts + s(s(s(s(s(s(xts))))))) = false
+... oriented to rule
+	odd(xts + s(s(s(s(s(s(xts))))))) -> false
++++ active wrap
+	odd(xts + s(s(.))) = false
+... with sequence
+	odd(xts + s(s(xts))) = false
+	odd(xts + s(s(s(s(xts))))) = false
+	odd(xts + s(s(s(s(s(s(xts))))))) = false
++++ primal grammar found for head
+	{+, false, odd, s}
+... and wrap
+	odd(xts + s(s(.))) = false
++++ Presburger system  = {
+	^f0(0; xts) -> xts
+	^f0($n0 + 1; xts) -> s(s(^f0($n0; xts)))
++++ }
++++ Lemma(s)           = 
+	odd(xts + s(s(^f0($n; xts)))) = false
+
++++ Status of the Inference System
+--- Conjectures:
+	<empty>
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	odd(x + x) -> false
+	even(xts + s(xts)) -> false
+	odd(xts + s(s(xts))) -> false
+	even(xts + s(s(s(xts)))) -> false
+	odd(xts + s(s(s(s(xts))))) -> false
+	even(xts + s(s(s(s(s(xts)))))) -> false
+	odd(xts + s(s(s(s(s(s(xts))))))) -> false
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; xts) -> xts
+	^f0($n0 + 1; xts) -> s(s(^f0($n0; xts)))
++++ }
++++ Lemma(s)           = 
+	even(xts + s(^f0($n; xts))) = false
+	odd(xts + s(s(^f0($n; xts)))) = false
+
++++ SUCCESS: all conjectures proved
++++ Statistics:
+... Number of proof steps          = 7
+... Number of induction steps      = 7
+... Number of equational steps     = 0
+... Number of case rewriting steps = 0
+... Number of PG defined symbols   = 1
+... Number of PG lemmas            = 2
+... Elapsed time (seconds)         = 0.004

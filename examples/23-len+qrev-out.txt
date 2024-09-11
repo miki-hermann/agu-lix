@@ -1,0 +1,236 @@
++++ SPECIFICATION --- bidirectional branch, version 0.99
++++ Parameters:
+    ===========
++++ input       = 23-len+qrev-in.txt
++++ output      = 23-len+qrev-out.txt
++++ trace       = 3
++++ direction   = first-to-last
++++ drop        = yes
++++ verbose     = 3
++++ split       = 4
++++ loop limit  = 10
++++ stdlib      = /usr/local/lib/indy/stdlib/
+-----------------------------------------------------------------------
+
++++ specification LenQrev from 23-len+qrev-in.txt successfully parsed
++++ Listing
+         1: specification LenQrev
+         2: sorts
+         3:      list nat
+         4: constructors
+         5:      0: -> nat
+         6:      cons: nat list -> list
+         7:      nil: -> list
+         8:      s: nat -> nat
+         9: defined functions
+        10:      +: nat nat -> nat
+        11:      len: list -> nat
+        12:      qrev: list list -> list
+        13: precedence
+        14:      len > qrev > + > cons > nil > s > 0
+        15: axioms
+        16:      x + 0 = x;
+        17:      len(nil) = 0;
+        18:      qrev(nil, x) = x;
+        19:      x + s(y) = s(x + y);
+        20:      len(cons(x, y)) = s(len(y));
+        21:      qrev(cons(x, y), z) = qrev(y, cons(x, z));
+        22: conjectures
+        23:      len(qrev(x, y)) = len(x) + len(y);
+        24: end
++++ finitary sorts: <empty>
++++ Rewrite System 
+	x + 0 -> x
+	len(nil) -> 0
+	qrev(nil, x) -> x
+	x + s(y) -> s(x + y)
+	len(cons(x, y)) -> s(len(y))
+	qrev(cons(x, y), z) -> qrev(y, cons(x, z))
++++ inductive positions:
+... for +: 1
+... for len: 0
+... for qrev: 0
++++ maximal depths of left-hand sides:
+... for qrev: 2
+... for len: 2
+... for +: 2
++++ general maximal depth = 2
++++ sort dependence: nat < list
++++ test sets for defined functions and sorts:
+... for qrev
+... ... list
+		nil
+		cons(x, y)
+... for len
+... ... list
+		nil
+		cons(x, y)
+... for +
+... ... nat
+		0
+		s(x)
+
++++ conjecture(s)
+	len(qrev(x, y)) = len(x) + len(y)
+
++++ inference system initiated
++++ treating clause
+	len(qrev(x, y)) = len(x) + len(y)
++++ inductive narrowing on conjecture
+	len(qrev(x, y)) = len(x) + len(y)
+... induction variables of
+	len(qrev(x, y)) = len(x) + len(y)
+... are:
+	x:list
+	y:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	len(qrev(x, y)) = len(x) + len(y)
+... with variable x
++++ creating new conjecture
+	len(qrev(nil, y)) = len(nil) + len(y)
++++ creating new conjecture
+	len(qrev(cons(xts, yts), y)) = len(cons(xts, yts)) + len(y)
+--- clause
+	len(qrev(nil, y)) = len(nil) + len(y)
+... reduced in 2 steps to
+	len(y) = 0 + len(y)
+--- clause
+	len(qrev(cons(xts, yts), y)) = len(cons(xts, yts)) + len(y)
+... reduced in 2 steps to
+	len(qrev(yts, cons(xts, y))) = s(len(yts)) + len(y)
++++ inductive narrowing succeeded
+--- clause
+	len(qrev(x, y)) = len(x) + len(y)
+... oriented to rule
+	len(qrev(x, y)) -> len(x) + len(y)
++++ added new clause(s)
+	len(y) = 0 + len(y)
+	len(qrev(yts, cons(xts, y))) = s(len(yts)) + len(y)
+... to conjectures
+--- clause
+	len(qrev(yts, cons(xts, y))) = s(len(yts)) + len(y)
+... reduced in 1 step to
+	len(yts) + len(cons(xts, y)) = s(len(yts)) + len(y)
+
++++ Status of the Inference System
+--- Conjectures:
+	len(y) = 0 + len(y)
+	len(yts) + len(cons(xts, y)) = s(len(yts)) + len(y)
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	len(qrev(x, y)) -> len(x) + len(y)
+--- Primal Grammar:
+	<empty>
+
+--- clause
+	len(yts) + len(cons(xts, y)) = s(len(yts)) + len(y)
+... reduced in 2 steps to
+	s(len(yts) + len(y)) = s(len(yts)) + len(y)
++++ treating clause
+	len(y) = 0 + len(y)
++++ inductive narrowing on conjecture
+	len(y) = 0 + len(y)
+... induction variables of
+	len(y) = 0 + len(y)
+... are:
+	y:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	len(y) = 0 + len(y)
+... with variable y
++++ creating new conjecture
+	len(nil) = 0 + len(nil)
++++ creating new conjecture
+	len(cons(xts, yts)) = 0 + len(cons(xts, yts))
+--- clause
+	len(nil) = 0 + len(nil)
+... reduced to tautology
+	0 = 0
+--- clause
+	len(cons(xts, yts)) = 0 + len(cons(xts, yts))
+... reduced in 3 steps to
+	s(len(yts)) = s(0 + len(yts))
+... decomposed into new clause(s)
+	len(yts) = 0 + len(yts)
++++ inductive narrowing succeeded
+--- clause
+	len(y) = 0 + len(y)
+... oriented to rule
+	0 + len(y) -> len(y)
++++ added new clause(s)
+	len(yts) = 0 + len(yts)
+... to conjectures
+--- clause
+	len(yts) = 0 + len(yts)
+... reduced to tautology
+	len(yts) = len(yts)
+
++++ Status of the Inference System
+--- Conjectures:
+	s(len(yts) + len(y)) = s(len(yts)) + len(y)
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	0 + len(y) -> len(y)
+	len(qrev(x, y)) -> len(x) + len(y)
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	s(len(yts) + len(y)) = s(len(yts)) + len(y)
++++ inductive narrowing on conjecture
+	s(len(yts) + len(y)) = s(len(yts)) + len(y)
+... induction variables of
+	s(len(yts) + len(y)) = s(len(yts)) + len(y)
+... are:
+	y:list
+	yts:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	s(len(yts) + len(y)) = s(len(yts)) + len(y)
+... with variable y
++++ creating new conjecture
+	s(len(yts) + len(nil)) = s(len(yts)) + len(nil)
++++ creating new conjecture
+	s(len(yts2) + len(cons(xts, yts1))) = s(len(yts2)) + len(cons(xts, yts1))
+--- clause
+	s(len(yts) + len(nil)) = s(len(yts)) + len(nil)
+... reduced to tautology
+	s(len(yts)) = s(len(yts))
+--- clause
+	s(len(yts2) + len(cons(xts, yts1))) = s(len(yts2)) + len(cons(xts, yts1))
+... reduced in 4 steps to
+	s(s(len(yts2) + len(yts1))) = s(s(len(yts2)) + len(yts1))
+... decomposed into new clause(s)
+	s(len(yts2) + len(yts1)) = s(len(yts2)) + len(yts1)
++++ inductive narrowing succeeded
+--- clause
+	s(len(yts) + len(y)) = s(len(yts)) + len(y)
+... oriented to rule
+	s(len(yts)) + len(y) -> s(len(yts) + len(y))
++++ added new clause(s)
+	s(len(yts2) + len(yts1)) = s(len(yts2)) + len(yts1)
+... to conjectures
+--- clause
+	s(len(yts2) + len(yts1)) = s(len(yts2)) + len(yts1)
+... reduced to tautology
+	s(len(yts2) + len(yts1)) = s(len(yts2) + len(yts1))
+
++++ Status of the Inference System
+--- Conjectures:
+	<empty>
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	0 + len(y) -> len(y)
+	len(qrev(x, y)) -> len(x) + len(y)
+	s(len(yts)) + len(y) -> s(len(yts) + len(y))
+--- Primal Grammar:
+	<empty>
+
++++ SUCCESS: all conjectures proved
++++ Statistics:
+... Number of proof steps          = 3
+... Number of induction steps      = 3
+... Number of equational steps     = 0
+... Number of case rewriting steps = 0
+... Elapsed time (seconds)         = 0.003

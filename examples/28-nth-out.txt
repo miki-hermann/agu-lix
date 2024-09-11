@@ -1,0 +1,111 @@
++++ SPECIFICATION --- bidirectional branch, version 0.99
++++ Parameters:
+    ===========
++++ input       = 28-nth-in.txt
++++ output      = 28-nth-out.txt
++++ trace       = 3
++++ direction   = first-to-last
++++ drop        = yes
++++ verbose     = 3
++++ split       = 4
++++ loop limit  = 25
++++ stdlib      = /usr/local/lib/indy/stdlib/
+-----------------------------------------------------------------------
+
++++ specification nth from 28-nth-in.txt successfully parsed
++++ Listing
+         1: specification nth
+         2: sorts
+         3:      list nat
+         4: constructors
+         5:      0: -> nat
+         6:      cons: nat list -> list
+         7:      nil: -> list
+         8:      s: nat -> nat
+         9: defined functions
+        10:      nth: nat list -> list
+        11: precedence
+        12:      nth > cons > nil > s > 0
+        13: axioms
+        14:      nth(0, x) = x;
+        15:      nth(x, nil) = nil;
+        16:      nth(s(x), cons(y, z)) = nth(x, z);
+        17: conjectures
+        18:      nth(x, nth(y, nth(z, u))) = nth(z, nth(y, nth(x, u)));
+        19: end
++++ finitary sorts: <empty>
++++ Rewrite System 
+	nth(0, x) -> x
+	nth(x, nil) -> nil
+	nth(s(x), cons(y, z)) -> nth(x, z)
++++ inductive positions:
+... for nth: 0 1
++++ maximal depths of left-hand sides:
+... for nth: 2
++++ general maximal depth = 2
++++ sort dependence: nat < list
++++ test sets for defined functions and sorts:
+... for nth
+... ... nat
+		0
+		s(x)
+... ... list
+		nil
+		cons(x, y)
+
++++ conjecture(s)
+	nth(x, nth(y, nth(z, u))) = nth(z, nth(y, nth(x, u)))
+
++++ inference system initiated
++++ treating clause
+	nth(x, nth(y, nth(z, u))) = nth(z, nth(y, nth(x, u)))
++++ inductive narrowing on conjecture
+	nth(x, nth(y, nth(z, u))) = nth(z, nth(y, nth(x, u)))
+... induction variables of
+	nth(x, nth(y, nth(z, u))) = nth(z, nth(y, nth(x, u)))
+... are:
+	u:list
+	x:nat
+	z:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	nth(x, nth(y, nth(z, u))) = nth(z, nth(y, nth(x, u)))
+... with variable u
++++ creating new conjecture
+	nth(x, nth(y, nth(z, nil))) = nth(z, nth(y, nth(x, nil)))
++++ creating new conjecture
+	nth(x, nth(y, nth(z, cons(xts, yts)))) = nth(z, nth(y, nth(x, cons(xts, yts))))
+--- clause
+	nth(x, nth(y, nth(z, nil))) = nth(z, nth(y, nth(x, nil)))
+... reduced to tautology
+	nil = nil
++++ inductive narrowing succeeded
+--- non-orientable clause
+	nth(x, nth(y, nth(z, u))) = nth(z, nth(y, nth(x, u)))
++++ moved
+	nth(x, nth(y, nth(z, u))) = nth(z, nth(y, nth(x, u)))
+... to non-orientable hypotheses
++++ added new clause(s)
+	nth(x, nth(y, nth(z, cons(xts, yts)))) = nth(z, nth(y, nth(x, cons(xts, yts))))
+... to conjectures
+--- clause
+	nth(x, nth(y, nth(z, cons(xts, yts)))) = nth(z, nth(y, nth(x, cons(xts, yts))))
+... subsumed by hypothese
+	nth(x, nth(y, nth(z, u))) = nth(z, nth(y, nth(x, u)))
+
++++ Status of the Inference System
+--- Conjectures:
+	<empty>
+--- Non-orientable hypotheses:
+	nth(x, nth(y, nth(z, u))) = nth(z, nth(y, nth(x, u)))
+--- Oriented hypotheses:
+	<empty>
+--- Primal Grammar:
+	<empty>
+
++++ SUCCESS: all conjectures proved
++++ Statistics:
+... Number of proof steps          = 1
+... Number of induction steps      = 1
+... Number of equational steps     = 0
+... Number of case rewriting steps = 0
+... Elapsed time (seconds)         = 0.002
