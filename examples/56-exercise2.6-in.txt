@@ -1,0 +1,64 @@
+# Programming and Proving In Isabelle/HOL
+# page 18
+#
+# Combining a tree and a list
+
+specification TREEandLIST
+
+sorts
+
+	nat list tree
+
+constructors
+
+	0: -> nat
+	s: nat -> nat
+	nil: -> list
+	: : nat list -> list		# cons
+	leaf: -> tree
+	node: tree nat tree -> tree
+
+defined functions
+
+	+: nat nat -> nat
+	app: list list -> list
+	contents: tree -> list
+	sumlist: list -> nat
+	sumtree: tree -> nat
+
+precedence
+
+	sumtree >
+	sumlist >
+	contents >
+	app >
+	+ >
+	node >
+	: >
+	leaf >
+	nil >
+	s >
+	0
+
+axioms
+
+	x + 0 = x;
+	x + s(y) = s(x + y);
+
+	app(nil, y) = y;
+	app(x : y, z) = x : app(y, z);
+	
+	contents(leaf) = nil;
+	contents(node(xl, ya, xr)) = ya : app(contents(xl), contents(xr));
+	
+	sumlist(nil) = 0;
+	sumlist(xa : ys) = xa + sumlist(ys);
+
+	sumtree(leaf) = 0;
+	sumtree(node(xl, ya, xr)) = ya + sumtree(xl) + sumtree(xr);
+
+conjectures
+
+	sumtree(xt) = sumlist(contents(xt));
+	
+end

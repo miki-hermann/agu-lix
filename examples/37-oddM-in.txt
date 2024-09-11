@@ -1,0 +1,31 @@
+specification oddM
+
+# this is example 09-oddM-input.txt modified
+
+sorts
+	nat bool
+
+constructors
+	0: -> nat
+	s: nat -> nat
+	true:  -> bool
+	false: -> bool
+
+defined functions
+	+: nat nat -> nat
+	even: nat -> bool
+	odd:  nat -> bool
+
+precedence
+	+ > odd = even > s > 0 > true = false
+
+axioms
+	0 + x = x;
+	s(x) + y = s(x + y);
+	even(0) = true;
+	even(s(x)) = odd(x);
+	odd(0) = false;
+	odd(s(x)) = even(x);
+conjectures
+	odd(x + x) = false;
+end

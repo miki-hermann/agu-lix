@@ -1,0 +1,32 @@
+specification nth
+
+sorts
+
+	nat list
+
+constructors
+
+	0: -> nat
+	s: nat -> nat
+	nil: -> list
+	cons: nat list -> list
+
+defined functions
+
+	nth: nat list -> list
+
+precedence
+
+	nth > cons > nil > s > 0
+
+axioms
+
+	nth(0, x) = x;
+	nth(x, nil) = nil;
+	nth(s(x), cons(y, z)) = nth(x, z);
+
+conjectures
+
+	nth(x, nth(y, z)) = nth(y, nth(x, z));
+
+end

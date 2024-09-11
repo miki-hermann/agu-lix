@@ -1,0 +1,37 @@
+specification OddEven
+
+# will terminate with DISPROOF
+
+sorts
+	nat bool
+
+constructors
+	0: -> nat
+	s: nat -> nat
+	true:  -> bool
+	false: -> bool
+
+defined functions
+	+: nat nat -> nat
+	even: nat -> bool
+	odd:  nat -> bool
+
+precedence
+	+ > odd > even > s > 0 > true = false
+
+axioms
+	0 + x = x;
+	s(x) + y = s(x + y);
+	even(0) = true;
+	even(s(0)) = false;
+	even(s(s(x))) = even(x);
+	odd(0) = false;
+	odd(s(0)) = true;
+	odd(s(s(x))) = odd(x);
+	even(x) = true => odd(x) = false;
+	even(x) = false => odd(x) = true;
+
+conjectures
+	odd(x + x) = true;
+
+end

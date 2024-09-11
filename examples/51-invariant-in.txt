@@ -1,0 +1,42 @@
+specification  invariant
+
+sorts
+	bool action state
+
+constructors
+
+	true, false: -> bool
+	Nop: -> action
+	S0: -> state
+	do: action state -> state
+
+defined functions
+
+	or: bool bool -> bool
+	F1, F2, F3: state -> bool
+
+precedence
+
+	F3 = F2 = F1 > or > do > S0 > Nop > true > false
+
+axioms
+
+	or(true,x)=true;
+	or(x,true)=true;
+	or(false,false)=false;
+	F1(do(x,y)) = or(F2(y), F3(y));
+	F2(do(x,y)) = F3(y);
+	F3(do(x,y)) = F2(y);
+	F1(S0) = true;
+	F2(S0) = false;
+	F3(S0) = true;
+
+conjectures
+
+	F1(y) = true;
+
+end
+
+
+
+

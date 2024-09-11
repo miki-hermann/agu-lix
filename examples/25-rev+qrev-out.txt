@@ -1,0 +1,290 @@
++++ SPECIFICATION --- bidirectional branch, version 0.99
++++ Parameters:
+    ===========
++++ input       = 25-rev+qrev-in.txt
++++ output      = 25-rev+qrev-out.txt
++++ trace       = 3
++++ direction   = first-to-last
++++ drop        = yes
++++ verbose     = 3
++++ split       = 4
++++ loop limit  = 10
++++ stdlib      = /usr/local/lib/indy/stdlib/
+-----------------------------------------------------------------------
+
++++ specification RevQrev from 25-rev+qrev-in.txt successfully parsed
++++ Listing
+         1: specification RevQrev
+         2: sorts
+         3:      list nat
+         4: constructors
+         5:      0: -> nat
+         6:      cons: nat list -> list
+         7:      nil: -> list
+         8:      s: nat -> nat
+         9: defined functions
+        10:      app: list list -> list
+        11:      qrev: list list -> list
+        12:      rev: list -> list
+        13: precedence
+        14:      qrev > rev > app > cons > nil > s > 0
+        15: axioms
+        16:      rev(nil) = nil;
+        17:      app(nil, y) = y;
+        18:      qrev(nil, x) = x;
+        19:      app(cons(x, y), z) = cons(x, app(y, z));
+        20:      qrev(cons(x, y), z) = qrev(y, cons(x, z));
+        21:      rev(cons(x, y)) = app(rev(y), cons(x, nil));
+        22: conjectures
+        23:      rev(qrev(x, nil)) = x;
+        24: end
++++ finitary sorts: <empty>
++++ Rewrite System 
+	rev(nil) -> nil
+	app(nil, y) -> y
+	qrev(nil, x) -> x
+	app(cons(x, y), z) -> cons(x, app(y, z))
+	qrev(cons(x, y), z) -> qrev(y, cons(x, z))
+	rev(cons(x, y)) -> app(rev(y), cons(x, nil))
++++ inductive positions:
+... for app: 0
+... for qrev: 0
+... for rev: 0
++++ maximal depths of left-hand sides:
+... for qrev: 2
+... for app: 2
+... for rev: 2
++++ general maximal depth = 2
++++ sort dependence: nat < list
++++ test sets for defined functions and sorts:
+... for rev
+... ... list
+		nil
+		cons(x, y)
+... for qrev
+... ... list
+		nil
+		cons(x, y)
+... for app
+... ... list
+		nil
+		cons(x, y)
+
++++ conjecture(s)
+	rev(qrev(x, nil)) = x
+
++++ inference system initiated
++++ treating clause
+	rev(qrev(x, nil)) = x
++++ inductive narrowing on conjecture
+	rev(qrev(x, nil)) = x
+... induction variables of
+	rev(qrev(x, nil)) = x
+... are:
+	x:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	rev(qrev(x, nil)) = x
+... with variable x
++++ creating new conjecture
+	rev(qrev(nil, nil)) = nil
++++ creating new conjecture
+	rev(qrev(cons(xts, yts), nil)) = cons(xts, yts)
+--- clause
+	rev(qrev(nil, nil)) = nil
+... reduced to tautology
+	nil = nil
+--- clause
+	rev(qrev(cons(xts, yts), nil)) = cons(xts, yts)
+... reduced in 1 step to
+	rev(qrev(yts, cons(xts, nil))) = cons(xts, yts)
++++ inductive narrowing succeeded
+--- clause
+	rev(qrev(x, nil)) = x
+... oriented to rule
+	rev(qrev(x, nil)) -> x
++++ added new clause(s)
+	rev(qrev(yts, cons(xts, nil))) = cons(xts, yts)
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	rev(qrev(yts, cons(xts, nil))) = cons(xts, yts)
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	rev(qrev(x, nil)) -> x
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	rev(qrev(yts, cons(xts, nil))) = cons(xts, yts)
++++ inductive narrowing on conjecture
+	rev(qrev(yts, cons(xts, nil))) = cons(xts, yts)
+... induction variables of
+	rev(qrev(yts, cons(xts, nil))) = cons(xts, yts)
+... are:
+	yts:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	rev(qrev(yts, cons(xts, nil))) = cons(xts, yts)
+... with variable yts
++++ creating new conjecture
+	rev(qrev(nil, cons(xts, nil))) = cons(xts, nil)
++++ creating new conjecture
+	rev(qrev(cons(xts2, yts), cons(xts1, nil))) = cons(xts1, cons(xts2, yts))
+--- clause
+	rev(qrev(nil, cons(xts, nil))) = cons(xts, nil)
+... reduced to tautology
+	cons(xts, nil) = cons(xts, nil)
+--- clause
+	rev(qrev(cons(xts2, yts), cons(xts1, nil))) = cons(xts1, cons(xts2, yts))
+... reduced in 1 step to
+	rev(qrev(yts, cons(xts2, cons(xts1, nil)))) = cons(xts1, cons(xts2, yts))
++++ inductive narrowing succeeded
+--- clause
+	rev(qrev(yts, cons(xts, nil))) = cons(xts, yts)
+... oriented to rule
+	rev(qrev(yts, cons(xts, nil))) -> cons(xts, yts)
++++ added new clause(s)
+	rev(qrev(yts, cons(xts2, cons(xts1, nil)))) = cons(xts1, cons(xts2, yts))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	rev(qrev(yts, cons(xts2, cons(xts1, nil)))) = cons(xts1, cons(xts2, yts))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	rev(qrev(x, nil)) -> x
+	rev(qrev(yts, cons(xts, nil))) -> cons(xts, yts)
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	rev(qrev(yts, cons(xts2, cons(xts1, nil)))) = cons(xts1, cons(xts2, yts))
++++ inductive narrowing on conjecture
+	rev(qrev(yts, cons(xts2, cons(xts1, nil)))) = cons(xts1, cons(xts2, yts))
+... induction variables of
+	rev(qrev(yts, cons(xts2, cons(xts1, nil)))) = cons(xts1, cons(xts2, yts))
+... are:
+	yts:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	rev(qrev(yts, cons(xts2, cons(xts1, nil)))) = cons(xts1, cons(xts2, yts))
+... with variable yts
++++ creating new conjecture
+	rev(qrev(nil, cons(xts2, cons(xts1, nil)))) = cons(xts1, cons(xts2, nil))
++++ creating new conjecture
+	rev(qrev(cons(xts3, yts), cons(xts2, cons(xts1, nil)))) = cons(xts1, cons(xts2, cons(xts3, yts)))
+--- clause
+	rev(qrev(nil, cons(xts2, cons(xts1, nil)))) = cons(xts1, cons(xts2, nil))
+... reduced to tautology
+	cons(xts2, cons(xts1, nil)) = cons(xts2, cons(xts1, nil))
+--- clause
+	rev(qrev(cons(xts3, yts), cons(xts2, cons(xts1, nil)))) = cons(xts1, cons(xts2, cons(xts3, yts)))
+... reduced in 1 step to
+	rev(qrev(yts, cons(xts3, cons(xts2, cons(xts1, nil))))) = cons(xts1, cons(xts2, cons(xts3, yts)))
++++ inductive narrowing succeeded
+--- clause
+	rev(qrev(yts, cons(xts2, cons(xts1, nil)))) = cons(xts1, cons(xts2, yts))
+... oriented to rule
+	rev(qrev(yts, cons(xts2, cons(xts1, nil)))) -> cons(xts2, cons(xts1, yts))
++++ added new clause(s)
+	rev(qrev(yts, cons(xts3, cons(xts2, cons(xts1, nil))))) = cons(xts1, cons(xts2, cons(xts3, yts)))
+... to conjectures
+
++++ Status of the Inference System
+--- Conjectures:
+	rev(qrev(yts, cons(xts3, cons(xts2, cons(xts1, nil))))) = cons(xts1, cons(xts2, cons(xts3, yts)))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	rev(qrev(x, nil)) -> x
+	rev(qrev(yts, cons(xts, nil))) -> cons(xts, yts)
+	rev(qrev(yts, cons(xts2, cons(xts1, nil)))) -> cons(xts2, cons(xts1, yts))
+--- Primal Grammar:
+	<empty>
+
++++ treating clause
+	rev(qrev(yts, cons(xts3, cons(xts2, cons(xts1, nil))))) = cons(xts1, cons(xts2, cons(xts3, yts)))
++++ inductive narrowing on conjecture
+	rev(qrev(yts, cons(xts3, cons(xts2, cons(xts1, nil))))) = cons(xts1, cons(xts2, cons(xts3, yts)))
+... induction variables of
+	rev(qrev(yts, cons(xts3, cons(xts2, cons(xts1, nil))))) = cons(xts1, cons(xts2, cons(xts3, yts)))
+... are:
+	yts:list
++++ perform INDUCTIVE NARROWING on conjecture 
+	rev(qrev(yts, cons(xts3, cons(xts2, cons(xts1, nil))))) = cons(xts1, cons(xts2, cons(xts3, yts)))
+... with variable yts
++++ creating new conjecture
+	rev(qrev(nil, cons(xts3, cons(xts2, cons(xts1, nil))))) = cons(xts1, cons(xts2, cons(xts3, nil)))
++++ creating new conjecture
+	rev(qrev(cons(xts4, yts), cons(xts3, cons(xts2, cons(xts1, nil))))) = cons(xts1, cons(xts2, cons(xts3, cons(xts4, yts))))
+--- clause
+	rev(qrev(nil, cons(xts3, cons(xts2, cons(xts1, nil))))) = cons(xts1, cons(xts2, cons(xts3, nil)))
+... reduced to tautology
+	cons(xts3, cons(xts2, cons(xts1, nil))) = cons(xts3, cons(xts2, cons(xts1, nil)))
+--- clause
+	rev(qrev(cons(xts4, yts), cons(xts3, cons(xts2, cons(xts1, nil))))) = cons(xts1, cons(xts2, cons(xts3, cons(xts4, yts))))
+... reduced in 1 step to
+	rev(qrev(yts, cons(xts4, cons(xts3, cons(xts2, cons(xts1, nil)))))) = cons(xts1, cons(xts2, cons(xts3, cons(xts4, yts))))
++++ inductive narrowing succeeded
+--- clause
+	rev(qrev(yts, cons(xts3, cons(xts2, cons(xts1, nil))))) = cons(xts1, cons(xts2, cons(xts3, yts)))
+... oriented to rule
+	rev(qrev(yts, cons(xts3, cons(xts2, cons(xts1, nil))))) -> cons(xts3, cons(xts2, cons(xts1, yts)))
++++ added new clause(s)
+	rev(qrev(yts, cons(xts4, cons(xts3, cons(xts2, cons(xts1, nil)))))) = cons(xts1, cons(xts2, cons(xts3, cons(xts4, yts))))
+... to conjectures
++++ active wrap
+	rev(qrev(yts, cons(., .))) = cons(xts, .)
+... with sequence
+	rev(qrev(yts, cons(xts, nil))) = cons(xts, yts)
+	rev(qrev(yts, cons(xts2, cons(xts1, nil)))) = cons(xts1, cons(xts2, yts))
+	rev(qrev(yts, cons(xts3, cons(xts2, cons(xts1, nil))))) = cons(xts1, cons(xts2, cons(xts3, yts)))
++++ primal grammar found for head
+	{cons, nil, qrev, rev}
+... and wrap
+	rev(qrev(yts, cons(., .))) = cons(xts, .)
++++ Presburger system  = {
+	^f0(0; xts@) -> nil
+	^f0($n0 + 1; xts@) -> cons(xts$n0, ^f0($n0; xts@))
+	^f1(0; yts, xts@) -> yts
+	^f1($n1 + 1; yts, xts@) -> cons(xts$n1, ^f1($n1; yts, xts@))
++++ }
++++ Lemma(s)           = 
+	rev(qrev(yts, cons(xts$n, ^f0($n; xts@)))) = cons(xts$n, ^f1($n; yts, xts@))
+--- clause
+	rev(qrev(yts, cons(xts4, cons(xts3, cons(xts2, cons(xts1, nil)))))) = cons(xts1, cons(xts2, cons(xts3, cons(xts4, yts))))
+... subsumed by lemma
+	rev(qrev(yts, cons(xts$n, ^f0($n; xts@)))) = cons(xts$n, ^f1($n; yts, xts@))
+... with substitution
+	$n <- 3
+
++++ Status of the Inference System
+--- Conjectures:
+	<empty>
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	rev(qrev(x, nil)) -> x
+	rev(qrev(yts, cons(xts, nil))) -> cons(xts, yts)
+	rev(qrev(yts, cons(xts2, cons(xts1, nil)))) -> cons(xts2, cons(xts1, yts))
+	rev(qrev(yts, cons(xts3, cons(xts2, cons(xts1, nil))))) -> cons(xts3, cons(xts2, cons(xts1, yts)))
+--- Primal Grammar:
++++ Presburger system  = {
+	^f0(0; xts@) -> nil
+	^f0($n0 + 1; xts@) -> cons(xts$n0, ^f0($n0; xts@))
+	^f1(0; yts, xts@) -> yts
+	^f1($n1 + 1; yts, xts@) -> cons(xts$n1, ^f1($n1; yts, xts@))
++++ }
++++ Lemma(s)           = 
+	rev(qrev(yts, cons(xts$n, ^f0($n; xts@)))) = cons(xts$n, ^f1($n; yts, xts@))
+
++++ SUCCESS: all conjectures proved
++++ Statistics:
+... Number of proof steps          = 4
+... Number of induction steps      = 4
+... Number of equational steps     = 0
+... Number of case rewriting steps = 0
+... Number of PG defined symbols   = 2
+... Number of PG lemmas            = 1
+... Elapsed time (seconds)         = 0.004

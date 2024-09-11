@@ -1,0 +1,128 @@
++++ SPECIFICATION --- bidirectional branch, version 0.99
++++ Parameters:
+    ===========
++++ input       = 46-odd+even-in.txt
++++ output      = 46-odd+even-out.txt
++++ trace       = 3
++++ direction   = first-to-last
++++ drop        = yes
++++ verbose     = 3
++++ split       = 4
++++ loop limit  = 10
++++ stdlib      = /usr/local/lib/indy/stdlib/
+-----------------------------------------------------------------------
+
++++ specification OddEven from 46-odd+even-in.txt successfully parsed
++++ Listing
+         1: specification OddEven
+         2: sorts
+         3:      bool nat
+         4: constructors
+         5:      0: -> nat
+         6:      false: -> bool
+         7:      s: nat -> nat
+         8:      true: -> bool
+         9: defined functions
+        10:      +: nat nat -> nat
+        11:      even: nat -> bool
+        12:      odd: nat -> bool
+        13: precedence
+        14:      + > odd > even > s > 0 > false = true
+        15: axioms
+        16:      0 + x = x;
+        17:      even(0) = true;
+        18:      odd(0) = false;
+        19:      odd(s(0)) = true;
+        20:      even(s(0)) = false;
+        21:      s(x) + y = s(x + y);
+        22:      odd(s(s(x))) = odd(x);
+        23:      even(s(s(x))) = even(x);
+        24:      even(x) = false => odd(x) = true;
+        25:      even(x) = true => odd(x) = false;
+        26: conjectures
+        27:      odd(x + x) = true;
+        28: end
++++ finitary sorts: bool
++++ Rewrite System 
+	0 + x -> x
+	even(0) -> true
+	odd(0) -> false
+	odd(s(0)) -> true
+	even(s(0)) -> false
+	s(x) + y -> s(x + y)
+	odd(s(s(x))) -> odd(x)
+	even(s(s(x))) -> even(x)
+	even(x) = false => odd(x) -> true
+	even(x) = true => odd(x) -> false
++++ inductive positions:
+... for +: 0
+... for even: 0 0.0
+... for odd: 0 0.0
++++ maximal depths of left-hand sides:
+... for odd: 3
+... for even: 3
+... for +: 2
++++ general maximal depth = 3
++++ sort dependence: <empty>
++++ test sets for defined functions and sorts:
+... for odd
+... ... nat
+		0
+		s(0)
+		s(s(x))
+... for even
+... ... nat
+		0
+		s(0)
+		s(s(x))
+... for +
+... ... nat
+		0
+		s(x)
+
++++ conjecture(s)
+	odd(x + x) = true
+
++++ inference system initiated
++++ treating clause
+	odd(x + x) = true
++++ inductive narrowing on conjecture
+	odd(x + x) = true
+... induction variables of
+	odd(x + x) = true
+... are:
+	x:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	odd(x + x) = true
+... with variable x
++++ creating new conjecture
+	odd(0 + 0) = true
++++ creating new conjecture
+	odd(s(xts) + s(xts)) = true
+--- clause
+	odd(0 + 0) = true
+... reduced in 2 steps to
+	false = true
+--- clause
+	false = true
+... contains a falsifying equation
+	false = true
+
++++ Status of the Inference System
+--- Conjectures:
+	<empty>
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	<empty>
+--- Primal Grammar:
+	<empty>
+
++++ DISPROOF: counter example
+	false = true
++++ Statistics:
+... Number of proof steps          = 1
+... Number of induction steps      = 1
+... Number of equational steps     = 0
+... Number of case rewriting steps = 0
+... Elapsed time (seconds)         = 0

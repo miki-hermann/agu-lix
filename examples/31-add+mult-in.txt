@@ -1,0 +1,30 @@
+specification AddMult
+
+sorts nat
+
+constructors
+
+	0: -> nat
+	s: nat -> nat
+
+defined functions
+
+	+: nat nat -> nat
+	*: nat nat -> nat
+
+precedence
+
+	* > + > s > 0
+
+axioms
+
+	x + 0 = x;
+	x + s(y) = s(x + y);
+	x * 0 = 0;
+	x * s(y) = (x * y) + x;
+
+conjectures
+
+	s(x) * y = y + (x * y);
+
+end

@@ -1,0 +1,60 @@
+# Programming and Proving In Isabelle/HOL
+# page 14
+#
+# Proof that number of occurrences of a given symbol
+# is smaller or equal than the length of list
+
+specification LenghtCount
+
+sorts bool nat list
+
+constructors
+
+	false, true: -> bool
+	0: -> nat
+	s: nat -> nat
+	nil: -> list
+	: : nat list -> list
+
+defined functions
+
+	length: list -> nat
+	count: nat list -> nat
+	==: nat nat -> bool
+	<=: nat nat -> bool
+
+precedence
+
+	count >
+	length >
+	<= >
+	== >
+	: >
+	nil >
+	s >
+	0 >
+	false = true
+
+axioms
+
+	0 == 0 = true;
+	s(x) == 0 = false;
+	0 == s(x) = false;
+	s(x) == s(y) = x == y;
+	
+	0 <= x = true;
+	s(x) <= 0 = false;
+	s(x) <= s(y) = x <= y;
+
+	length(nil) = 0;
+	length(x : xs) = s(length(xs));
+	
+	count(x, nil) = 0;
+	x == y = true  => count(x, y : ys) = s(count(x, ys));
+	x == y = false => count(x, y : ys) = count(x, ys);
+
+conjectures
+
+	count(x, xs) <= length(xs) = true;
+
+end

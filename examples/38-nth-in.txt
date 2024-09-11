@@ -1,0 +1,35 @@
+specification nth
+
+# This is example 28-nth-input.txt modified
+
+sorts
+
+	nat list
+
+constructors
+
+	0: -> nat
+	s: nat -> nat
+	nil: -> list
+	cons: nat list -> list
+
+defined functions
+
+	nth: nat list -> list
+
+precedence
+
+	nth > cons > nil > s > 0
+
+axioms
+
+	nth(0, x) = x;
+	nth(x, nil) = nil;
+	nth(s(x), cons(y, z)) = nth(x, z);
+	nth(x, nth(s(y), z)) = nth(s(x), nth(y, z));
+
+conjectures
+
+	nth(x, nth(y, nth(z, u))) = nth(z, nth(y, nth(x, u)));
+
+end

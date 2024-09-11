@@ -1,0 +1,28 @@
+specification odd
+
+sorts
+	nat bool
+
+constructors
+	0: -> nat
+	s: nat -> nat
+	true:  -> bool
+	false: -> bool
+
+defined functions
+	+: nat nat -> nat
+	odd:  nat -> bool
+
+precedence
+	+ > odd > s > 0 > true = false
+
+axioms
+	0 + x = x;
+	s(x) + y = s(x + y);
+	odd(0) = false;
+	odd(s(0)) = true;
+	odd(s(s(x))) = odd(x);
+
+conjectures
+	odd(s(x) + x) = true;
+end

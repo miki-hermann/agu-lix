@@ -1,0 +1,154 @@
++++ SPECIFICATION --- bidirectional branch, version 0.99
++++ Parameters:
+    ===========
++++ input       = 50-fact-in.txt
++++ output      = 50-fact-out.txt
++++ trace       = 3
++++ direction   = first-to-last
++++ drop        = yes
++++ verbose     = 3
++++ split       = 4
++++ loop limit  = 10
++++ stdlib      = /usr/local/lib/indy/stdlib/
+-----------------------------------------------------------------------
+
++++ specification factorial from 50-fact-in.txt successfully parsed
++++ Listing
+         1: specification factorial
+         2: sorts
+         3:      nat
+         4: constructors
+         5:      0: -> nat
+         6:      s: nat -> nat
+         7: defined functions
+         8:      *: nat nat -> nat
+         9:      +: nat nat -> nat
+        10:      fact: nat -> nat
+        11:      g: nat nat -> nat
+        12: precedence
+        13:      g > fact > * > + > s > 0
+        14: axioms
+        15:      x * 0 = 0;
+        16:      x + 0 = x;
+        17:      g(x, 0) = x;
+        18:      fact(0) = s(0);
+        19:      x + s(y) = s(x + y);
+        20:      x * s(y) = (x * y) + x;
+        21:      fact(s(x)) = s(x) * fact(x);
+        22:      g(x, s(y)) = g(x * s(y), y);
+        23: conjectures
+        24:      fact(x) = g(s(0), x);
+        25: end
++++ finitary sorts: <empty>
++++ Rewrite System 
+	x * 0 -> 0
+	x + 0 -> x
+	g(x, 0) -> x
+	fact(0) -> s(0)
+	x + s(y) -> s(x + y)
+	x * s(y) -> (x * y) + x
+	fact(s(x)) -> s(x) * fact(x)
+	g(x * s(y), y) -> g(x, s(y))
++++ inductive positions:
+... for *: 1
+... for +: 1
+... for fact: 0
+... for g: 0 0.1 1
++++ maximal depths of left-hand sides:
+... for fact: 2
+... for g: 3
+... for +: 2
+... for *: 2
++++ general maximal depth = 3
++++ sort dependence: <empty>
++++ test sets for defined functions and sorts:
+... for g
+... ... nat
+		0
+		s(0)
+		s(s(x))
+... for fact
+... ... nat
+		0
+		s(x)
+... for +
+... ... nat
+		0
+		s(x)
+... for *
+... ... nat
+		0
+		s(x)
+
++++ conjecture(s)
+	fact(x) = g(s(0), x)
+
++++ inference system initiated
++++ treating clause
+	fact(x) = g(s(0), x)
++++ inductive narrowing on conjecture
+	fact(x) = g(s(0), x)
+... induction variables of
+	fact(x) = g(s(0), x)
+... are:
+	x:nat
++++ perform INDUCTIVE NARROWING on conjecture 
+	fact(x) = g(s(0), x)
+... with variable x
++++ creating new conjecture
+	fact(0) = g(s(0), 0)
++++ creating new conjecture
+	fact(s(xts)) = g(s(0), s(xts))
+--- clause
+	fact(0) = g(s(0), 0)
+... reduced to tautology
+	s(0) = s(0)
+--- clause
+	fact(s(xts)) = g(s(0), s(xts))
+... reduced in 1 step to
+	s(xts) * fact(xts) = g(s(0), s(xts))
++++ inductive narrowing succeeded
+--- clause
+	fact(x) = g(s(0), x)
+... oriented to rule
+	g(s(0), x) -> fact(x)
++++ added new clause(s)
+	s(xts) * fact(xts) = g(s(0), s(xts))
+... to conjectures
+--- clause
+	s(xts) * fact(xts) = g(s(0), s(xts))
+... reduced in 1 step to
+	s(xts) * fact(xts) = fact(s(xts))
+
++++ Status of the Inference System
+--- Conjectures:
+	s(xts) * fact(xts) = fact(s(xts))
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	g(s(0), x) -> fact(x)
+--- Primal Grammar:
+	<empty>
+
+--- clause
+	s(xts) * fact(xts) = fact(s(xts))
+... reduced to tautology
+	s(xts) * fact(xts) = s(xts) * fact(xts)
+
++++ Status of the Inference System
+--- Conjectures:
+	<empty>
+--- Non-orientable hypotheses:
+	<empty>
+--- Oriented hypotheses:
+	g(s(0), x) -> fact(x)
+--- Primal Grammar:
+	<empty>
+
++++ SUCCESS: all conjectures proved
++++ Statistics:
+... Number of proof steps          = 2
+... Number of induction steps      = 1
+... Number of equational steps     = 0
+... Number of case rewriting steps = 0
+... Elapsed time (seconds)         = 0.001

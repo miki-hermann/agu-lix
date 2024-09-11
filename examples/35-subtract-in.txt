@@ -1,0 +1,33 @@
+specification subtract
+
+sorts
+
+	nat
+
+constructors
+
+	0: -> nat
+	s: nat -> nat
+
+defined functions
+
+	+: nat nat -> nat
+	-: nat nat -> nat
+
+precedence
+
+	- > + > s > 0
+
+axioms
+
+	x + 0 = x;
+	x + s(y) = s(x + y);
+	x - 0 = x;
+	0 - x = 0;
+	s(x) - s(y) = x - y;
+
+conjectures
+
+	(x + y) - x = y;
+
+end

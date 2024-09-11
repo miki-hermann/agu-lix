@@ -1,0 +1,37 @@
+specification LenQrev
+
+sorts
+
+	nat list
+
+constructors
+
+	0: -> nat
+	s: nat -> nat
+	nil: -> list
+	cons: nat list -> list
+
+defined functions
+
+	+: nat nat -> nat
+	len: list -> nat
+	qrev: list list -> list
+
+precedence
+
+	len > qrev > + > cons > nil > s > 0
+
+axioms
+
+	x + 0 = x;
+	x + s(y) = s(x + y);
+	len(nil) = 0;
+	len(cons(x, y)) = s(len(y));
+	qrev(nil, x) = x;
+	qrev(cons(x, y), z) = qrev(y, cons(x, z));
+
+conjectures
+
+	len(qrev(x,y)) = len(x) + len(y);
+
+end
